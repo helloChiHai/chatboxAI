@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:stock_flutter/constants/app_constants.dart';
+import 'package:stock_flutter/widgets/text_cus.dart';
+
+Widget textFieldCus_1({
+  required BuildContext context,
+  required TextEditingController controller,
+  required String title,
+  String? hintText,
+  bool showIcon = false,
+  bool isObscured = false,
+  IconData? iconOn,
+  IconData? iconOff,
+  VoidCallback? voidCallback,
+}) {
+  return Container(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textCus(context: context, text: title),
+        TextField(
+          obscureText: isObscured,
+          style: const TextStyle(fontSize: AppSizeText.sizeText12),
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              fontSize: AppSizeText.sizeText12,
+            ),
+            suffixIcon: showIcon
+                ? IconButton(
+                    onPressed: voidCallback,
+                    icon: Icon(
+                      isObscured ? iconOff : iconOn,
+                    ),
+                  )
+                : null,
+            filled: true,
+            fillColor: AppColors.c_white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: const Color.fromARGB(255, 13, 151, 220),
+                width: 1.5,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: AppColors.c_3399FF,
+                width: 1.5,
+              ),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
+          ),
+        )
+      ],
+    ),
+  );
+}
