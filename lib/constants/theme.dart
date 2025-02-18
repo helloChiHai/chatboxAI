@@ -8,7 +8,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.backgroundColor,
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: AppColors.c_black),
-      bodyMedium: TextStyle(color: AppColors.c_black87),
+      bodyMedium: TextStyle(color: AppColors.c_darkmode),
     ),
   );
 

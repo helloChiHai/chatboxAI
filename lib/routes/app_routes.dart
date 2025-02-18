@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/srceens/home/home.dart';
 import 'package:stock_flutter/srceens/login/login.dart';
+import 'package:stock_flutter/srceens/login/register.dart';
 import 'package:stock_flutter/srceens/login/welcome.dart';
 import 'package:stock_flutter/srceens/meeting/meeting.dart';
 
@@ -16,5 +17,6 @@ class AppRoutes {
     login: (context) => LoginPage(),
     meeting: (context) => MeetingPage(),
     welcome: (context) => WelcomePage(),
+    register: (context) => RegisterPage(),
   };
 }

@@ -8,5 +8,12 @@
     "textWelcome": "Trải nghiệm trò chuyện thông minh với AI, nơi bạn có thể đặt câu hỏi, tìm kiếm thông tin và nhận phản hồi nhanh chóng. Hãy bắt đầu cuộc trò chuyện ngay hôm nay!",
     "Email": "Email",
     "password": "Mật khẩu",
-    "dontHaveAccount": "Bạn chưa có tài khoản?"
+    "dontHaveAccount": "Bạn chưa có tài khoản?",
+    "register": "Đăng ký tài khoản",
+    "signInWithGoogle": "Đăng nhập bằng Google",
+    "pleaseEnterEmail": "Vui lòng nhập email",
+    "invalidEmail": "Email không hợp lệ",
+    "passwordIsNotQualified": "Mật khẩu phải có 8 ký tự, chữ cái hoa, chữ cái thường, số và ký tự đặc biệt",
+    "pleaseEnterPassword": "Vui lòng nhập password",
+    "youForgotYourPassword": "Quên mật khẩu?"
 }

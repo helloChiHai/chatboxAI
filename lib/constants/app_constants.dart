@@ -6,19 +6,21 @@ class AppConstants {
 }
 
 class AppColors {
-  static const Color primaryColor = Color(0xFF6200EE);
-  static const Color accentColor = Color(0xFFFF5722);
   static const Color backgroundColor = Color(0xFFF5F5F5);
+  static const Color c_darkmode = Color(0xFF121212);
+  static const Color c_second_darkmode =
+      Color(0xFF1F1F1F); // màu tối hơn để tạo sự phân biệt
   static const Color c_black = Colors.black;
-  static const Color c_black87 = Colors.black87;
   static const Color c_blue = Colors.blue;
   static const Color c_white = Colors.white;
   static const Color c_white70 = Colors.white70;
   static const Color blueGrey = Colors.blueGrey;
-  static const Color c_3399FF = Color(0xFF3399FF);
+  static const Color c_3399FF = Color.fromARGB(255, 58, 115, 172);
+  static const Color c_FF0033 = Color(0xFFFF0033);
 }
 
 class AppSizeText {
+  static const double sizeText11 = 11;
   static const double sizeText12 = 12;
   static const double sizeText14 = 14;
   static const double sizeText15 = 15;

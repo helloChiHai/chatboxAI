@@ -2,25 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
-Widget textFieldCus_1({
-  required BuildContext context,
-  required TextEditingController controller,
-  required String title,
-  String? hintText,
-  bool showIcon = false,
-  bool isObscured = false,
-  IconData? iconOn,
-  IconData? iconOff,
-  VoidCallback? voidCallback,
-}) {
+Widget textFieldCus_1(
+    {required BuildContext context,
+    required TextEditingController controller,
+    required String title,
+    String? hintText,
+    bool showIcon = false,
+    IconData? iconOn,
+    IconData? iconOff,
+    VoidCallback? voidCallback,
+    String txtError = '',
+    FocusNode? focusNode,
+    bool obscureText = false}) {
   return Container(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         textCus(context: context, text: title),
+        const SizedBox(height: 5),
         TextField(
-          obscureText: isObscured,
-          style: const TextStyle(fontSize: AppSizeText.sizeText12),
+          obscureText: obscureText,
+          focusNode: focusNode,
+          style: const TextStyle(
+              fontSize: AppSizeText.sizeText12, color: AppColors.c_black),
           controller: controller,
           decoration: InputDecoration(
             hintText: hintText,
@@ -31,7 +35,7 @@ Widget textFieldCus_1({
                 ? IconButton(
                     onPressed: voidCallback,
                     icon: Icon(
-                      isObscured ? iconOff : iconOn,
+                      obscureText ? iconOff : iconOn,
                     ),
                   )
                 : null,
@@ -46,15 +50,24 @@ Widget textFieldCus_1({
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.c_3399FF,
+              borderSide: BorderSide(
+                color:
+                    txtError.isEmpty ? AppColors.c_3399FF : AppColors.c_FF0033,
                 width: 1.5,
               ),
             ),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
           ),
-        )
+        ),
+        const SizedBox(height: 5),
+        txtError.isNotEmpty
+            ? textCus(
+                context: context,
+                text: txtError,
+                color: AppColors.c_FF0033,
+                fontSize: AppSizeText.sizeText11)
+            : SizedBox(),
       ],
     ),
   );

@@ -4,7 +4,6 @@ import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
 import 'package:stock_flutter/bloc/languageBloc/language_event.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_event.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/utils/utils.dart';
