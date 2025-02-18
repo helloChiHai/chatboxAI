@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
-Widget textFieldCus_1(
-    {required BuildContext context,
-    required TextEditingController controller,
-    required String title,
-    String? hintText,
-    bool showIcon = false,
-    IconData? iconOn,
-    IconData? iconOff,
-    VoidCallback? voidCallback,
-    String txtError = '',
-    FocusNode? focusNode,
-    bool obscureText = false}) {
+Widget textFieldCus_1({
+  required BuildContext context,
+  required TextEditingController controller,
+  required String title,
+  String? hintText,
+  bool showIcon = false,
+  IconData? iconOn,
+  IconData? iconOff,
+  VoidCallback? voidCallback,
+  String txtError = '',
+  FocusNode? focusNode,
+  bool obscureText = false,
+  bool isAutofocus = false,
+}) {
   return Container(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,6 +23,7 @@ Widget textFieldCus_1(
         textCus(context: context, text: title),
         const SizedBox(height: 5),
         TextField(
+          autofocus: isAutofocus,
           obscureText: obscureText,
           focusNode: focusNode,
           style: const TextStyle(
@@ -35,7 +38,7 @@ Widget textFieldCus_1(
                 ? IconButton(
                     onPressed: voidCallback,
                     icon: Icon(
-                      obscureText ? iconOff : iconOn,
+                      obscureText ? iconOn : iconOff,
                     ),
                   )
                 : null,

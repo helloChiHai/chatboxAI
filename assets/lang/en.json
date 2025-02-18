@@ -3,17 +3,21 @@
     "welcome": "Welcome to",
     "hello": "Hello",
     "login": "Login",
+    "signUp": "Sign Up",
     "meet": "Meet",
     "continue": "Continue",
     "textWelcome": "Experience smart conversations with AI—ask questions, find information, and get instant responses. Start chatting today!",
     "Email": "Email",
     "password": "Password",
     "dontHaveAccount": "Don't have an account?",
-    "register": "Register",
+    "register": "Sign Up",
     "signInWithGoogle": "Sign in with Google",
     "pleaseEnterEmail": "Please enter email",
     "invalidEmail": "Invalid email",
     "passwordIsNotQualified": "Password must have 8 characters, uppercase letters, lowercase letters, numbers and special characters",
     "pleaseEnterPassword": "Please enter password",
-    "youForgotYourPassword": "Forgot password?"
+    "youForgotYourPassword": "Forgot password?",
+    "name": "Full name",
+    "confirmPassword": "Confirm password",
+    "areadyHaveAccount?": "Already have an account?"
 }
