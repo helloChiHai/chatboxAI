@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/srceens/home/home.dart';
+import 'package:stock_flutter/srceens/login/forgotPassword.dart';
 import 'package:stock_flutter/srceens/login/login.dart';
 import 'package:stock_flutter/srceens/login/register.dart';
 import 'package:stock_flutter/srceens/login/welcome.dart';
@@ -11,6 +12,7 @@ class AppRoutes {
   static const String register = '/register';
   static const String meeting = '/meeting';
   static const String welcome = '/welcome';
+  static const String forgotPassword = '/forgotPassword';
 
   static Map<String, WidgetBuilder> routes = {
     home: (context) => HomePage(),
@@ -18,5 +20,6 @@ class AppRoutes {
     meeting: (context) => MeetingPage(),
     welcome: (context) => WelcomePage(),
     register: (context) => RegisterPage(),
+    forgotPassword: (context) => ForgotPasswordPage(),
   };
 }

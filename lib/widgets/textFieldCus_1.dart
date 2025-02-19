@@ -13,8 +13,8 @@ Widget textFieldCus_1({
   VoidCallback? voidCallback,
   String txtError = '',
   FocusNode? focusNode,
-  bool obscureText = false,
   bool isAutofocus = false,
+  bool onOffIcon = false,
 }) {
   return Container(
     child: Column(
@@ -24,7 +24,7 @@ Widget textFieldCus_1({
         const SizedBox(height: 5),
         TextField(
           autofocus: isAutofocus,
-          obscureText: obscureText,
+          obscureText: onOffIcon,
           focusNode: focusNode,
           style: const TextStyle(
               fontSize: AppSizeText.sizeText12, color: AppColors.c_black),
@@ -38,7 +38,7 @@ Widget textFieldCus_1({
                 ? IconButton(
                     onPressed: voidCallback,
                     icon: Icon(
-                      obscureText ? iconOn : iconOff,
+                      onOffIcon ? iconOff : iconOn,
                     ),
                   )
                 : null,

@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
 
 class Utils {
+  // kiểm tra xác nhận mật khẩu có hợp lệ hay không
+  static int validateConfrimPassword(
+      String? password, String? confirmPassword) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return 0; // Vui lòng nhập xác nhận mật khẩu
+    }
+    return confirmPassword == password ? 1 : -1; // null
+  }
+
+  // kiểm tra full name có hợp lệ hay không
+  static int validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 0; // Vui lòng nhập full name
+    }
+    return 1;
+  }
+
   // kiểm tra email có hợp lệ hay không
   static int validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -11,7 +28,7 @@ class Utils {
     if (!emailRegex.hasMatch(value)) {
       return -1; // 'Email không hợp lệ'
     }
-    return 1; // null
+    return 1;
   }
 
   // kiểm tra phải là mật khẩu tiêu chuẩn hay không
@@ -39,5 +56,12 @@ class Utils {
   // chuyển màn
   static void navigator(BuildContext context, String routeName) {
     Navigator.pushNamed(context, routeName);
+  }
+
+  static void navigatorGoBack(BuildContext context) {
+    // tránh lỗi khi quay lại ở màn hình đầu tiên
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
   }
 }

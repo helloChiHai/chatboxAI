@@ -6,8 +6,8 @@ class AppConstants {
 }
 
 class AppColors {
-  static const Color backgroundColor = Color(0xFFF5F5F5);
-  static const Color c_darkmode = Color(0xFF121212);
+  static const Color backgroundColor = Color(0xFFFFFFFF);
+  static const Color c_darkmode = Color.fromARGB(255, 26, 25, 25);
   static const Color c_second_darkmode =
       Color(0xFF1F1F1F); // màu tối hơn để tạo sự phân biệt
   static const Color c_black = Colors.black;

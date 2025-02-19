@@ -27,22 +27,38 @@ class _LoginPageState extends State<LoginPage> {
 
   String errorEmail = '';
   String errorPassword = '';
-  bool isShowPassword = false;
+  bool isShowPassword = true;
+
+  bool checkInput() {
+    if (Utils.validateEmail(email.text.trim()) == 1 &&
+        Utils.validatePassword(password.text.trim()) == 1) {
+      setState(() {
+        errorEmail = '';
+        errorPassword = '';
+      });
+      return true;
+    } else {
+      setState(() {
+        errorEmail = Utils.validateEmail(email.text.trim()) == 0
+            ? 'pleaseEnterEmail'
+            : Utils.validateEmail(email.text.trim()) == -1
+                ? 'invalidEmail'
+                : '';
+
+        errorPassword = Utils.validatePassword(password.text.trim()) == 0
+            ? 'pleaseEnterPassword'
+            : Utils.validateEmail(password.text.trim()) == -1
+                ? 'passwordIsNotQualified'
+                : '';
+      });
+      return false;
+    }
+  }
 
   void handleLogin() {
-    setState(() {
-      errorEmail = Utils.validateEmail(email.text.trim()) == 0
-          ? 'pleaseEnterEmail'
-          : Utils.validateEmail(email.text.trim()) == -1
-              ? 'invalidEmail'
-              : '';
-
-      errorPassword = Utils.validatePassword(password.text.trim()) == 0
-          ? 'pleaseEnterPassword'
-          : Utils.validateEmail(password.text.trim()) == -1
-              ? 'passwordIsNotQualified'
-              : '';
-    });
+    if (checkInput()) {
+      print('thuc hien dang nhap');
+    }
   }
 
   @override
@@ -97,10 +113,13 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 30),
-                    const Image(
+                    Image(
                       image: AssetImage('assets/imgs/logoApp.png'),
                       width: 70,
                       height: 70,
+                      color: themeState.themeMode == ThemeMode.light
+                          ? AppColors.c_darkmode
+                          : AppColors.backgroundColor,
                     ),
                     textCus(
                       context: context,
@@ -108,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold,
                       fontSize: AppSizeText.sizeText14,
                     ),
-                    const SizedBox(height: 100),
+                    const SizedBox(height: 50),
                     textCus(
                       context: context,
                       text: 'login',
@@ -122,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                       title: 'Email',
                       txtError: errorEmail,
                       focusNode: emailNode,
-                      isAutofocus: true,
+                      isAutofocus: false,
                     ),
                     const SizedBox(height: 10),
                     textFieldCus_1(
@@ -135,10 +154,11 @@ class _LoginPageState extends State<LoginPage> {
                           isShowPassword = !isShowPassword;
                         });
                       },
+                      onOffIcon: isShowPassword,
                       showIcon: true,
                       iconOff: Icons.visibility_off,
                       iconOn: Icons.visibility,
-                      isAutofocus: true,
+                      isAutofocus: false,
                       focusNode: passwordNode,
                     ),
                     const SizedBox(height: 15),
@@ -146,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
-                          Utils.navigator(context, AppRoutes.register);
+                          Utils.navigator(context, AppRoutes.forgotPassword);
                         },
                         child: textCus(
                           context: context,
@@ -156,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 60),
                     btnCusLogin(
                       context: context,
                       title: 'login',

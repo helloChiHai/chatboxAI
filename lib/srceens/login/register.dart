@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
-import 'package:stock_flutter/bloc/languageBloc/language_event.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_event.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
-import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/btnCusLogin.dart';
 import 'package:stock_flutter/widgets/textFieldCus_1.dart';
@@ -33,11 +29,15 @@ class _RegisterPageState extends State<RegisterPage> {
   String errorEmail = '';
   String errorPassword = '';
   String errorConfirmPassword = '';
-  bool isShowPassword = false;
-  bool isShowConfirmPassword = false;
+  bool isShowPassword = true;
+  bool isShowConfirmPassword = true;
 
-  void handleLogin() {
+  void handleSignUp() {
     setState(() {
+      errorName = Utils.validateName(name.text.trim()) == 0
+          ? 'pleaseEnterFullName'
+          : '';
+
       errorEmail = Utils.validateEmail(email.text.trim()) == 0
           ? 'pleaseEnterEmail'
           : Utils.validateEmail(email.text.trim()) == -1
@@ -49,38 +49,22 @@ class _RegisterPageState extends State<RegisterPage> {
           : Utils.validateEmail(password.text.trim()) == -1
               ? 'passwordIsNotQualified'
               : '';
+
+      errorConfirmPassword = Utils.validateConfrimPassword(
+                  password.text.trim(), confirmPassword.text.trim()) ==
+              0
+          ? 'pleaseEnterConfirmPassword'
+          : Utils.validateConfrimPassword(
+                      password.text.trim(), confirmPassword.text.trim()) ==
+                  -1
+              ? 'passwordsAreNotTheSame'
+              : '';
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              final currentLocale = context.read<LanguageBloc>().state.locale;
-              final newLocale = currentLocale.languageCode == 'vi'
-                  ? Locale('en')
-                  : Locale('vi');
-              context
-                  .read<LanguageBloc>()
-                  .add(ChangeLanguage(locale: newLocale));
-            },
-            icon: const Icon(
-              Icons.language,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.read<ThemeBloc>().add(ToggleThemeEvent());
-            },
-            icon: const Icon(
-              Icons.brightness_6,
-            ),
-          ),
-        ],
-      ),
       resizeToAvoidBottomInset: true,
       body: BlocBuilder<ThemeBloc, ThemeState>(
         buildWhen: (previous, current) =>
@@ -104,10 +88,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 30),
-                    const Image(
+                    Image(
                       image: AssetImage('assets/imgs/logoApp.png'),
                       width: 70,
                       height: 70,
+                      color: themeState.themeMode == ThemeMode.light
+                          ? AppColors.c_darkmode
+                          : AppColors.backgroundColor,
                     ),
                     textCus(
                       context: context,
@@ -115,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontWeight: FontWeight.bold,
                       fontSize: AppSizeText.sizeText14,
                     ),
-                    const SizedBox(height: 100),
+                    const SizedBox(height: 50),
                     textCus(
                       context: context,
                       text: 'register',
@@ -129,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       title: 'name',
                       txtError: errorName,
                       focusNode: nameNode,
-                      isAutofocus: true,
+                      isAutofocus: false,
                     ),
                     const SizedBox(height: 10),
                     textFieldCus_1(
@@ -138,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       title: 'Email',
                       txtError: errorEmail,
                       focusNode: emailNode,
-                      isAutofocus: true,
+                      isAutofocus: false,
                     ),
                     const SizedBox(height: 10),
                     textFieldCus_1(
@@ -151,10 +138,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           isShowPassword = !isShowPassword;
                         });
                       },
+                      onOffIcon: isShowPassword,
                       showIcon: true,
                       iconOff: Icons.visibility_off,
                       iconOn: Icons.visibility,
-                      isAutofocus: true,
+                      isAutofocus: false,
                       focusNode: passwordNode,
                     ),
                     const SizedBox(height: 10),
@@ -168,17 +156,18 @@ class _RegisterPageState extends State<RegisterPage> {
                           isShowConfirmPassword = !isShowConfirmPassword;
                         });
                       },
+                      onOffIcon: isShowConfirmPassword,
                       showIcon: true,
                       iconOff: Icons.visibility_off,
                       iconOn: Icons.visibility,
-                      isAutofocus: true,
+                      isAutofocus: false,
                       focusNode: confirmPasswordNode,
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 60),
                     btnCusLogin(
                       context: context,
-                      title: 'login',
-                      pressBtn: handleLogin,
+                      title: 'signUp',
+                      pressBtn: handleSignUp,
                     ),
                     const SizedBox(height: 30),
                     Row(
@@ -188,11 +177,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(width: 5),
                         GestureDetector(
                           onTap: () {
-                            Utils.navigator(context, AppRoutes.register);
+                            Utils.navigatorGoBack(context);
                           },
                           child: textCus(
                             context: context,
-                            text: 'register',
+                            text: 'signIn',
                             color: AppColors.c_blue,
                             fontWeight: FontWeight.w600,
                           ),
