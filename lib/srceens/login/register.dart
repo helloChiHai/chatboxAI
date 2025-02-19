@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       errorPassword = Utils.validatePassword(password.text.trim()) == 0
           ? 'pleaseEnterPassword'
-          : Utils.validateEmail(password.text.trim()) == -1
+          : Utils.validatePassword(password.text.trim()) == -1
               ? 'passwordIsNotQualified'
               : '';
 
