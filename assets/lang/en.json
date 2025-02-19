@@ -26,6 +26,6 @@
     "pleaseEnterConfirmPassword": "Please enter confirm password",
     "passwordsAreNotTheSame": "Passwords are not the same",
     "pleaseEnterYourRegisteredEmailWeWillSendPasswordReset": "Please enter your registered email. We will send password reset instructions to this email.",
-    "resetPassword": "Reset Password"
-
+    "resetPassword": "Reset Password",
+    "askChatBotAI": "Ask ChatBot AI"
 }

@@ -26,6 +26,7 @@
     "pleaseEnterConfirmPassword": "Vui lòng xác nhận mật khẩu",
     "passwordsAreNotTheSame": "Mật khẩu không giống nhau",
     "pleaseEnterYourRegisteredEmailWeWillSendPasswordReset": "Vui lòng nhập email đăng ký của bạn. Chúng tôi sẽ gửi hướng dẫn đổi mật khẩu tới email này.",
-    "resetPassword": "Tạo lại mật khẩu"
+    "resetPassword": "Tạo lại mật khẩu",
+    "askChatBotAI": "Hỏi ChatBox AI"
    
 }

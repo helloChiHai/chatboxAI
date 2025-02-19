@@ -17,6 +17,7 @@ class AppColors {
   static const Color blueGrey = Colors.blueGrey;
   static const Color c_3399FF = Color.fromARGB(255, 58, 115, 172);
   static const Color c_FF0033 = Color(0xFFFF0033);
+  static const Color c_gray = Color.fromARGB(255, 93, 92, 92);
 }
 
 class AppSizeText {
@@ -26,6 +27,7 @@ class AppSizeText {
   static const double sizeText15 = 15;
   static const double sizeText16 = 16;
   static const double sizeText17 = 17;
+  static const double sizeText30 = 30;
 }
 
 class AppTextStyles {
