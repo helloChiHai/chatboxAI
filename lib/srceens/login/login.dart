@@ -7,8 +7,10 @@ import 'package:stock_flutter/bloc/themeBloc/theme_event.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
+import 'package:stock_flutter/services/googleSignInApi.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/btnCusLogin.dart';
+import 'package:stock_flutter/widgets/loadingPage.dart';
 import 'package:stock_flutter/widgets/textFieldCus_1.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
@@ -55,10 +57,22 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void handleLogin() {
+  void handleLogin() async {
     if (checkInput()) {
-      print('thuc hien dang nhap');
+      showLoadingPage(context: context);
+
+      // giả bộ dăng nhập mất 3s
+      await Future.delayed(Duration(seconds: 3));
+
+      // đóng modal loading
+      Navigator.of(context).pop();
+
+      print('chuyen vao man hinh home neu dang nhap thanh cong');
     }
+  }
+
+  Future signInGoogle() async {
+    // GoogleSignInAPI.login();
   }
 
   @override
@@ -211,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 30),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: signInGoogle,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),

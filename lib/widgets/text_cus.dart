@@ -12,7 +12,12 @@ Widget textCus({
 }) {
   return Text(
     AppLocalizations.of(context).translate(text),
-    style: TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: color),
+    style: TextStyle(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      decoration: TextDecoration.none,
+    ),
     textAlign: textAlign,
   );
 }
