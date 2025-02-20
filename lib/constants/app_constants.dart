@@ -17,6 +17,7 @@ class AppColors {
   static const Color c_pink = Colors.pink;
   static const Color c_white = Colors.white;
   static const Color c_white70 = Colors.white70;
+  static const Color c_white54 = Colors.white54;
   static const Color blueGrey = Colors.blueGrey;
   static const Color c_3399FF = Color.fromARGB(255, 58, 115, 172);
   static const Color c_FF0033 = Color(0xFFFF0033);
