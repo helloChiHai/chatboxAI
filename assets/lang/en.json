@@ -27,5 +27,10 @@
     "passwordsAreNotTheSame": "Passwords are not the same",
     "pleaseEnterYourRegisteredEmailWeWillSendPasswordReset": "Please enter your registered email. We will send password reset instructions to this email.",
     "resetPassword": "Reset Password",
-    "askChatBotAI": "Ask ChatBot AI"
+    "askChatBotAI": "Ask ChatBot AI",
+    "conversation": "Conversation",
+    "toDay": "Today",
+    "30daysAgo":"30 days ago",
+    "changeLanguage":"change language",
+    "changeTheme":"Change theme"
 }

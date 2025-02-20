@@ -27,6 +27,10 @@
     "passwordsAreNotTheSame": "Mật khẩu không giống nhau",
     "pleaseEnterYourRegisteredEmailWeWillSendPasswordReset": "Vui lòng nhập email đăng ký của bạn. Chúng tôi sẽ gửi hướng dẫn đổi mật khẩu tới email này.",
     "resetPassword": "Tạo lại mật khẩu",
-    "askChatBotAI": "Hỏi ChatBox AI"
-   
+    "askChatBotAI": "Hỏi ChatBox AI",
+    "conversation": "Cuộc trò chuyện",
+    "toDay": "Hôm nay",
+    "30daysAgo":"30 ngày trước",
+    "changeLanguage":"Thay đổi ngôn ngữ",
+    "changeTheme":"Thay đổi chủ đề"
 }

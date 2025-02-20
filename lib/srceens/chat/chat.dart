@@ -6,27 +6,25 @@ import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/srceens/chatHistoryList/chatHistoryList.dart';
 import 'package:stock_flutter/srceens/chat/chatInputWidget.dart';
 import 'package:stock_flutter/srceens/setting/setting.dart';
+import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/header.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ChatPageState extends State<ChatPage> {
   bool isShowChatHistoryChat = false;
   String titleHeader = 'appName';
 
-  void handleShowChatHistoryList() {
-    setState(() {
-      isShowChatHistoryChat = !isShowChatHistoryChat;
-      titleHeader = isShowChatHistoryChat ? 'conversation' : 'appName';
-    });
+  void handleBoback(BuildContext context) {
+    Utils.navigatorGoBack(context);
   }
 
-  void handleShowSetting(BuildContext context) {
+  void handleGoSetting(BuildContext context) {
     showCustomDialog(context);
   }
 
@@ -46,14 +44,15 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
             child: Column(
               children: [
+                // hình ảnh + ds chat lưu trữ
                 HeaderCus(
-                  fnLeftPress: handleShowChatHistoryList,
-                  fnRightPress: () => handleShowSetting(context),
-                  iconData: isShowChatHistoryChat
-                      ? Icons.arrow_back_ios
-                      : Icons.messenger_outline,
+                  fnLeftPress: () => handleBoback(context),
+                  fnRightPress: () => handleGoSetting(context),
+                  iconData: Icons.arrow_back_ios,
                   title: titleHeader,
                 ),
+                // màn chào tin nhắn
+                // danh sách tin nhắn lưu trữ
                 isShowChatHistoryChat ? ChatHistoryList() : ChatInputWidget()
               ],
             ),

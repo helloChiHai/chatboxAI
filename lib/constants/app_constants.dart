@@ -11,13 +11,17 @@ class AppColors {
   static const Color c_second_darkmode =
       Color(0xFF1F1F1F); // màu tối hơn để tạo sự phân biệt
   static const Color c_black = Colors.black;
+  static const Color c_black_54 = Colors.black87;
   static const Color c_blue = Colors.blue;
+  static const Color c_purple = Colors.purple;
+  static const Color c_pink = Colors.pink;
   static const Color c_white = Colors.white;
   static const Color c_white70 = Colors.white70;
   static const Color blueGrey = Colors.blueGrey;
   static const Color c_3399FF = Color.fromARGB(255, 58, 115, 172);
   static const Color c_FF0033 = Color(0xFFFF0033);
   static const Color c_gray = Color.fromARGB(255, 93, 92, 92);
+  static const Color c_gray_255_217 = Color.fromARGB(255, 239, 239, 239);
 }
 
 class AppSizeText {

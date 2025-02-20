@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_flutter/routes/app_routes.dart';
+import 'package:stock_flutter/routes/slideUpPageRoute.dart';
 
 class Utils {
   // kiểm tra xác nhận mật khẩu có hợp lệ hay không
@@ -56,6 +58,16 @@ class Utils {
   // chuyển màn
   static void navigator(BuildContext context, String routeName) {
     Navigator.pushNamed(context, routeName);
+  }
+
+  // BTT: bot to top
+  static void navigatorBTT(BuildContext context, String routeName) {
+    WidgetBuilder? builder = AppRoutes.routes[routeName];
+    if (builder != null) {
+      Navigator.push(context, SlideUpPageRoute(page: builder(context)));
+    } else {
+      debugPrint("Không tìm thấy route: $routeName");
+    }
   }
 
   static void navigatorGoBack(BuildContext context) {
