@@ -26,7 +26,7 @@ void main() async {
     await Permission.notification.request();
   }
 
-  // ✅ Tạo kênh thông báo trước khi đặt thông báo
+  // Tạo kênh thông báo trước khi đặt thông báo
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'schedule_channel', // ID phải khớp với ID trong ScheduleBloc
     'Lịch nhắc',

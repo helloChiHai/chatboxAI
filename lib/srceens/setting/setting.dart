@@ -6,6 +6,7 @@ import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_event.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
+import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
@@ -205,6 +206,28 @@ class _SettingPageState extends State<SettingPage> {
                                 textCus(
                                   context: context,
                                   text: 'changeTheme',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: AppSizeText.sizeText12,
+                                  color: themeState.themeMode == ThemeMode.dark
+                                      ? AppColors.backgroundColor
+                                      : AppColors.c_black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Utils.navigator(context, AppRoutes.meeting);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.meeting_room_outlined,
+                                ),
+                                SizedBox(width: 10),
+                                textCus(
+                                  context: context,
+                                  text: 'meet',
                                   fontWeight: FontWeight.w500,
                                   fontSize: AppSizeText.sizeText12,
                                   color: themeState.themeMode == ThemeMode.dark
