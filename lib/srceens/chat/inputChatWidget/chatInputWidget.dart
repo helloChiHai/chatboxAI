@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/constants/localization.dart';
+import 'package:stock_flutter/srceens/chat/inputChatWidget/itemChat.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
 class ChatInputWidget extends StatefulWidget {
@@ -21,17 +22,60 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
   double borderRadius = 30;
   bool showFullInputChat = false;
 
+  List<Map<String, dynamic>> dataChat = [];
+  bool isLoading = true; // trạng thái loading
+  bool hasMore = true; // kiểm tra có cần load thêm không
+  int page = 1; // trang hiện tại
+  final int perPage = 40; // số lượng item mỗi lần load
+  final ScrollController scrollController = ScrollController(); // theo dõi cuộn
+
   @override
   void initState() {
     super.initState();
     inputController.addListener(getTextLineCount);
+    fetchDataChat();
+
+    // lắng nghe sự kiện cuộn để load thêm dữ liệu
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        fetchDataChat();
+      }
+    });
   }
 
-  @override
-  void dispose() {
-    inputController.removeListener(getTextLineCount);
-    inputController.dispose();
-    super.dispose();
+  Future<void> fetchDataChat() async {
+    if (!hasMore) return;
+
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
+
+    await Future.delayed(Duration(seconds: 1));
+
+    List<Map<String, dynamic>> newDataChat = List.generate(
+      perPage,
+      (index) => {
+        'message': 'Tin nhắn ${(page - 1) * perPage + index + 1}',
+        'isUser': (index % 2 == 0), // Giả lập tin nhắn của user và friend
+      },
+    );
+
+    print(newDataChat);
+
+    if (mounted) {
+      setState(() {
+        dataChat.addAll(newDataChat);
+        page++;
+        if (newDataChat.length < perPage) {
+          hasMore =
+              false; // nếu sl item nhận về ít hơn perPage, tức lả hết dữ liệu
+        }
+        isLoading = false;
+      });
+    }
   }
 
   void getTextLineCount() {
@@ -44,11 +88,26 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
 
     final numLines = tp.computeLineMetrics().length;
 
-    setState(() {
-      showIconFullTextField = numLines >= 4;
+    if (mounted) {
+      setState(() {
+        showIconFullTextField = numLines >= 4;
 
-      borderRadius = numLines >= 2 ? 20 : 30;
-    });
+        borderRadius = numLines >= 2 ? 20 : 30;
+      });
+    }
+  }
+
+  void handleSendMessage() {
+    print(inputController.text.trim());
+  }
+
+  @override
+  void dispose() {
+    inputController.removeListener(getTextLineCount);
+    scrollController.removeListener(fetchDataChat);
+    inputController.dispose();
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -59,32 +118,51 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(),
-            showFullInputChat
-                ? SizedBox(height: 10)
-                : ShaderMask(
-                    shaderCallback: (bounds) {
-                      return LinearGradient(
-                        colors: [
-                          AppColors.c_blue,
-                          AppColors.c_purple,
-                          AppColors.c_pink,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ).createShader(bounds);
-                    },
-                    child: textCus(
-                      context: context,
-                      text: 'Xin chào Vương Chí Hải!',
-                      fontSize: AppSizeText.sizeText30,
-                      fontWeight: FontWeight.w600,
-                      textAlign: TextAlign.center,
-                      color: AppColors.c_white,
-                    ),
-                  ),
+            // showFullInputChat
+            //     ? SizedBox(height: 10)
+            //     : ShaderMaskHelloUser(
+            //         userName: 'Vương Chí Hải',
+            //       ),
+            Expanded(
+              child: Container(
+                child: isLoading && dataChat.isEmpty
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : dataChat.isEmpty
+                        ? Center(
+                            child: textCus(
+                                context: context, text: 'noDataAvailable'),
+                          )
+                        : ListView.builder(
+                            controller: scrollController,
+                            itemCount: dataChat.length + (hasMore ? 1 : 0),
+                            itemBuilder: (context, index) {
+                              if (index == dataChat.length) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              final chatItem = dataChat[index];
+                              final bool isUser = chatItem['isUser'];
+                              final String message = chatItem['message'];
+
+                              return Align(
+                                alignment: isUser
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: ItemChat(
+                                  isUser: isUser,
+                                  message: message,
+                                ),
+                              );
+                            },
+                          ),
+              ),
+            ),
             Expanded(
               flex: showFullInputChat ? 1 : 0,
               child: Container(
+                margin: EdgeInsets.only(top: 10),
                 padding: EdgeInsets.symmetric(horizontal: 5),
                 decoration: BoxDecoration(
                     border: Border.all(
@@ -121,6 +199,9 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                                 fontSize: AppSizeText.sizeText12,
                               ),
                             ),
+                            keyboardType: TextInputType.multiline,
+                            scrollPhysics:
+                                BouncingScrollPhysics(), // thêm hiệu ứng cuộn
                           ),
                         ),
                       ),
@@ -145,7 +226,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                                 ),
                               ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: handleSendMessage,
                               child: Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(10),

@@ -1,7 +1,7 @@
 {
     "appName": "Chatbox AI",
     "welcome": "Welcome to",
-    "hello": "Hello",
+    "hello": "Hi",
     "login": "Login",
     "signUp": "Sign Up",
     "signIn": "Sign In",
@@ -32,5 +32,7 @@
     "toDay": "Today",
     "30daysAgo":"30 days ago",
     "changeLanguage":"change language",
-    "changeTheme":"Change theme"
+    "changeTheme":"Change theme",
+    "noDataAvailable": "No data available",
+    "pleaseWaitAMoment": "Please wait a moment..."
 }

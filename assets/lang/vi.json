@@ -32,5 +32,7 @@
     "toDay": "Hôm nay",
     "30daysAgo":"30 ngày trước",
     "changeLanguage":"Thay đổi ngôn ngữ",
-    "changeTheme":"Thay đổi chủ đề"
+    "changeTheme":"Thay đổi chủ đề",
+    "noDataAvailable": "Không có dữ liệu",
+    "pleaseWaitAMoment": "Vui lòng chờ trong giây lát..."
 }

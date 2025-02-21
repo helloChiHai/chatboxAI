@@ -4,7 +4,7 @@ import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/srceens/chatHistoryList/chatHistoryList.dart';
-import 'package:stock_flutter/srceens/chat/chatInputWidget.dart';
+import 'package:stock_flutter/srceens/chat/inputChatWidget/chatInputWidget.dart';
 import 'package:stock_flutter/srceens/setting/setting.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/header.dart';

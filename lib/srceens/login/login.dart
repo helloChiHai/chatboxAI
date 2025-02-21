@@ -78,32 +78,32 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              final currentLocale = context.read<LanguageBloc>().state.locale;
-              final newLocale = currentLocale.languageCode == 'vi'
-                  ? Locale('en')
-                  : Locale('vi');
-              context
-                  .read<LanguageBloc>()
-                  .add(ChangeLanguage(locale: newLocale));
-            },
-            icon: const Icon(
-              Icons.language,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.read<ThemeBloc>().add(ToggleThemeEvent());
-            },
-            icon: const Icon(
-              Icons.brightness_6,
-            ),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () {
+      //         final currentLocale = context.read<LanguageBloc>().state.locale;
+      //         final newLocale = currentLocale.languageCode == 'vi'
+      //             ? Locale('en')
+      //             : Locale('vi');
+      //         context
+      //             .read<LanguageBloc>()
+      //             .add(ChangeLanguage(locale: newLocale));
+      //       },
+      //       icon: const Icon(
+      //         Icons.language,
+      //       ),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {
+      //         context.read<ThemeBloc>().add(ToggleThemeEvent());
+      //       },
+      //       icon: const Icon(
+      //         Icons.brightness_6,
+      //       ),
+      //     ),
+      //   ],
+      // ),
       resizeToAvoidBottomInset: true,
       body: BlocBuilder<ThemeBloc, ThemeState>(
         buildWhen: (previous, current) =>

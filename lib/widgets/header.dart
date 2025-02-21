@@ -37,12 +37,12 @@ class _HeaderCusState extends State<HeaderCus> {
             ),
           ),
           textCus(
-            context: context,
-            // text: widget.isShowChatHistoryChat ? 'conversation' : 'appName',
-            text: widget.title,
-            fontWeight: FontWeight.w600,
-            fontSize: AppSizeText.sizeText14,
-          ),
+              context: context,
+              // text: widget.isShowChatHistoryChat ? 'conversation' : 'appName',
+              text: widget.title,
+              fontWeight: FontWeight.w600,
+              fontSize: AppSizeText.sizeText14,
+              color: AppColors.backgroundColor),
           GestureDetector(
             onTap: widget.fnRightPress,
             child: CircleAvatar(
