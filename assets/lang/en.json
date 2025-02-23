@@ -34,5 +34,7 @@
     "changeLanguage":"change language",
     "changeTheme":"Change theme",
     "noDataAvailable": "No data available",
-    "pleaseWaitAMoment": "Please wait a moment..."
+    "pleaseWaitAMoment": "Please wait a moment...",
+    "setting": "Setting",
+    "logout": "Logout"
 }

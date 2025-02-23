@@ -70,6 +70,24 @@ class Utils {
     }
   }
 
+  // dùng để thay thế màn hình hiện tại bằng 1 màn hình mới mà không giữ lại màn hình cũ
+  // khi sd, màn hình hiện tại sẽ bị xoá khỏi stack, nghĩa là không thể quay lại bằng nút back
+  // khi nào dùng: cho login
+  static void navigatorPushReplacementNamed(
+      BuildContext context, String routeName) {
+    Navigator.pushReplacementNamed(context, routeName);
+  }
+
+  // dùng để đẩy 1 màn hình mới vào và xoá nhiều màn hình trong stack theo 1 điều kiện nhất định
+  // đk xoá màn hình được quy định bằng một callback fn
+  // khi nào dùng: khi muốn chuyển đến 1 màn hình và xoá nhiều màn hình trước đó
+  // dùng cho logout hoặc sau khi hoàn thành quá trình mua hàng và chuyển về màn hình ome mà không cần quay lại màn hình giỏ hàng
+  static void navigatorPushAndRemoveUntil(
+      BuildContext context, Widget widgetName, RoutePredicate routePredicate) {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => widgetName), routePredicate);
+  }
+
   static void navigatorGoBack(BuildContext context) {
     // tránh lỗi khi quay lại ở màn hình đầu tiên
     if (Navigator.canPop(context)) {

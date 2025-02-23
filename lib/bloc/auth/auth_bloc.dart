@@ -16,6 +16,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LoginRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
 
+    await Future.delayed(Duration(seconds: 2));
+
     final user = await authRepository.login(event.userName, event.password);
     if (user != null) {
       emit(AuthAuthenticated(user: user));
@@ -27,7 +29,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> onLogoutRequested(
       LogoutRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+
+    await Future.delayed(Duration(seconds: 2));
+
     await authRepository.logout();
+
     emit(AuthInitial());
   }
 

@@ -34,5 +34,8 @@
     "changeLanguage":"Thay đổi ngôn ngữ",
     "changeTheme":"Thay đổi chủ đề",
     "noDataAvailable": "Không có dữ liệu",
-    "pleaseWaitAMoment": "Vui lòng chờ trong giây lát..."
+    "pleaseWaitAMoment": "Vui lòng chờ trong giây lát...",
+    "pleaseWrongAccountPasswordWaitAMoment": "Sai tài khoản hoặc mật khẩu",
+    "setting": "Cài đặt",
+    "logout": "Đăng xuất"
 }

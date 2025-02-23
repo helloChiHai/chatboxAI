@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:stock_flutter/constants/app_constants.dart';
+import 'package:stock_flutter/widgets/text_cus.dart';
+
+class BtnOptionSettingCus extends StatelessWidget {
+  VoidCallback fnPress;
+  String title;
+  IconData icon;
+  ThemeMode themeMode;
+
+  BtnOptionSettingCus({
+    super.key,
+    required this.fnPress,
+    required this.title,
+    required this.icon,
+    required this.themeMode,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: fnPress,
+      child: Row(
+        children: [
+          Icon(icon),
+          SizedBox(width: 10),
+          textCus(
+            context: context,
+            text: title,
+            fontWeight: FontWeight.w500,
+            fontSize: AppSizeText.sizeText14,
+            color: themeMode == ThemeMode.dark
+                ? AppColors.backgroundColor
+                : AppColors.c_black,
+          ),
+        ],
+      ),
+    );
+  }
+}

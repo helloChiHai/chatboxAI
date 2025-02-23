@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_bloc.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_event.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_state.dart';
-import 'package:stock_flutter/constants/app_constants.dart';
-import 'package:stock_flutter/widgets/text_cus.dart';
 
 class MeetingPage extends StatefulWidget {
   const MeetingPage({super.key});

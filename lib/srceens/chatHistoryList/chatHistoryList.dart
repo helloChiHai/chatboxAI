@@ -83,7 +83,7 @@ class _ChatHistoryListState extends State<ChatHistoryList> {
                                   color: themeState.themeMode == ThemeMode.dark
                                       ? AppColors.c_second_darkmode
                                       : AppColors.c_gray_255_217,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Icon(
                                   Icons.messenger_outline,
