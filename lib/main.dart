@@ -20,7 +20,13 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  try {
+    await Firebase.initializeApp();
+    print('✅ Firebase đã khởi tạo thành công');
+  } catch (e) {
+    print('🔥 Lỗi khởi tạo Firebase: $e');
+  }
 
   await initializeNotifications();
   await requestNotificationPermission();
