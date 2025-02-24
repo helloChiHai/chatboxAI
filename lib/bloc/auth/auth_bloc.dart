@@ -1,13 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
+import 'package:stock_flutter/repositories/authGoogle_repository.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepository authRepository;
+  final AuthGoogleRepository authGoogleRepository;
 
-  AuthBloc(this.authRepository) : super(AuthInitial()) {
+  AuthBloc({required this.authRepository, required this.authGoogleRepository})
+      : super(AuthInitial()) {
     on<LoginRequested>(onLoginRequested);
+    on<GoogleSignInRequested>(onSignInGoogleRequested);
     on<LogoutRequested>(onLogoutRequested);
     on<CheckAuthStatus>(onCheckStatus);
   }
@@ -21,9 +25,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final user = await authRepository.login(event.userName, event.password);
     if (user != null) {
       emit(AuthAuthenticated(user: user));
-      print('onLoginRequested: ${event.userName} ${event.password} ');
     } else {
       emit(AuthError(message: 'Sai tài khoản hoặc mật khẩu'));
+    }
+  }
+
+  Future<void> onSignInGoogleRequested(
+      GoogleSignInRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+
+    try {
+      final user = await authGoogleRepository.signInWithGoogle();
+
+      if (user != null) {
+        emit(AuthAuthenticated(user: user));
+      } else {
+        emit(AuthError(message: 'Đăng nhập không thành công'));
+      }
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
     }
   }
 
@@ -34,8 +54,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await Future.delayed(Duration(seconds: 2));
 
     await authRepository.logout();
+    await authGoogleRepository.signOut();
 
-    emit(AuthInitial());
+    // emit(AuthInitial());
+    emit(UnAuthState());
   }
 
   Future<void> onCheckStatus(
@@ -44,7 +66,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (user != null) {
       emit(AuthAuthenticated(user: user));
     } else {
-      emit(AuthInitial());
+      // emit(AuthInitial());
+      emit(UnAuthState());
     }
   }
 }

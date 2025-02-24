@@ -51,7 +51,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       Navigator.of(context).pop();
 
       Utils.navigatorGoBack(context);
-      print('tro ve man hinh home');
     }
   }
 

@@ -6,7 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:stock_flutter/bloc/auth/auth_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
-import 'package:stock_flutter/bloc/authWithGoogle/authGoogle_bloc.dart';
 import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
@@ -75,13 +74,16 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(authRepository)..add(CheckAuthStatus()),
+          create: (context) => AuthBloc(
+              authRepository: authRepository,
+              authGoogleRepository: authGoogleRepository)
+            ..add(CheckAuthStatus()),
         ),
-        BlocProvider<AuthGoogleBloc>(
-          create: (context) => AuthGoogleBloc(
-            authGoogleRepository: authGoogleRepository,
-          ),
-        ),
+        // BlocProvider<AuthGoogleBloc>(
+        //   create: (context) => AuthGoogleBloc(
+        //     authGoogleRepository: authGoogleRepository,
+        //   ),
+        // ),
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc()),
         BlocProvider<LanguageBloc>(create: (context) => LanguageBloc()),

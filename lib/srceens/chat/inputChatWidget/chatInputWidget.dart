@@ -63,8 +63,6 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
       },
     );
 
-    print(newDataChat);
-
     if (mounted) {
       setState(() {
         dataChat.addAll(newDataChat);
@@ -97,9 +95,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     }
   }
 
-  void handleSendMessage() {
-    print(inputController.text.trim());
-  }
+  void handleSendMessage() {}
 
   @override
   void dispose() {

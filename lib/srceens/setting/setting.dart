@@ -71,7 +71,8 @@ class _SettingPageState extends State<SettingPage> {
       listener: (context, authState) {
         if (authState is AuthLoading) {
           showLoadingPage(context: context);
-        } else if (authState is AuthInitial) {
+          // } else if (authState is AuthInitial) {
+        } else if (authState is UnAuthState) {
           Utils.navigatorPushAndRemoveUntil(
               context, LoginPage(), (route) => false);
         }

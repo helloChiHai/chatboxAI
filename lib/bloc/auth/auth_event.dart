@@ -7,6 +7,7 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+// đăng nhập bằng tk bình thường
 class LoginRequested extends AuthEvent {
   final String userName;
   final String password;
@@ -16,6 +17,9 @@ class LoginRequested extends AuthEvent {
   @override
   List<Object?> get props => [userName, password];
 }
+
+// đăng nhập bằng tk gg
+class GoogleSignInRequested extends AuthEvent {}
 
 class LogoutRequested extends AuthEvent {
   const LogoutRequested();
