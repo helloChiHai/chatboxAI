@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -5,30 +6,33 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:stock_flutter/bloc/auth/auth_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
+import 'package:stock_flutter/bloc/authWithGoogle/authGoogle_bloc.dart';
 import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
-import 'package:stock_flutter/bloc/languageBloc/language_state.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/localization.dart';
-import 'package:stock_flutter/constants/theme.dart';
+import 'package:stock_flutter/repositories/authGoogle_repository.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:stock_flutter/srceens/home/home.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   await initializeNotifications();
   await requestNotificationPermission();
 
   final authRepository = AuthRepository();
+  final authGoogleRepository = AuthGoogleRepository();
 
-  runApp(MyApp(authRepository: authRepository));
+  runApp(MyApp(
+    authRepository: authRepository,
+    authGoogleRepository: authGoogleRepository,
+  ));
 }
 
 // khỏi tạo thông báo cục bộ
@@ -62,7 +66,9 @@ Future<void> requestNotificationPermission() async {
 
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
-  const MyApp({required this.authRepository});
+  final AuthGoogleRepository authGoogleRepository;
+  const MyApp(
+      {required this.authRepository, required this.authGoogleRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +76,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(authRepository)..add(CheckAuthStatus()),
+        ),
+        BlocProvider<AuthGoogleBloc>(
+          create: (context) => AuthGoogleBloc(
+            authGoogleRepository: authGoogleRepository,
+          ),
         ),
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc()),

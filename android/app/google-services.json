@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "416801601795",
+    "project_id": "chatboxai-b5fb5",
+    "storage_bucket": "chatboxai-b5fb5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416801601795:android:0fc6f3bd7c7dcd0ed0d136",
+        "android_client_info": {
+          "package_name": "com.example.stock_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416801601795-ealv0qo96fub15vaqfli5kaugvfoaac2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stock_flutter",
+            "certificate_hash": "6df7825bd509875f5d43a4698b944f52c3a1fb92"
+          }
+        },
+        {
+          "client_id": "416801601795-3rmcb0td8s2ugk0ac3k5lutt9t2vik3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtil85wcAd8KRyAWlrwFVstinWAYTBgXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416801601795-3rmcb0td8s2ugk0ac3k5lutt9t2vik3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

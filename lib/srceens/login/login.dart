@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
+import 'package:stock_flutter/bloc/authWithGoogle/authGoogle_bloc.dart';
+import 'package:stock_flutter/bloc/authWithGoogle/authGoogle_event.dart';
+import 'package:stock_flutter/bloc/authWithGoogle/authGoogle_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/utils/utils.dart';
@@ -74,39 +75,13 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  Future signInGoogle() async {
-    // GoogleSignInAPI.login();
+  void signInGoogle() {
+    context.read<AuthGoogleBloc>().add(GoogleSignInRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () {
-      //         final currentLocale = context.read<LanguageBloc>().state.locale;
-      //         final newLocale = currentLocale.languageCode == 'vi'
-      //             ? Locale('en')
-      //             : Locale('vi');
-      //         context
-      //             .read<LanguageBloc>()
-      //             .add(ChangeLanguage(locale: newLocale));
-      //       },
-      //       icon: const Icon(
-      //         Icons.language,
-      //       ),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {
-      //         context.read<ThemeBloc>().add(ToggleThemeEvent());
-      //       },
-      //       icon: const Icon(
-      //         Icons.brightness_6,
-      //       ),
-      //     ),
-      //   ],
-      // ),
       resizeToAvoidBottomInset: true,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, authState) {
@@ -119,10 +94,17 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         builder: (context, authState) {
-          return BlocBuilder<ThemeBloc, ThemeState>(
-            buildWhen: (previous, current) =>
-                previous.themeMode != current.themeMode,
-            builder: (context, themeState) {
+          return BlocConsumer<AuthGoogleBloc, AuthGoogleState>(
+            listener: (context, authGoogleState) {
+              if (authGoogleState is AuthGoogleLoading) {
+                showLoadingPage(context: context);
+              } else if (authGoogleState is AuthGoogleAuthenticated) {
+                Utils.navigatorPushReplacementNamed(context, AppRoutes.home);
+              } else if (authGoogleState is AuthGoogleError) {
+                Utils.showSnackBar(context, authGoogleState.message);
+              }
+            },
+            builder: (context, authGoogleState) {
               return GestureDetector(
                 onTap: () => FocusScope.of(context).unfocus(),
                 child: Container(

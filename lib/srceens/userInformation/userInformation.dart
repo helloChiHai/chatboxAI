@@ -57,7 +57,7 @@ class _UserInformationState extends State<UserInformation> {
                   SizedBox(height: 8),
                   Text('Email: ${user.email}', style: TextStyle(fontSize: 18)),
                   SizedBox(height: 8),
-                  Text('Email: ${user.token}', style: TextStyle(fontSize: 18)),
+                  Text('Token: ${user.token}', style: TextStyle(fontSize: 18)),
                 ],
               ),
             );
