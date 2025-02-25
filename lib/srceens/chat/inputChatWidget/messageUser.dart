@@ -24,7 +24,7 @@ class _MessageUserState extends State<MessageUser> {
               topLeft: Radius.circular(20),
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20))),
-      child: Text(
+      child: SelectableText(
         widget.message,
         style: TextStyle(
           fontSize: AppSizeText.sizeText12,

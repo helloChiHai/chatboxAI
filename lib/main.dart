@@ -22,7 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(demoProjectId: "chatboxai-b5fb5");
     print('✅ Firebase đã khởi tạo thành công');
   } catch (e) {
     print('🔥 Lỗi khởi tạo Firebase: $e');
@@ -85,11 +85,6 @@ class MyApp extends StatelessWidget {
               authGoogleRepository: authGoogleRepository)
             ..add(CheckAuthStatus()),
         ),
-        // BlocProvider<AuthGoogleBloc>(
-        //   create: (context) => AuthGoogleBloc(
-        //     authGoogleRepository: authGoogleRepository,
-        //   ),
-        // ),
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc()),
         BlocProvider<LanguageBloc>(create: (context) => LanguageBloc()),

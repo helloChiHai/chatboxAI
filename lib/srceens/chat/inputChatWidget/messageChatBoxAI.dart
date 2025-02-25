@@ -48,7 +48,7 @@ class _MessageChatBoxAIState extends State<MessageChatBoxAI> {
             ],
           ),
           SizedBox(height: 10),
-          Text(
+          SelectableText(
             // message,
             'Nếu muốn sử dụng văn bản ngẫu nhiên với mục đích dàn trang hoặc trình bày bạn có thể sử dụng công thức tạo nội dung ngẫu nhiên do Word cung cấp. Các bước thực hiện như sau:',
             style: TextStyle(
