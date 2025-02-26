@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> onLoginRequested(
       LoginRequested event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
+    emit(AuthLoading(onOffLoading: true));
 
     await Future.delayed(Duration(seconds: 2));
 
@@ -23,13 +23,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (user != null) {
       emit(AuthAuthenticated(user: user));
     } else {
+      emit(AuthLoading(onOffLoading: false));
       emit(AuthError(message: 'Sai tài khoản hoặc mật khẩu'));
     }
   }
 
   Future<void> onSignInGoogleRequested(
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
+    emit(AuthLoading(onOffLoading: true));
 
     try {
       final user = await authRepository.signInWithGoogle();
@@ -37,7 +38,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (user != null) {
         emit(AuthAuthenticated(user: user));
       } else {
-        emit(AuthError(message: 'Đăng nhập không thành công'));
+        emit(AuthLoading(onOffLoading: false));
+        // emit(AuthError(message: 'Đăng nhập không thành công'));
       }
     } catch (e) {
       emit(AuthError(message: e.toString()));
@@ -46,10 +48,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> onLogoutRequested(
       LogoutRequested event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-
+    emit(AuthLoading(onOffLoading: true));
     await Future.delayed(Duration(seconds: 1));
-
+    emit(AuthLoading(onOffLoading: false));
     await authRepository.logout();
     await authRepository.signOut();
 

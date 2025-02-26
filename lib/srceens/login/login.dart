@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   String errorEmail = '';
   String errorPassword = '';
   bool isShowPassword = true;
+  bool isShowLoading = false;
 
   bool checkInput() {
     if (Utils.validateEmail(email.text.trim()) == 1 &&
@@ -83,7 +84,12 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, authState) {
           if (authState is AuthLoading) {
-            showLoadingPage(context: context);
+            isShowLoading = authState.onOffLoading;
+            if (authState.onOffLoading) {
+              showLoadingPage(context: context);
+            } else {
+              Navigator.of(context).pop();
+            }
           } else if (authState is AuthAuthenticated) {
             Utils.navigatorPushReplacementNamed(context, AppRoutes.home);
           } else if (authState is AuthError) {
@@ -177,7 +183,8 @@ class _LoginPageState extends State<LoginPage> {
                     btnCusLogin(
                       context: context,
                       title: 'login',
-                      pressBtn: authState is AuthLoading ? null : handleLogin,
+                      // pressBtn: authState is AuthLoading ? null : handleLogin,
+                      pressBtn: isShowLoading ? null : handleLogin,
                     ),
                     const SizedBox(height: 30),
                     Row(

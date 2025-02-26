@@ -13,7 +13,13 @@ class AuthInitial extends AuthState {
 }
 
 class AuthLoading extends AuthState {
-  const AuthLoading();
+  // true: on; false: off
+  bool onOffLoading;
+
+  AuthLoading({required this.onOffLoading});
+
+  @override
+  List<Object?> get props => [onOffLoading];
 }
 
 class AuthAuthenticated extends AuthState {
