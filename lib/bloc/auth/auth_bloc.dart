@@ -1,15 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
-import 'package:stock_flutter/repositories/authGoogle_repository.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepository authRepository;
-  final AuthGoogleRepository authGoogleRepository;
 
-  AuthBloc({required this.authRepository, required this.authGoogleRepository})
-      : super(AuthInitial()) {
+  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<LoginRequested>(onLoginRequested);
     on<GoogleSignInRequested>(onSignInGoogleRequested);
     on<LogoutRequested>(onLogoutRequested);
@@ -35,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
 
     try {
-      final user = await authGoogleRepository.signInWithGoogle();
+      final user = await authRepository.signInWithGoogle();
 
       if (user != null) {
         emit(AuthAuthenticated(user: user));
@@ -51,10 +48,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LogoutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
 
     await authRepository.logout();
-    await authGoogleRepository.signOut();
+    await authRepository.signOut();
 
     // emit(AuthInitial());
     emit(UnAuthState());

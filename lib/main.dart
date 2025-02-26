@@ -10,7 +10,6 @@ import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
 import 'package:stock_flutter/constants/localization.dart';
-import 'package:stock_flutter/repositories/authGoogle_repository.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -32,11 +31,9 @@ void main() async {
   await requestNotificationPermission();
 
   final authRepository = AuthRepository();
-  final authGoogleRepository = AuthGoogleRepository();
 
   runApp(MyApp(
     authRepository: authRepository,
-    authGoogleRepository: authGoogleRepository,
   ));
 }
 
@@ -71,19 +68,15 @@ Future<void> requestNotificationPermission() async {
 
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
-  final AuthGoogleRepository authGoogleRepository;
-  const MyApp(
-      {required this.authRepository, required this.authGoogleRepository});
+  const MyApp({required this.authRepository});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(
-              authRepository: authRepository,
-              authGoogleRepository: authGoogleRepository)
-            ..add(CheckAuthStatus()),
+          create: (context) =>
+              AuthBloc(authRepository: authRepository)..add(CheckAuthStatus()),
         ),
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc()),
