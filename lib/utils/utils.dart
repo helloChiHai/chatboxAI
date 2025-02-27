@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/routes/slideUpPageRoute.dart';
@@ -92,6 +94,23 @@ class Utils {
     // tránh lỗi khi quay lại ở màn hình đầu tiên
     if (Navigator.canPop(context)) {
       Navigator.pop(context);
+    }
+  }
+
+  // giải nén token
+  static Map<String, dynamic>? decodeFirebaseToken(String token) {
+    try {
+      final parts = token.split('.');
+      if (parts.length != 3) {
+        throw const FormatException('Token không hợp lệ');
+      }
+
+      final payload =
+          utf8.decode(base64Url.decode(base64Url.normalize(parts[1])));
+      return json.decode(payload);
+    } catch (e) {
+      print('Lỗi giải mã token: $e');
+      return null;
     }
   }
 }

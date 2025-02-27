@@ -18,10 +18,12 @@ class ItemChat extends StatelessWidget {
         return isUser
             ? MessageUser(
                 message: message,
-                themeState: themeState.themeMode,
+                // themeState: themeState.themeMode,
               )
             : MessageChatBoxAI(
-                message: message, themeState: themeState.themeMode);
+                message: message,
+                // themeState: themeState.themeMode,
+              );
       },
     );
   }

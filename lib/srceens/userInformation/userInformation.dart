@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/models/user_model.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
-import 'package:stock_flutter/widgets/header.dart';
-import 'package:stock_flutter/widgets/loadingPage.dart';
 
 class UserInformation extends StatefulWidget {
   const UserInformation({super.key});

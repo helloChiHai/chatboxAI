@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:stock_flutter/models/user_model.dart';
 import 'package:stock_flutter/services/storageService.dart';
+import 'package:stock_flutter/utils/utils.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,7 +30,6 @@ class AuthRepository {
         'token': token,
       });
 
-      await StorageService.saveEmailUser(user.userName);
       await StorageService.saveToken(user.token);
       return user;
     } catch (e) {
@@ -64,7 +64,10 @@ class AuthRepository {
 
       final token = await firebaseUser.getIdToken();
 
-      await StorageService.saveEmailUser(firebaseUser.email ?? '');
+      print('token: $token');
+      print('firebaseUser: $firebaseUser');
+
+      // await StorageService.saveEmailUser(firebaseUser.email ?? '');
       await StorageService.saveToken(token ?? '');
 
       return User(
@@ -72,6 +75,7 @@ class AuthRepository {
         userName: firebaseUser.displayName ?? '',
         email: firebaseUser.email ?? '',
         token: token ?? '',
+        img: '123123',
       );
     } catch (e) {
       print('Error siging in with google: $e');
@@ -163,17 +167,23 @@ class AuthRepository {
 
   Future<User?> getUserFromStorage() async {
     final token = await StorageService.getToken();
-    final userEmail = await StorageService.getEmailUser();
+    // final userEmail = await StorageService.getEmailUser();
 
     if (token == null) return null;
 
     try {
+      // data khi giải nén token
+      // print('data giai nen: ${Utils.decodeFirebaseToken(token)}');
+
+      var dataTokenDecode = Utils.decodeFirebaseToken(token);
+
       // Giả bộ dữ liệu từ API thay vì gọi thực tế
       final responseData = {
-        'id': '12',
-        'userName': userEmail,
-        'email': userEmail,
-        'token': token,
+        'id': dataTokenDecode?['user_id'] ?? '',
+        'userName': dataTokenDecode?['name'] ?? '',
+        'email': dataTokenDecode?['email'] ?? '',
+        'token': 'token',
+        'img': dataTokenDecode?['picture'] ?? '',
       };
 
       return User.fromJson(responseData);

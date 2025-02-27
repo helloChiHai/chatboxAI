@@ -1,13 +1,13 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
 class MessageChatBoxAI extends StatefulWidget {
-  MessageChatBoxAI(
-      {super.key, required this.message, required this.themeState});
+  MessageChatBoxAI({super.key, required this.message});
 
   final String message;
-  ThemeMode themeState;
+  // ThemeMode themeState;
 
   @override
   State<MessageChatBoxAI> createState() => _MessageChatBoxAIState();
@@ -48,16 +48,18 @@ class _MessageChatBoxAIState extends State<MessageChatBoxAI> {
             ],
           ),
           SizedBox(height: 10),
-          SelectableText(
-            // message,
-            'Nếu muốn sử dụng văn bản ngẫu nhiên với mục đích dàn trang hoặc trình bày bạn có thể sử dụng công thức tạo nội dung ngẫu nhiên do Word cung cấp. Các bước thực hiện như sau:',
-            style: TextStyle(
-              fontSize: AppSizeText.sizeText12,
-              color: widget.themeState == ThemeMode.dark
-                  ? AppColors.backgroundColor
-                  : AppColors.c_black,
-            ),
-          ),
+          // SelectableText(
+          //   widget.message,
+          //   style: TextStyle(
+          //       fontSize: AppSizeText.sizeText12, color: AppColors.c_black
+          //       // color: widget.themeState == ThemeMode.dark
+          //       //     ? AppColors.backgroundColor
+          //       //     : AppColors.c_black,
+          //       ),
+          // ),
+          AnimatedTextKit(animatedTexts: [
+            TyperAnimatedText(widget.message),
+          ])
         ],
       ),
     );

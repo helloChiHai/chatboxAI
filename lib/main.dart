@@ -6,11 +6,13 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:stock_flutter/bloc/auth/auth_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
+import 'package:stock_flutter/bloc/chatBloc/chat_bloc.dart';
 import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
 import 'package:stock_flutter/constants/localization.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
+import 'package:stock_flutter/repositories/chat_repository.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -22,7 +24,7 @@ void main() async {
 
   try {
     await Firebase.initializeApp(demoProjectId: "chatboxai-b5fb5");
-    print('✅ Firebase đã khởi tạo thành công');
+    // print('✅ Firebase đã khởi tạo thành công');
   } catch (e) {
     print('🔥 Lỗi khởi tạo Firebase: $e');
   }
@@ -31,9 +33,11 @@ void main() async {
   await requestNotificationPermission();
 
   final authRepository = AuthRepository();
+  final chatRepository = ChatRepository();
 
   runApp(MyApp(
     authRepository: authRepository,
+    chatRepository: chatRepository,
   ));
 }
 
@@ -68,7 +72,8 @@ Future<void> requestNotificationPermission() async {
 
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
-  const MyApp({required this.authRepository});
+  final ChatRepository chatRepository;
+  const MyApp({required this.authRepository, required this.chatRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +86,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc()),
         BlocProvider<LanguageBloc>(create: (context) => LanguageBloc()),
+        BlocProvider<ChatBloc>(create: (context) => ChatBloc(chatRepository)),
       ],
       child: const AppView(),
     );

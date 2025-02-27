@@ -11,6 +11,7 @@ import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/srceens/login/login.dart';
+import 'package:stock_flutter/srceens/viewUserInformation/bgUserInformation.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/btnCusLogin.dart';
 import 'package:stock_flutter/widgets/btnOptionSettingCus.dart';
@@ -143,52 +144,7 @@ class _SettingPageState extends State<SettingPage> {
                         ),
                         SizedBox(height: 20),
                         // user information
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                              color: themeState.themeMode != ThemeMode.light
-                                  ? AppColors.backgroundColor
-                                  : AppColors.c_darkmode,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundImage: NetworkImage(
-                                    'https://img.amiami.jp/images/product/review/191/TOY-RBT-4827_01.jpg?a8=YRvtwRALNEponvKc_hc6iFP2Fo9wjLvg4L0sTMfLuRzCu.zLNCuEusHcDFvoJFngVFPg_6uFSqvYuRQoNFP2tjZ5xs00000003017001'),
-                              ),
-                              SizedBox(width: 10),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  textCus(
-                                    context: context,
-                                    text: 'Vương Chí Hải',
-                                    fontSize: AppSizeText.sizeText14,
-                                    fontWeight: FontWeight.w600,
-                                    color:
-                                        themeState.themeMode == ThemeMode.dark
-                                            ? AppColors.backgroundColor
-                                            : AppColors.c_black,
-                                  ),
-                                  textCus(
-                                    context: context,
-                                    text: 'vuongchihai0711@gmail.com',
-                                    fontSize: AppSizeText.sizeText14,
-                                    color:
-                                        themeState.themeMode == ThemeMode.dark
-                                            ? AppColors.backgroundColor
-                                            : AppColors.c_black_54,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                        BgUserInformation(),
                         //
                         Container(
                           width: double.infinity,
@@ -199,26 +155,36 @@ class _SettingPageState extends State<SettingPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BtnOptionSettingCus(
-                                fnPress: () => handleChangeLanguage(context),
-                                title: 'changeLanguage',
-                                icon: Icons.change_circle_outlined,
-                                themeMode: themeState.themeMode,
-                              ),
-                              SizedBox(height: 10),
-                              BtnOptionSettingCus(
-                                fnPress: () => handleChangeTheme(context),
-                                title: 'changeTheme',
-                                icon: Icons.change_circle_outlined,
-                                themeMode: themeState.themeMode,
-                              ),
-                              SizedBox(height: 10),
+                              // BtnOptionSettingCus(
+                              //   fnPress: () => handleChangeLanguage(context),
+                              //   title: 'changeLanguage',
+                              //   icon: Icons.change_circle_outlined,
+                              //   themeMode: themeState.themeMode,
+                              // ),
+                              // SizedBox(height: 10),
+                              // BtnOptionSettingCus(
+                              //   fnPress: () => handleChangeTheme(context),
+                              //   title: 'changeTheme',
+                              //   icon: Icons.change_circle_outlined,
+                              //   themeMode: themeState.themeMode,
+                              // ),
+                              // SizedBox(height: 10),
                               BtnOptionSettingCus(
                                 fnPress: () {
                                   Utils.navigator(context, AppRoutes.meeting);
                                 },
                                 title: 'meet',
                                 icon: Icons.meeting_room_outlined,
+                                themeMode: themeState.themeMode,
+                              ),
+                              SizedBox(height: 10),
+                              BtnOptionSettingCus(
+                                fnPress: () {
+                                  // Utils.navigator(
+                                  //     context, AppRoutes.userInformation);
+                                },
+                                title: 'setting',
+                                icon: Icons.settings,
                                 themeMode: themeState.themeMode,
                               ),
                               SizedBox(height: 10),

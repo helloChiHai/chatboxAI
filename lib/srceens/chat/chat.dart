@@ -37,9 +37,10 @@ class _ChatPageState extends State<ChatPage> {
         builder: (context, themeState) {
           return Container(
             decoration: BoxDecoration(
-              color: themeState.themeMode == ThemeMode.dark
-                  ? AppColors.c_darkmode
-                  : AppColors.backgroundColor,
+              // color: themeState.themeMode == ThemeMode.dark
+              //     ? AppColors.c_darkmode
+              //     : AppColors.backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             padding: EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
             child: Column(
