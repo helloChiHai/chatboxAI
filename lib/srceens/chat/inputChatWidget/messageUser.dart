@@ -17,25 +17,22 @@ class MessageUser extends StatefulWidget {
 class _MessageUserState extends State<MessageUser> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      decoration: BoxDecoration(
-          color: AppColors.c_gray_255_217,
-          // color: widget.themeState == ThemeMode.dark
-          //     ? AppColors.c_second_darkmode
-          //     : AppColors.c_gray_255_217,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20))),
-      child: SelectableText(
-        widget.message,
-        style:
-            TextStyle(fontSize: AppSizeText.sizeText12, color: AppColors.c_black
-                // color: widget.themeState == ThemeMode.dark
-                //     ? AppColors.backgroundColor
-                //     : AppColors.c_black,
-                ),
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: EdgeInsets.only(bottom: 20),
+        decoration: const BoxDecoration(
+            color: AppColors.c_gray_255_217,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
+        child: SelectableText(
+          widget.message,
+          style: const TextStyle(
+              fontSize: AppSizeText.sizeText12, color: AppColors.c_black),
+        ),
       ),
     );
   }

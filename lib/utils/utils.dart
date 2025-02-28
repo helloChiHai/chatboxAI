@@ -72,6 +72,31 @@ class Utils {
     }
   }
 
+  // mờ dần
+  static void navigatorFadeTransition(BuildContext context, String routeName,
+      {Object? arguments}) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        settings: RouteSettings(name: routeName, arguments: arguments),
+        transitionDuration: Duration(milliseconds: 90),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return AppRoutes.routes[routeName]!(context);
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+          var slideAnimation =
+              Tween(begin: Offset(0, 1), end: Offset.zero).animate(animation);
+
+          return FadeTransition(
+            opacity: fadeAnimation,
+            child: SlideTransition(position: slideAnimation, child: child),
+          );
+        },
+      ),
+    );
+  }
+
   // dùng để thay thế màn hình hiện tại bằng 1 màn hình mới mà không giữ lại màn hình cũ
   // khi sd, màn hình hiện tại sẽ bị xoá khỏi stack, nghĩa là không thể quay lại bằng nút back
   // khi nào dùng: cho login

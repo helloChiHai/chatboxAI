@@ -49,7 +49,6 @@ class _InputCusState extends State<InputCus> {
   @override
   void dispose() {
     widget.inputController.removeListener(getTextLineCount);
-    widget.inputController.dispose();
     super.dispose();
   }
 
@@ -124,22 +123,6 @@ class _InputCusState extends State<InputCus> {
                     IconButton(
                         onPressed: widget.pressSendMessage,
                         icon: Icon(Icons.send)),
-                    // GestureDetector(
-                    //   onTap: widget.pressSendMessage,
-                    //   child: Container(
-                    //     alignment: Alignment.center,
-                    //     padding: EdgeInsets.all(10),
-                    //     decoration: BoxDecoration(
-                    //       color: AppColors.c_gray_255_217,
-                    //       borderRadius: BorderRadius.circular(50),
-                    //     ),
-                    //     child: Icon(
-                    //       Icons.send,
-                    //       size: 20,
-                    //       color: AppColors.c_darkmode,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

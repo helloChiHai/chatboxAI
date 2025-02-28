@@ -1,28 +1,30 @@
 import 'package:equatable/equatable.dart';
 
 class ChatState extends Equatable {
-  final List<Map<String, dynamic>> messages;
-  final bool isLoading;
-  final String? error;
-
-  const ChatState({
-    this.messages = const [],
-    this.isLoading = false,
-    this.error,
-  });
-
-  ChatState copyWith({
-    List<Map<String, dynamic>>? messages,
-    bool? isLoading,
-    String? error,
-  }) {
-    return ChatState(
-      messages: messages ?? this.messages,
-      isLoading: isLoading ?? this.isLoading,
-      error: error,
-    );
-  }
+  ChatState();
 
   @override
-  List<Object?> get props => [messages, isLoading, error];
+  List<Object?> get props => [];
+}
+
+class ChatInitial extends ChatState {}
+
+class ChatLoading extends ChatState {}
+
+class ChatSuccess extends ChatState {
+  final String message;
+
+  ChatSuccess({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class ChatError extends ChatState {
+  final String error;
+
+  ChatError({required this.error});
+
+  @override
+  List<Object?> get props => [error];
 }

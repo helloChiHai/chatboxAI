@@ -11,14 +11,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Future<void> onSendMessage(SendMessage event, Emitter<ChatState> emit) async {
-    emit(state.copyWith());
-
     try {
+      emit(ChatLoading());
+
       final response = await chatRepository.sendMessage(event.message);
-      emit(state.copyWith(
-          messages: [...state.messages, ...response], isLoading: false));
+
+      emit(ChatSuccess(message: response.content));
     } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
+      emit(ChatError(error: e.toString()));
     }
   }
 }
