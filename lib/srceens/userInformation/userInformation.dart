@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/models/user_model.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
+import 'package:stock_flutter/services/service_locator.dart';
 
 class UserInformation extends StatefulWidget {
   const UserInformation({super.key});
@@ -10,19 +11,17 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
-  AuthRepository? authRepository;
   Future<User?>? userFuture;
 
   @override
   void initState() {
     super.initState();
-    authRepository = AuthRepository();
     getUserInformation();
   }
 
   void getUserInformation() {
     setState(() {
-      userFuture = authRepository!.getUserFromStorage();
+      userFuture = locator<AuthRepository>().getUserFromStorage();
     });
   }
 

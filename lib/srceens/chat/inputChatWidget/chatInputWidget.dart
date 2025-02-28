@@ -30,6 +30,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
   bool showFullInputChat = false;
   bool checkLoadMessage =
       false; // kiểm tra có đang chờ tin nhắn từ ChatBox AI không? true: đang chờ; false: khôgn chờ
+  final FocusNode inputNode = FocusNode();
 
   List<ChatModel> dataChat = [];
 
@@ -79,13 +80,15 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
         }
       },
       child: Expanded(
-        child: SizedBox(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(),
               Expanded(
                 child: ListView.builder(
+                  primary: false,
                   itemCount: dataChat.length,
                   itemBuilder: (context, index) {
                     final message = dataChat[index];
@@ -98,6 +101,8 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
               InputCus(
                 pressSendMessage: handleSendMessage,
                 inputController: inputController,
+                isAutofocus: false,
+                focusNode: inputNode,
               ),
             ],
           ),

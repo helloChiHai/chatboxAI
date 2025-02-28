@@ -64,9 +64,12 @@ class Utils {
 
   // BTT: bot to top
   static void navigatorBTT(BuildContext context, String routeName) {
-    WidgetBuilder? builder = AppRoutes.routes[routeName];
-    if (builder != null) {
-      Navigator.push(context, SlideUpPageRoute(page: builder(context)));
+    Route? route = AppRoutes.generateRoute(RouteSettings(name: routeName));
+    if (route != null) {
+      Navigator.push(
+          context,
+          SlideUpPageRoute(
+              page: (route as MaterialPageRoute).builder(context)));
     } else {
       debugPrint("Không tìm thấy route: $routeName");
     }
@@ -75,26 +78,33 @@ class Utils {
   // mờ dần
   static void navigatorFadeTransition(BuildContext context, String routeName,
       {Object? arguments}) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        settings: RouteSettings(name: routeName, arguments: arguments),
-        transitionDuration: Duration(milliseconds: 90),
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return AppRoutes.routes[routeName]!(context);
-        },
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
-          var slideAnimation =
-              Tween(begin: Offset(0, 1), end: Offset.zero).animate(animation);
+    Route? route = AppRoutes.generateRoute(
+        RouteSettings(name: routeName, arguments: arguments));
 
-          return FadeTransition(
-            opacity: fadeAnimation,
-            child: SlideTransition(position: slideAnimation, child: child),
-          );
-        },
-      ),
-    );
+    if (route != null && route is MaterialPageRoute) {
+      Widget page = route.builder!(context); // Lấy widget từ route
+
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          settings: RouteSettings(name: routeName, arguments: arguments),
+          transitionDuration: Duration(milliseconds: 90),
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+            var slideAnimation =
+                Tween(begin: Offset(0, 1), end: Offset.zero).animate(animation);
+
+            return FadeTransition(
+              opacity: fadeAnimation,
+              child: SlideTransition(position: slideAnimation, child: child),
+            );
+          },
+        ),
+      );
+    } else {
+      debugPrint("Không tìm thấy route: $routeName");
+    }
   }
 
   // dùng để thay thế màn hình hiện tại bằng 1 màn hình mới mà không giữ lại màn hình cũ

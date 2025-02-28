@@ -64,10 +64,8 @@ class AuthRepository {
 
       final token = await firebaseUser.getIdToken();
 
-      print('token: $token');
       print('firebaseUser: $firebaseUser');
 
-      // await StorageService.saveEmailUser(firebaseUser.email ?? '');
       await StorageService.saveToken(token ?? '');
 
       return User(
@@ -75,7 +73,7 @@ class AuthRepository {
         userName: firebaseUser.displayName ?? '',
         email: firebaseUser.email ?? '',
         token: token ?? '',
-        img: '123123',
+        img: firebaseUser.photoURL ?? '',
       );
     } catch (e) {
       print('Error siging in with google: $e');

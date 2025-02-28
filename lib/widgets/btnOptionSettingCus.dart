@@ -6,14 +6,12 @@ class BtnOptionSettingCus extends StatelessWidget {
   VoidCallback fnPress;
   String title;
   IconData icon;
-  ThemeMode themeMode;
 
   BtnOptionSettingCus({
     super.key,
     required this.fnPress,
     required this.title,
     required this.icon,
-    required this.themeMode,
   });
 
   @override
@@ -29,9 +27,7 @@ class BtnOptionSettingCus extends StatelessWidget {
             text: title,
             fontWeight: FontWeight.w500,
             fontSize: AppSizeText.sizeText14,
-            color: themeMode == ThemeMode.dark
-                ? AppColors.backgroundColor
-                : AppColors.c_black,
+            color: AppColors.c_black,
           ),
         ],
       ),

@@ -2,11 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
+import 'package:stock_flutter/services/service_locator.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthRepository authRepository;
-
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+  AuthBloc() : super(AuthInitial()) {
     on<LoginRequested>(onLoginRequested);
     on<GoogleSignInRequested>(onSignInGoogleRequested);
     on<LogoutRequested>(onLogoutRequested);
@@ -19,12 +18,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     await Future.delayed(Duration(seconds: 1));
 
-    final user = await authRepository.login(event.userName, event.password);
+    final user =
+        await locator<AuthRepository>().login(event.userName, event.password);
     if (user != null) {
       emit(AuthAuthenticated(user: user));
     } else {
       emit(AuthLoading(onOffLoading: false));
-      emit(AuthError(message: 'Sai tài khoản hoặc mật khẩu'));
+      emit(AuthError(message: 'Vui lòng kiểm tra lại tài khoản hoặc mật khẩu'));
     }
   }
 
@@ -33,13 +33,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading(onOffLoading: true));
 
     try {
-      final user = await authRepository.signInWithGoogle();
+      final user = await locator<AuthRepository>().signInWithGoogle();
 
       if (user != null) {
+        print('user: $user');
         emit(AuthAuthenticated(user: user));
       } else {
         emit(AuthLoading(onOffLoading: false));
-        // emit(AuthError(message: 'Đăng nhập không thành công'));
       }
     } catch (e) {
       emit(AuthError(message: e.toString()));
@@ -49,18 +49,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> onLogoutRequested(
       LogoutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading(onOffLoading: true));
-    // await Future.delayed(Duration(seconds: 1));
-    await authRepository.logout();
-    await authRepository.signOut();
+    await locator<AuthRepository>().logout();
+    await locator<AuthRepository>().signOut();
     emit(AuthLoading(onOffLoading: false));
 
-    // emit(AuthInitial());
     emit(UnAuthState());
   }
 
   Future<void> onCheckStatus(
       CheckAuthStatus event, Emitter<AuthState> emit) async {
-    final user = await authRepository.getUserFromStorage();
+    final user = await locator<AuthRepository>().getUserFromStorage();
     if (user != null) {
       emit(AuthAuthenticated(user: user));
     } else {

@@ -5,11 +5,16 @@ import 'package:stock_flutter/constants/localization.dart';
 class InputCus extends StatefulWidget {
   VoidCallback pressSendMessage;
   TextEditingController inputController;
+  bool isAutofocus;
+  FocusNode? focusNode;
 
-  InputCus(
-      {super.key,
-      required this.pressSendMessage,
-      required this.inputController});
+  InputCus({
+    super.key,
+    required this.pressSendMessage,
+    required this.inputController,
+    this.focusNode,
+    this.isAutofocus = false,
+  });
 
   @override
   State<InputCus> createState() => _InputCusState();
@@ -74,29 +79,31 @@ class _InputCusState extends State<InputCus> {
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: TextField(
+                    focusNode: widget.focusNode,
+                    autofocus: widget.isAutofocus,
                     controller: widget.inputController,
                     minLines: 1,
                     maxLines: maxLines,
                     cursorColor: AppColors.c_blue,
                     textAlignVertical: TextAlignVertical.top,
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: AppSizeText.sizeText12),
+                    style: const TextStyle(fontSize: AppSizeText.sizeText12),
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)
                           .translate('askChatBotAI'),
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.only(
+                      contentPadding: const EdgeInsets.only(
                         left: 15,
                         top: 10,
                         bottom: 10,
                       ),
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: AppSizeText.sizeText12,
                       ),
                     ),
                     keyboardType: TextInputType.multiline,
                     scrollPhysics:
-                        BouncingScrollPhysics(), // thêm hiệu ứng cuộn
+                        const BouncingScrollPhysics(), // thêm hiệu ứng cuộn
                   ),
                 ),
               ),

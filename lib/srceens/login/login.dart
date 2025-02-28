@@ -56,21 +56,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void handleLogin() {
-    // if (checkInput()) {
-    //   showLoadingPage(context: context);
-
-    //   // giả bộ dăng nhập mất 3s
-    //   await Future.delayed(Duration(seconds: 3));
-
-    //   // đóng modal loading
-    //   Navigator.of(context).pop();
-
-    //   print('chuyen vao man hinh home neu dang nhap thanh cong');
-    // }
-    context.read<AuthBloc>().add(LoginRequested(
-          userName: email.text,
-          password: password.text,
-        ));
+    if (checkInput()) {
+      context.read<AuthBloc>().add(LoginRequested(
+            userName: email.text,
+            password: password.text,
+          ));
+    }
   }
 
   void signInGoogle() {
@@ -102,11 +93,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
               height: MediaQuery.of(context).size.height,
               padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
-              decoration: BoxDecoration(
-                color: ThemeMode.system != ThemeMode.light
-                    ? AppColors.backgroundColor
-                    : AppColors.c_darkmode,
-              ),
+              decoration: const BoxDecoration(color: AppColors.backgroundColor),
               child: SingleChildScrollView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
@@ -115,15 +102,11 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 30),
-                    Image(
+                    const Image(
                         image: AssetImage('assets/imgs/logoApp.png'),
                         width: 70,
                         height: 70,
-                        color: AppColors.c_darkmode
-                        // color: themeState.themeMode == ThemeMode.light
-                        //     ? AppColors.c_darkmode
-                        //     : AppColors.backgroundColor,
-                        ),
+                        color: AppColors.c_darkmode),
                     textCus(
                       context: context,
                       text: 'appName',
@@ -193,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                         Flexible(
                           flex: 1,
                           child: Container(
-                            height: 1,
+                            height: 0.5,
                             margin: const EdgeInsets.only(right: 10),
                             color: AppColors.c_second_darkmode,
                           ),
@@ -206,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                         Flexible(
                           flex: 1,
                           child: Container(
-                            height: 1,
+                            height: 0.5,
                             margin: const EdgeInsets.only(left: 10),
                             color: AppColors.c_second_darkmode,
                           ),

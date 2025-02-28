@@ -37,9 +37,9 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    message = args["message"];
-    print('args["message"]: ${args["message"]}');
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
+            {};
+    message = args["message"] ?? '';
 
     return Scaffold(
       body: BlocBuilder<ThemeBloc, ThemeState>(

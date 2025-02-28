@@ -15,18 +15,21 @@ import 'package:stock_flutter/repositories/auth_repository.dart';
 import 'package:stock_flutter/repositories/chat_repository.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:stock_flutter/services/navigation_service.dart';
+import 'package:stock_flutter/services/service_locator.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 void main() async {
+  setupLocator();
+
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
     await Firebase.initializeApp(demoProjectId: "chatboxai-b5fb5");
-    // print('✅ Firebase đã khởi tạo thành công');
   } catch (e) {
-    print('🔥 Lỗi khởi tạo Firebase: $e');
+    print('Lỗi khởi tạo Firebase: $e');
   }
 
   await initializeNotifications();
@@ -75,49 +78,61 @@ class MyApp extends StatelessWidget {
   final ChatRepository chatRepository;
   const MyApp({required this.authRepository, required this.chatRepository});
 
+  NavigatorState get _navigator =>
+      locator<NavigationService>().navigatorKey.currentState!;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) =>
-              AuthBloc(authRepository: authRepository)..add(CheckAuthStatus()),
+          create: (context) => AuthBloc()..add(CheckAuthStatus()),
         ),
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc()),
         BlocProvider<LanguageBloc>(create: (context) => LanguageBloc()),
         BlocProvider<ChatBloc>(create: (context) => ChatBloc(chatRepository)),
       ],
-      child: const AppView(),
-    );
-  }
-}
-
-class AppView extends StatelessWidget {
-  const AppView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, authState) {
-        return MaterialApp(
-          initialRoute:
-              authState is AuthAuthenticated ? AppRoutes.home : AppRoutes.login,
-          routes: AppRoutes.routes,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
-          themeMode: ThemeMode.system,
-          locale: const Locale('en'),
-          supportedLocales: const [Locale('en'), Locale('vi')],
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-        );
-      },
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            initialRoute: AppRoutes.login,
+            onGenerateRoute: AppRoutes.generateRoute,
+            navigatorKey: locator<NavigationService>().navigatorKey,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData.light(),
+            darkTheme: ThemeData.dark(),
+            themeMode: ThemeMode.system,
+            locale: const Locale('vi'),
+            supportedLocales: const [Locale('en'), Locale('vi')],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            builder: (context, child) {
+              return BlocListener<AuthBloc, AuthState>(
+                listener: (context, authState) {
+                  if (authState is AuthError) {
+                  } else if (authState is AuthAuthenticated) {
+                    _navigator.pushNamedAndRemoveUntil(
+                      AppRoutes.home,
+                      (route) => false,
+                    );
+                  } else if (authState is UnAuthState) {
+                    _navigator.pushNamedAndRemoveUntil(
+                      AppRoutes.login,
+                      (route) => false,
+                    );
+                  }
+                },
+                child: child,
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
