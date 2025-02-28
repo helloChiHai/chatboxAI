@@ -40,9 +40,6 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     inputController = TextEditingController();
 
     if (widget.message!.isNotEmpty) {
-      setState(() {
-        inputController.text = widget.message ?? "";
-      });
       dataChat.add(ChatModel(role: "user", content: widget.message ?? ''));
       context.read<ChatBloc>().add(SendMessage(message: widget.message ?? ''));
     }
@@ -50,11 +47,15 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
 
   void handleSendMessage() {
     if (inputController.text.trim().isEmpty) return;
+
     setState(() {
       dataChat.add(ChatModel(role: "user", content: inputController.text));
     });
+
     context.read<ChatBloc>().add(SendMessage(message: inputController.text));
-    inputController.clear();
+
+    inputController.dispose(); // Giải phóng controller cũ
+    inputController = TextEditingController(); // Tạo controller mới
   }
 
   @override
@@ -88,7 +89,6 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
               SizedBox(),
               Expanded(
                 child: ListView.builder(
-                  primary: false,
                   itemCount: dataChat.length,
                   itemBuilder: (context, index) {
                     final message = dataChat[index];

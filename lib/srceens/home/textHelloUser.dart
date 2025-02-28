@@ -72,21 +72,19 @@ class _HelloUserWidgetState extends State<HelloUserWidget> {
 
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(),
-                  ShaderMaskHelloUser(
-                      userName: user!.userName.isNotEmpty ? user.userName : ''),
-                  InputCus(
-                    pressSendMessage: handleGoChat,
-                    inputController: inputController,
-                    isAutofocus: false,
-                    focusNode: inputNode,
-                  ),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(),
+                ShaderMaskHelloUser(
+                    userName: user!.userName.isNotEmpty ? user.userName : ''),
+                InputCus(
+                  pressSendMessage: handleGoChat,
+                  inputController: inputController,
+                  isAutofocus: false,
+                  focusNode: inputNode,
+                ),
+              ],
             ),
           );
         },

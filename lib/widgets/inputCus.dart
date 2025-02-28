@@ -44,7 +44,7 @@ class _InputCusState extends State<InputCus> {
 
     if (mounted) {
       setState(() {
-        showIconFullTextField = numLines >= 4;
+        showIconFullTextField = numLines >= 2;
 
         borderRadius = numLines >= 2 ? 20 : 30;
       });
@@ -60,7 +60,7 @@ class _InputCusState extends State<InputCus> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: showFullInputChat ? 1 : 0,
+      flex: showFullInputChat && widget.inputController.text.isNotEmpty ? 1 : 0,
       child: Container(
         margin: EdgeInsets.only(top: 10),
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -77,13 +77,18 @@ class _InputCusState extends State<InputCus> {
             children: [
               Expanded(
                 child: Align(
-                  alignment: Alignment.topCenter,
+                  alignment: showIconFullTextField
+                      ? Alignment.topCenter
+                      : Alignment.center,
                   child: TextField(
                     focusNode: widget.focusNode,
                     autofocus: widget.isAutofocus,
                     controller: widget.inputController,
                     minLines: 1,
-                    maxLines: maxLines,
+                    maxLines: showFullInputChat &&
+                            widget.inputController.text.isNotEmpty
+                        ? null
+                        : maxLines,
                     cursorColor: AppColors.c_blue,
                     textAlignVertical: TextAlignVertical.top,
                     textAlign: TextAlign.start,
@@ -94,16 +99,18 @@ class _InputCusState extends State<InputCus> {
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.only(
                         left: 15,
-                        top: 10,
-                        bottom: 10,
+                        top: 6,
+                        bottom: 6,
                       ),
                       hintStyle: const TextStyle(
                         fontSize: AppSizeText.sizeText12,
                       ),
                     ),
                     keyboardType: TextInputType.multiline,
-                    scrollPhysics:
-                        const BouncingScrollPhysics(), // thêm hiệu ứng cuộn
+                    scrollPhysics: showFullInputChat &&
+                            widget.inputController.text.isNotEmpty
+                        ? null
+                        : const BouncingScrollPhysics(), // thêm hiệu ứng cuộn
                   ),
                 ),
               ),
