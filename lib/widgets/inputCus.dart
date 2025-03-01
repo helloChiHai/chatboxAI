@@ -88,7 +88,7 @@ class _InputCusState extends State<InputCus> {
                     maxLines: showFullInputChat &&
                             widget.inputController.text.isNotEmpty
                         ? null
-                        : maxLines,
+                        : 10,
                     cursorColor: AppColors.c_blue,
                     textAlignVertical: TextAlignVertical.top,
                     textAlign: TextAlign.start,

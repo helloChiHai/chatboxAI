@@ -31,8 +31,11 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
   bool checkLoadMessage =
       false; // kiểm tra có đang chờ tin nhắn từ ChatBox AI không? true: đang chờ; false: khôgn chờ
   final FocusNode inputNode = FocusNode();
-
+  int count =
+      0; // dùng để phân biệt tin nhắn của chat trong dataChat, phân biệt chổ tin nào để hiển thị load chổ đó
   List<ChatModel> dataChat = [];
+  final ScrollController scrollController =
+      ScrollController(); // kiểm soát cuộn của listviewbuilder
 
   @override
   void initState() {
@@ -49,13 +52,27 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     if (inputController.text.trim().isEmpty) return;
 
     setState(() {
+      count = count + 2;
       dataChat.add(ChatModel(role: "user", content: inputController.text));
+      checkLoadMessage = true;
     });
 
     context.read<ChatBloc>().add(SendMessage(message: inputController.text));
 
     inputController.dispose(); // Giải phóng controller cũ
     inputController = TextEditingController(); // Tạo controller mới
+
+    Future.delayed(Duration(milliseconds: 100), scrollToBottom);
+  }
+
+  void scrollToBottom() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
   }
 
   @override
@@ -68,16 +85,13 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
   Widget build(BuildContext context) {
     return BlocListener<ChatBloc, ChatState>(
       listener: (context, chatState) {
-        if (chatState is ChatLoading) {
-          setState(() {
-            checkLoadMessage = true;
-          });
-        } else if (chatState is ChatSuccess) {
+        if (chatState is ChatSuccess) {
           setState(() {
             checkLoadMessage = false;
             dataChat
                 .add(ChatModel(role: "assistant", content: chatState.message));
           });
+          Future.delayed(Duration(milliseconds: 100), scrollToBottom);
         }
       },
       child: Expanded(
@@ -89,12 +103,22 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
               SizedBox(),
               Expanded(
                 child: ListView.builder(
+                  controller: scrollController,
                   itemCount: dataChat.length,
                   itemBuilder: (context, index) {
                     final message = dataChat[index];
                     return message.role == "user"
-                        ? MessageUser(message: message.content)
-                        : MessageChatBoxAI(message: message.content);
+                        ? MessageUser(
+                            message: message.content,
+                            index: index,
+                            count: count,
+                            isLoad: checkLoadMessage,
+                          )
+                        : MessageChatBoxAI(
+                            message: message.content,
+                            scrollController: scrollController,
+                            index: index,
+                          );
                   },
                 ),
               ),

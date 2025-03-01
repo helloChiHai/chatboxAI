@@ -55,6 +55,7 @@ class _HeaderCusState extends State<HeaderCus> {
         final user = snapshot.data;
 
         return Container(
+          padding: EdgeInsets.only(bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
