@@ -23,6 +23,7 @@ Widget textFieldCus_1({
         textCus(context: context, text: title),
         const SizedBox(height: 5),
         TextField(
+          cursorColor: AppColors.c_blue,
           autofocus: isAutofocus,
           obscureText: onOffIcon,
           focusNode: focusNode,

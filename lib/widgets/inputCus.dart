@@ -135,8 +135,11 @@ class _InputCusState extends State<InputCus> {
                         ),
                       ),
                     IconButton(
-                        onPressed: widget.pressSendMessage,
-                        icon: const Icon(Icons.send)),
+                      onPressed: widget.pressSendMessage,
+                      icon: const Icon(
+                        Icons.send,
+                      ),
+                    ),
                   ],
                 ),
               ),

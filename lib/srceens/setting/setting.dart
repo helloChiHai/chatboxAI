@@ -95,6 +95,7 @@ class _SettingPageState extends State<SettingPage> {
                         child: const Icon(
                           Icons.close,
                           size: 25,
+                          color: AppColors.c_black,
                         ),
                       ),
                       textCus(
@@ -117,11 +118,11 @@ class _SettingPageState extends State<SettingPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 15,
-                        vertical: 10,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          const SizedBox(height: 5),
                           BtnOptionSettingCus(
                             fnPress: () {},
                             title: 'setting',

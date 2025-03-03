@@ -60,7 +60,11 @@ class _HeaderCusState extends State<HeaderCus> {
             children: [
               GestureDetector(
                 onTap: widget.fnLeftPress,
-                child: Icon(widget.iconData),
+                child: Icon(
+                  widget.iconData,
+                  color: AppColors.c_black,
+                  size: 28,
+                ),
               ),
               // GestureDetector(
               //   onTap: widget.fnLeftPress,

@@ -7,7 +7,7 @@ Widget textCus({
   required String text,
   double fontSize = AppSizeText.sizeText12,
   FontWeight fontWeight = FontWeight.normal,
-  Color? color,
+  Color? color = AppColors.c_black,
   TextAlign textAlign = TextAlign.start,
 }) {
   return Text(

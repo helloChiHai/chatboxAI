@@ -20,7 +20,11 @@ class BtnOptionSettingCus extends StatelessWidget {
       onTap: fnPress,
       child: Row(
         children: [
-          Icon(icon),
+          Icon(
+            icon,
+            color: AppColors.c_black,
+            size: 20,
+          ),
           const SizedBox(width: 10),
           textCus(
             context: context,

@@ -73,7 +73,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     onTap: () {
                       Utils.navigatorGoBack(context);
                     },
-                    child: const Icon(Icons.arrow_back),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.c_black,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
