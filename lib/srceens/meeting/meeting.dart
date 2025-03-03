@@ -15,11 +15,11 @@ class _MeetingPageState extends State<MeetingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Lịch Nhắc Họp")),
+      appBar: AppBar(title: const Text("Lịch Nhắc Họp")),
       body: BlocBuilder<ScheduleBloc, ScheduleState>(
         builder: (context, state) {
           if (state is ScheduleInitial) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is ScheduleLoaded) {
             return ListView.builder(
               itemCount: state.schedules.length,
@@ -30,7 +30,7 @@ class _MeetingPageState extends State<MeetingPage> {
               },
             );
           } else {
-            return Center(child: Text("Không có lịch họp"));
+            return const Center(child: Text("Không có lịch họp"));
           }
         },
       ),
@@ -38,7 +38,7 @@ class _MeetingPageState extends State<MeetingPage> {
         onPressed: () {
           context.read<ScheduleBloc>().add(FetchSchedule());
         },
-        child: Icon(Icons.refresh),
+        child: const Icon(Icons.refresh),
       ),
     );
   }

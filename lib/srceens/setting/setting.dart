@@ -57,7 +57,7 @@ class _SettingPageState extends State<SettingPage> {
   // }
 
   void handleLogout(BuildContext context) {
-    context.read<AuthBloc>().add(LogoutRequested());
+    context.read<AuthBloc>().add(const LogoutRequested());
   }
 
   @override
@@ -68,7 +68,7 @@ class _SettingPageState extends State<SettingPage> {
           showLoadingPage(context: context);
         } else if (authState is UnAuthState) {
           Utils.navigatorPushAndRemoveUntil(
-              context, LoginPage(), (route) => false);
+              context, const LoginPage(), (route) => false);
         }
       },
       builder: (context, authState) {
@@ -127,7 +127,7 @@ class _SettingPageState extends State<SettingPage> {
                             title: 'setting',
                             icon: Icons.settings,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: btnCusLogin(

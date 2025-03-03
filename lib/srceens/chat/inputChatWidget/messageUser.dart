@@ -29,8 +29,8 @@ class _MessageUserState extends State<MessageUser> {
         Align(
           alignment: Alignment.centerRight,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            margin: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            margin: const EdgeInsets.only(bottom: 20),
             decoration: const BoxDecoration(
                 color: AppColors.c_gray_255_217,
                 borderRadius: BorderRadius.only(
@@ -50,7 +50,7 @@ class _MessageUserState extends State<MessageUser> {
             children: [
               ShaderMask(
                 shaderCallback: (Rect bounds) {
-                  return LinearGradient(
+                  return const LinearGradient(
                     colors: [
                       AppColors.c_blue,
                       AppColors.c_purple,
@@ -67,12 +67,12 @@ class _MessageUserState extends State<MessageUser> {
                   height: 20,
                 ),
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               widget.count == widget.index
                   ? widget.isLoad
                       ? textCus(context: context, text: 'pleaseWaitAMoment')
                       : textCus(context: context, text: '')
-                  : SizedBox()
+                  : const SizedBox()
             ],
           ),
         )

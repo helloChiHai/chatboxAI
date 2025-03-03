@@ -24,7 +24,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthAuthenticated(user: user));
     } else {
       emit(AuthLoading(onOffLoading: false));
-      emit(AuthError(message: 'Vui lòng kiểm tra lại tài khoản hoặc mật khẩu'));
+      emit(const AuthError(
+          message: 'Vui lòng kiểm tra lại tài khoản hoặc mật khẩu'));
     }
   }
 

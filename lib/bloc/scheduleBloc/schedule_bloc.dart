@@ -21,7 +21,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   Future<void> onFetchSchedule(
       FetchSchedule event, Emitter<ScheduleState> emit) async {
     List<DateTime> schedules = [
-      DateTime.now().add(Duration(minutes: 2)) // lich hop sau 15p
+      DateTime.now().add(const Duration(minutes: 2)) // lich hop sau 15p
     ];
 
     emit(ScheduleLoaded(schedules: schedules));
@@ -34,7 +34,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   Future<void> onSetRemider(
       SetReminder event, Emitter<ScheduleState> emit) async {
     DateTime meetingTime = event.meetingTime;
-    DateTime remindTime = meetingTime.subtract(Duration(minutes: 1));
+    DateTime remindTime = meetingTime.subtract(const Duration(minutes: 1));
 
     scheduleNotification(
         meetingTime, "Tới giờ hợp!", "Cuộc họp bắt đầu ngay bây giờ.");
@@ -46,7 +46,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       DateTime scheduleTime, String title, String body) async {
     print("Đặt thông báo: $title vào lúc $scheduleTime"); // Kiểm tra log
 
-    var androidDetails = AndroidNotificationDetails(
+    var androidDetails = const AndroidNotificationDetails(
       'schedule_channel',
       'Lịch nhắc',
       channelDescription: 'Kênh thông báo cho lịch hẹn',
@@ -54,7 +54,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       priority: Priority.high,
     );
 
-    var iosDetails = DarwinNotificationDetails();
+    var iosDetails = const DarwinNotificationDetails();
     var platformDetail =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
 

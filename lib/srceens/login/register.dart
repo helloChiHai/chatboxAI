@@ -75,11 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Container(
               height: MediaQuery.of(context).size.height,
               padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
-              decoration: BoxDecoration(
-                  // color: themeState.themeMode == ThemeMode.light
-                  //     ? AppColors.backgroundColor
-                  //     : AppColors.c_darkmode,
-                  color: AppColors.backgroundColor),
+              decoration: const BoxDecoration(color: AppColors.backgroundColor),
               child: SingleChildScrollView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
@@ -88,15 +84,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 30),
-                    Image(
+                    const Image(
                         image: AssetImage('assets/imgs/logoApp.png'),
                         width: 70,
                         height: 70,
-                        color: AppColors.c_darkmode
-                        // color: themeState.themeMode == ThemeMode.light
-                        //     ? AppColors.c_darkmode
-                        //     : AppColors.backgroundColor,
-                        ),
+                        color: AppColors.c_darkmode),
                     textCus(
                       context: context,
                       text: 'appName',

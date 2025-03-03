@@ -53,11 +53,14 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
 
     setState(() {
       count = count + 2;
-      dataChat.add(ChatModel(role: "user", content: inputController.text));
+      dataChat
+          .add(ChatModel(role: "user", content: inputController.text.trim()));
       checkLoadMessage = true;
     });
 
-    context.read<ChatBloc>().add(SendMessage(message: inputController.text));
+    context
+        .read<ChatBloc>()
+        .add(SendMessage(message: inputController.text.trim()));
 
     inputController.dispose(); // Giải phóng controller cũ
     inputController = TextEditingController(); // Tạo controller mới
@@ -69,7 +72,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     if (scrollController.hasClients) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
       );
     }
@@ -85,13 +88,17 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
   Widget build(BuildContext context) {
     return BlocListener<ChatBloc, ChatState>(
       listener: (context, chatState) {
-        if (chatState is ChatSuccess) {
+        if (chatState is ChatLoading) {
+          setState(() {
+            checkLoadMessage = true;
+          });
+        } else if (chatState is ChatSuccess) {
           setState(() {
             checkLoadMessage = false;
             dataChat
                 .add(ChatModel(role: "assistant", content: chatState.message));
           });
-          Future.delayed(Duration(milliseconds: 100), scrollToBottom);
+          Future.delayed(const Duration(milliseconds: 100), scrollToBottom);
         }
       },
       child: Expanded(
@@ -100,7 +107,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(),
+              const SizedBox(),
               Expanded(
                 child: ListView.builder(
                   controller: scrollController,

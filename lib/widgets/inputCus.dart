@@ -35,7 +35,7 @@ class _InputCusState extends State<InputCus> {
   void getTextLineCount() {
     final span = TextSpan(
       text: widget.inputController.text,
-      style: TextStyle(fontSize: AppSizeText.sizeText12),
+      style: const TextStyle(fontSize: AppSizeText.sizeText12),
     );
     final tp = TextPainter(text: span, textDirection: TextDirection.ltr);
     tp.layout(maxWidth: MediaQuery.of(context).size.width - 32);
@@ -44,7 +44,7 @@ class _InputCusState extends State<InputCus> {
 
     if (mounted) {
       setState(() {
-        showIconFullTextField = numLines >= 2;
+        showIconFullTextField = numLines >= 4;
 
         borderRadius = numLines >= 2 ? 20 : 30;
       });
@@ -62,8 +62,8 @@ class _InputCusState extends State<InputCus> {
     return Expanded(
       flex: showFullInputChat && widget.inputController.text.isNotEmpty ? 1 : 0,
       child: Container(
-        margin: EdgeInsets.only(top: 10),
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        margin: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
             border: Border.all(
               color: AppColors.c_gray,
@@ -115,7 +115,7 @@ class _InputCusState extends State<InputCus> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                   mainAxisAlignment: showIconFullTextField
                       ? MainAxisAlignment.spaceBetween
@@ -136,7 +136,7 @@ class _InputCusState extends State<InputCus> {
                       ),
                     IconButton(
                         onPressed: widget.pressSendMessage,
-                        icon: Icon(Icons.send)),
+                        icon: const Icon(Icons.send)),
                   ],
                 ),
               ),

@@ -21,7 +21,7 @@ class BtnOptionSettingCus extends StatelessWidget {
       child: Row(
         children: [
           Icon(icon),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           textCus(
             context: context,
             text: title,

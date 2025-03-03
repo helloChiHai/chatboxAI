@@ -55,16 +55,19 @@ class _HeaderCusState extends State<HeaderCus> {
         final user = snapshot.data;
 
         return Container(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: widget.fnLeftPress,
-                child: Icon(
-                  widget.iconData,
-                  size: 28,
+                child: const Image(
+                  image: AssetImage(
+                    'assets/imgs/comments.png',
+                  ),
+                  height: 28,
+                  width: 28,
                 ),
               ),
               textCus(

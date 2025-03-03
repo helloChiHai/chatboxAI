@@ -28,18 +28,6 @@ class ChatRepository {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        // return [
-        //   {
-        //     "role": "user",
-        //     "content": prompt,
-        //     "timestamp": DateTime.now().toIso8601String()
-        //   },
-        //   {
-        //     "role": "assistant",
-        //     "content": data["choices"][0]["message"]["content"],
-        //     "timestamp": DateTime.now().toIso8601String()
-        //   }
-        // ];
 
         var chatResponse = ChatModel(
           role: "assistant",

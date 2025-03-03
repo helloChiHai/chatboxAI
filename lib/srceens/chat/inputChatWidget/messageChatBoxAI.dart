@@ -57,7 +57,7 @@ class _MessageChatBoxAIState extends State<MessageChatBoxAI> {
             cacheMessages[widget.index] =
                 displayMessage; // lưu trạng thái tin nhắn
           });
-          Future.delayed(Duration(milliseconds: 10), scrollToBottom);
+          Future.delayed(const Duration(milliseconds: 10), scrollToBottom);
         } else {
           timer.cancel();
         }
@@ -69,7 +69,7 @@ class _MessageChatBoxAIState extends State<MessageChatBoxAI> {
     if (widget.scrollController.hasClients) {
       widget.scrollController.animateTo(
         widget.scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 100),
         curve: Curves.easeOut,
       );
     }
@@ -84,12 +84,12 @@ class _MessageChatBoxAIState extends State<MessageChatBoxAI> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SelectableText(
             displayMessage,
             style: const TextStyle(

@@ -8,7 +8,7 @@ import 'package:stock_flutter/widgets/inputCus.dart';
 import 'package:stock_flutter/widgets/shaderMaskHelloUser.dart';
 
 class HelloUserWidget extends StatefulWidget {
-  HelloUserWidget({super.key});
+  const HelloUserWidget({super.key});
 
   @override
   State<HelloUserWidget> createState() => _HelloUserWidgetState();
@@ -75,7 +75,7 @@ class _HelloUserWidgetState extends State<HelloUserWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(),
+                const SizedBox(),
                 ShaderMaskHelloUser(
                     userName: user!.userName.isNotEmpty ? user.userName : ''),
                 InputCus(

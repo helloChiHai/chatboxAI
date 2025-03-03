@@ -60,7 +60,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
-          decoration: BoxDecoration(color: AppColors.backgroundColor),
+          decoration: const BoxDecoration(color: AppColors.backgroundColor),
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
@@ -73,13 +73,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     onTap: () {
                       Utils.navigatorGoBack(context);
                     },
-                    child: Icon(Icons.arrow_back),
+                    child: const Icon(Icons.arrow_back),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Container(
                   height: 0.1,
-                  decoration: BoxDecoration(color: AppColors.c_second_darkmode),
+                  decoration:
+                      const BoxDecoration(color: AppColors.c_second_darkmode),
                 ),
                 const SizedBox(height: 30),
                 Align(

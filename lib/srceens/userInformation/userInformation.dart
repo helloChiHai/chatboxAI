@@ -29,16 +29,16 @@ class _UserInformationState extends State<UserInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Thông tin người dùng'),
+        title: const Text('Thông tin người dùng'),
       ),
       body: Center(
         child: FutureBuilder<User?>(
           future: userFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError || !snapshot.hasData) {
-              return Center(child: Text('Không có dữ liệu người dùng!'));
+              return const Center(child: Text('Không có dữ liệu người dùng!'));
             }
 
             final user = snapshot.data!;
@@ -48,13 +48,16 @@ class _UserInformationState extends State<UserInformation> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('ID: ${user.id}', style: TextStyle(fontSize: 18)),
-                  SizedBox(height: 8),
-                  Text('Tên: ${user.userName}', style: TextStyle(fontSize: 18)),
-                  SizedBox(height: 8),
-                  Text('Email: ${user.email}', style: TextStyle(fontSize: 18)),
-                  SizedBox(height: 8),
-                  Text('Token: ${user.token}', style: TextStyle(fontSize: 18)),
+                  Text('ID: ${user.id}', style: const TextStyle(fontSize: 18)),
+                  const SizedBox(height: 8),
+                  Text('Tên: ${user.userName}',
+                      style: const TextStyle(fontSize: 18)),
+                  const SizedBox(height: 8),
+                  Text('Email: ${user.email}',
+                      style: const TextStyle(fontSize: 18)),
+                  const SizedBox(height: 8),
+                  Text('Token: ${user.token}',
+                      style: const TextStyle(fontSize: 18)),
                 ],
               ),
             );

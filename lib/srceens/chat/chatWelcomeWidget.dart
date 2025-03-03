@@ -6,7 +6,7 @@ import 'package:stock_flutter/constants/localization.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
 class ChatWelcomeWidget extends StatefulWidget {
-  ChatWelcomeWidget({
+  const ChatWelcomeWidget({
     super.key,
   });
 
@@ -37,7 +37,7 @@ class _ChatWelcomeWidgetState extends State<ChatWelcomeWidget> {
   void getTextLineCount() {
     final span = TextSpan(
       text: inputController.text,
-      style: TextStyle(fontSize: AppSizeText.sizeText12),
+      style: const TextStyle(fontSize: AppSizeText.sizeText12),
     );
     final tp = TextPainter(text: span, textDirection: TextDirection.ltr);
     tp.layout(maxWidth: MediaQuery.of(context).size.width - 32);
@@ -58,12 +58,12 @@ class _ChatWelcomeWidgetState extends State<ChatWelcomeWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(),
+            const SizedBox(),
             showFullInputChat
-                ? SizedBox(height: 10)
+                ? const SizedBox(height: 10)
                 : ShaderMask(
                     shaderCallback: (bounds) {
-                      return LinearGradient(
+                      return const LinearGradient(
                         colors: [
                           AppColors.c_blue,
                           AppColors.c_purple,
@@ -85,7 +85,7 @@ class _ChatWelcomeWidgetState extends State<ChatWelcomeWidget> {
             Expanded(
               flex: showFullInputChat ? 1 : 0,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 decoration: BoxDecoration(
                     border: Border.all(
                       color: AppColors.c_gray,
@@ -107,17 +107,18 @@ class _ChatWelcomeWidgetState extends State<ChatWelcomeWidget> {
                             cursorColor: AppColors.c_blue,
                             textAlignVertical: TextAlignVertical.top,
                             textAlign: TextAlign.start,
-                            style: TextStyle(fontSize: AppSizeText.sizeText12),
+                            style: const TextStyle(
+                                fontSize: AppSizeText.sizeText12),
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(context)
                                   .translate('askChatBotAI'),
                               border: InputBorder.none,
-                              contentPadding: EdgeInsets.only(
+                              contentPadding: const EdgeInsets.only(
                                 left: 15,
                                 top: 10,
                                 bottom: 10,
                               ),
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 fontSize: AppSizeText.sizeText12,
                               ),
                             ),
@@ -125,7 +126,7 @@ class _ChatWelcomeWidgetState extends State<ChatWelcomeWidget> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Column(
                           mainAxisAlignment: showIconFullTextField
                               ? MainAxisAlignment.spaceBetween
@@ -148,13 +149,13 @@ class _ChatWelcomeWidgetState extends State<ChatWelcomeWidget> {
                               onTap: () {},
                               child: Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color:
                                       const Color.fromARGB(255, 223, 230, 230),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.send,
                                   size: 20,
                                   color: AppColors.c_darkmode,

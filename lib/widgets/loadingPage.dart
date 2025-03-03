@@ -10,7 +10,7 @@ Future<void> showLoadingPage({
     context: context,
     barrierDismissible: false,
     barrierColor: Colors.black.withOpacity(0.5),
-    transitionDuration: Duration(milliseconds: 300),
+    transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: (context, animation, secondaryAnimation) {
       return Center(
         child: Container(

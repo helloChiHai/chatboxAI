@@ -61,7 +61,7 @@ class _WelcomePageState extends State<WelcomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 130, top: 150),
+              margin: const EdgeInsets.only(bottom: 130, top: 150),
               child: textCus(
                 context: context,
                 text: 'welcome',
@@ -70,7 +70,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             // hình ảnh logo + tên app
             Container(
-              margin: EdgeInsets.only(bottom: 80),
+              margin: const EdgeInsets.only(bottom: 80),
               child: Column(
                 children: [
                   const Image(
@@ -106,7 +106,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       context: context,
                       text: 'continue',
                       fontSize: AppSizeText.sizeText14),
-                  Icon(Icons.arrow_right_rounded)
+                  const Icon(Icons.arrow_right_rounded)
                 ],
               ),
             )

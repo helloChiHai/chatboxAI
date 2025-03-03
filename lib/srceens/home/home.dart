@@ -51,11 +51,8 @@ class _HomePageState extends State<HomePage> {
             previous.themeMode != current.themeMode,
         builder: (context, themeState) {
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.backgroundColor,
-              // color: themeState.themeMode == ThemeMode.dark
-              //     ? AppColors.c_darkmode
-              //     : AppColors.backgroundColor,
             ),
             padding: EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
             child: Column(
@@ -68,7 +65,9 @@ class _HomePageState extends State<HomePage> {
                       : Icons.messenger_outline,
                   title: titleHeader,
                 ),
-                isShowChatHistoryChat ? ChatHistoryList() : HelloUserWidget()
+                isShowChatHistoryChat
+                    ? const ChatHistoryList()
+                    : const HelloUserWidget()
               ],
             ),
           );

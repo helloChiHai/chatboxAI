@@ -11,7 +11,7 @@ class ShaderMaskHelloUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       shaderCallback: (bounds) {
-        return LinearGradient(
+        return const LinearGradient(
           colors: [
             AppColors.c_blue,
             AppColors.c_purple,
@@ -23,7 +23,7 @@ class ShaderMaskHelloUser extends StatelessWidget {
       },
       child: textCus(
         context: context,
-        text: AppLocalizations.of(context).translate('hello') + " " + userName,
+        text: "${AppLocalizations.of(context).translate('hello')} $userName",
         fontSize: AppSizeText.sizeText30,
         fontWeight: FontWeight.w600,
         textAlign: TextAlign.center,
