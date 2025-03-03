@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
-import 'package:stock_flutter/bloc/themeBloc/theme_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/srceens/chatHistoryList/chatHistoryList.dart';
 import 'package:stock_flutter/srceens/home/textHelloUser.dart';
@@ -46,32 +43,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ThemeBloc, ThemeState>(
-        buildWhen: (previous, current) =>
-            previous.themeMode != current.themeMode,
-        builder: (context, themeState) {
-          return Container(
-            decoration: const BoxDecoration(
-              color: AppColors.backgroundColor,
+      body: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.backgroundColor,
+        ),
+        padding:
+            const EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
+        child: Column(
+          children: [
+            HeaderCus(
+              fnLeftPress: handleShowChatHistoryList,
+              fnRightPress: () => handleShowSetting(context),
+              iconData: isShowChatHistoryChat
+                  ? Icons.arrow_back_ios
+                  : Icons.messenger_outline,
+              title: titleHeader,
             ),
-            padding: EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
-            child: Column(
-              children: [
-                HeaderCus(
-                  fnLeftPress: handleShowChatHistoryList,
-                  fnRightPress: () => handleShowSetting(context),
-                  iconData: isShowChatHistoryChat
-                      ? Icons.arrow_back_ios
-                      : Icons.messenger_outline,
-                  title: titleHeader,
-                ),
-                isShowChatHistoryChat
-                    ? const ChatHistoryList()
-                    : const HelloUserWidget()
-              ],
-            ),
-          );
-        },
+            isShowChatHistoryChat
+                ? const ChatHistoryList()
+                : const HelloUserWidget()
+          ],
+        ),
       ),
     );
   }

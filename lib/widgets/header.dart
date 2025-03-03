@@ -8,7 +8,6 @@ import 'package:stock_flutter/widgets/text_cus.dart';
 class HeaderCus extends StatefulWidget {
   VoidCallback? fnLeftPress;
   VoidCallback? fnRightPress;
-  bool? isShowChatHistoryChat;
   String title;
   IconData iconData;
 
@@ -16,7 +15,6 @@ class HeaderCus extends StatefulWidget {
       {super.key,
       this.fnLeftPress,
       this.fnRightPress,
-      this.isShowChatHistoryChat = false,
       this.title = '',
       this.iconData = Icons.messenger_outline});
 
@@ -62,14 +60,18 @@ class _HeaderCusState extends State<HeaderCus> {
             children: [
               GestureDetector(
                 onTap: widget.fnLeftPress,
-                child: const Image(
-                  image: AssetImage(
-                    'assets/imgs/comments.png',
-                  ),
-                  height: 28,
-                  width: 28,
-                ),
+                child: Icon(widget.iconData),
               ),
+              // GestureDetector(
+              //   onTap: widget.fnLeftPress,
+              //   child: const Image(
+              //     image: AssetImage(
+              //       'assets/imgs/comments.png',
+              //     ),
+              //     height: 28,
+              //     width: 28,
+              //   ),
+              // ),
               textCus(
                   context: context,
                   text: widget.title,

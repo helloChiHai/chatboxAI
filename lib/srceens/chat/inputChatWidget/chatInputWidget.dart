@@ -65,7 +65,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     inputController.dispose(); // Giải phóng controller cũ
     inputController = TextEditingController(); // Tạo controller mới
 
-    Future.delayed(Duration(milliseconds: 100), scrollToBottom);
+    Future.delayed(const Duration(milliseconds: 100), scrollToBottom);
   }
 
   void scrollToBottom() {
