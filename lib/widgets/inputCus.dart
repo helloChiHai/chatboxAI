@@ -92,7 +92,10 @@ class _InputCusState extends State<InputCus> {
                     cursorColor: AppColors.c_blue,
                     textAlignVertical: TextAlignVertical.top,
                     textAlign: TextAlign.start,
-                    style: const TextStyle(fontSize: AppSizeText.sizeText12),
+                    style: const TextStyle(
+                      fontSize: AppSizeText.sizeText12,
+                      color: AppColors.c_black,
+                    ),
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)
                           .translate('askChatBotAI'),
