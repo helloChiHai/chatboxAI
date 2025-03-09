@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   void handleShowChatHistoryList() {
     setState(() {
       isShowChatHistoryChat = !isShowChatHistoryChat;
-      titleHeader = isShowChatHistoryChat ? 'conversation' : 'appName';
+      titleHeader = isShowChatHistoryChat ? 'commercialQestions' : 'appName';
     });
   }
 

@@ -9,6 +9,7 @@ Widget textCus({
   FontWeight fontWeight = FontWeight.normal,
   Color? color = AppColors.c_black,
   TextAlign textAlign = TextAlign.start,
+  int? maxLines = 2,
 }) {
   return Text(
     AppLocalizations.of(context).translate(text),
@@ -19,6 +20,6 @@ Widget textCus({
         decoration: TextDecoration.none,
         overflow: TextOverflow.ellipsis),
     textAlign: textAlign,
-    maxLines: 2,
+    maxLines: maxLines,
   );
 }

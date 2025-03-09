@@ -29,12 +29,14 @@
     "resetPassword": "Reset Password",
     "askChatBotAI": "Ask ChatBot AI",
     "conversation": "Conversation",
-    "toDay": "Today",
+    "today": "Today",
     "30daysAgo":"30 days ago",
     "changeLanguage":"change language",
     "changeTheme":"Change theme",
     "noDataAvailable": "No data available",
     "pleaseWaitAMoment": "Please wait a moment...",
     "setting": "Setting",
-    "logout": "Logout"
+    "logout": "Logout",
+    "commercialQestions": "Commercial questions"
+
 }

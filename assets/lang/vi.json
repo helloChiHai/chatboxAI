@@ -29,7 +29,7 @@
     "resetPassword": "Tạo lại mật khẩu",
     "askChatBotAI": "Hỏi ChatBox AI",
     "conversation": "Cuộc trò chuyện",
-    "toDay": "Hôm nay",
+    "today": "Hôm nay",
     "30daysAgo":"30 ngày trước",
     "changeLanguage":"Thay đổi ngôn ngữ",
     "changeTheme":"Thay đổi chủ đề",
@@ -37,5 +37,6 @@
     "pleaseWaitAMoment": "Vui lòng chờ trong giây lát...",
     "pleaseWrongAccountPasswordWaitAMoment": "Sai tài khoản hoặc mật khẩu",
     "setting": "Cài đặt",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "commercialQestions": "Những câu hỏi thương gặp"
 }

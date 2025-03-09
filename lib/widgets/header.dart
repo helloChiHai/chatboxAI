@@ -76,12 +76,18 @@ class _HeaderCusState extends State<HeaderCus> {
               //     width: 28,
               //   ),
               // ),
-              textCus(
+
+              Expanded(
+                child: textCus(
                   context: context,
                   text: widget.title,
                   fontWeight: FontWeight.w600,
                   fontSize: AppSizeText.sizeText16,
-                  color: AppColors.c_black),
+                  color: AppColors.c_black,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                ),
+              ),
               GestureDetector(
                 onTap: widget.fnRightPress,
                 child: CircleAvatar(
