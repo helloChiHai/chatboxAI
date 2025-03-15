@@ -3,7 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_bloc.dart';
 import 'package:stock_flutter/bloc/auth/auth_event.dart';
 import 'package:stock_flutter/bloc/auth/auth_state.dart';
+import 'package:stock_flutter/bloc/changeModal/changeModal_bloc.dart';
+import 'package:stock_flutter/bloc/changeModal/changeModal_event.dart';
+import 'package:stock_flutter/bloc/changeModal/changeModal_state.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
+import 'package:stock_flutter/repositories/changeModal_repository.dart';
+import 'package:stock_flutter/services/service_locator.dart';
 import 'package:stock_flutter/srceens/login/login.dart';
 import 'package:stock_flutter/srceens/viewUserInformation/bgUserInformation.dart';
 import 'package:stock_flutter/utils/utils.dart';
@@ -39,6 +44,25 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   double heightFactor = 0.9;
   double widthFactor = 0.9;
+  bool isShowChangeModal = false;
+  late String nameModal = 'deepseek:deepseek-v3';
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentModal();
+  }
+
+  Future<void> getCurrentModal() async {
+    String? modal = await locator<ChangeModalRepository>().getCurrentModal();
+
+    print('modal123123: $modal');
+    if (modal != null) {
+      setState(() {
+        nameModal = modal;
+      });
+    }
+  }
 
   void handleGoback(BuildContext context) {
     Utils.navigatorGoBack(context);
@@ -60,6 +84,10 @@ class _SettingPageState extends State<SettingPage> {
     context.read<AuthBloc>().add(const LogoutRequested());
   }
 
+  void toggleModal(BuildContext context, String modalName) {
+    context.read<ChangeModalBloc>().add(ChangeModal(modalName));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
@@ -72,82 +100,179 @@ class _SettingPageState extends State<SettingPage> {
         }
       },
       builder: (context, authState) {
-        return Align(
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onVerticalDragUpdate: (details) {},
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.3,
-              decoration: const BoxDecoration(
-                color: AppColors.c_gray_255_217,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  // header
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () => handleGoback(context),
-                        child: const Icon(
-                          Icons.close,
-                          size: 25,
-                          color: AppColors.c_black,
-                        ),
-                      ),
-                      textCus(
-                        context: context,
-                        text: 'appName',
-                        color: AppColors.c_black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: AppSizeText.sizeText14,
-                      ),
-                      const Icon(
-                        Icons.close,
-                        size: 25,
-                        color: AppColors.c_gray_255_217,
-                      ),
-                    ],
+        return BlocBuilder<ChangeModalBloc, ModalState>(
+          builder: (context, modalState) {
+            final String? currentModal = modalState.currentModal ?? nameModal;
+            return Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onVerticalDragUpdate: (details) {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: isShowChangeModal
+                      ? MediaQuery.of(context).size.height * 0.5
+                      : MediaQuery.of(context).size.height * 0.3,
+                  decoration: const BoxDecoration(
+                    color: AppColors.c_gray_255_217,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
-                  const SizedBox(height: 20),
-                  const BgUserInformation(),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
-                      child: Column(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      // header
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SizedBox(height: 5),
-                          BtnOptionSettingCus(
-                            fnPress: () {},
-                            title: 'setting',
-                            icon: Icons.settings,
-                          ),
-                          const SizedBox(height: 20),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: btnCusLogin(
-                              context: context,
-                              title: 'logout',
-                              pressBtn: authState is AuthLoading
-                                  ? null
-                                  : () => handleLogout(context),
-                              bgColor: Colors.red,
+                          GestureDetector(
+                            onTap: () => handleGoback(context),
+                            child: const Icon(
+                              Icons.close,
+                              size: 25,
+                              color: AppColors.c_black,
                             ),
+                          ),
+                          textCus(
+                            context: context,
+                            text: 'appName',
+                            color: AppColors.c_black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppSizeText.sizeText14,
+                          ),
+                          const Icon(
+                            Icons.close,
+                            size: 25,
+                            color: AppColors.c_gray_255_217,
                           ),
                         ],
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                      const BgUserInformation(),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(height: 5),
+                              BtnOptionSettingCus(
+                                fnPress: () {},
+                                title: 'setting',
+                                icon: Icons.settings,
+                              ),
+                              BtnOptionSettingCus(
+                                fnPress: () {
+                                  setState(() {
+                                    isShowChangeModal = !isShowChangeModal;
+                                  });
+                                },
+                                title: 'switchModal',
+                                icon: Icons.change_circle_outlined,
+                              ),
+                              isShowChangeModal
+                                  ? Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<ChangeModalBloc>()
+                                                  .add(const ChangeModal(
+                                                      'openai:gpt-4o-mini'));
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  currentModal ==
+                                                          'openai:gpt-4o-mini'
+                                                      ? Icons.radio_button_on
+                                                      : Icons.radio_button_off,
+                                                  color: currentModal ==
+                                                          'openai:gpt-4o-mini'
+                                                      ? Colors.blue[400]
+                                                      : Colors.black,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: textCus(
+                                                    context: context,
+                                                    text: 'Gpt-4o-mini',
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          // Text(
+                                          //   'Lần trước bạn đã mở: Modal ${modalState.currentModal}',
+                                          //   style:
+                                          //       const TextStyle(fontSize: 10),
+                                          // ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<ChangeModalBloc>()
+                                                  .add(const ChangeModal(
+                                                      'deepseek:deepseek-v3'));
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  currentModal ==
+                                                          'deepseek:deepseek-v3'
+                                                      ? Icons.radio_button_on
+                                                      : Icons.radio_button_off,
+                                                  color: currentModal ==
+                                                          'deepseek:deepseek-v3'
+                                                      ? Colors.blue[400]
+                                                      : Colors.black,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: textCus(
+                                                    context: context,
+                                                    text: 'DeepSeek',
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              const SizedBox(height: 20),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: btnCusLogin(
+                                  context: context,
+                                  title: 'logout',
+                                  pressBtn: authState is AuthLoading
+                                      ? null
+                                      : () => handleLogout(context),
+                                  bgColor: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

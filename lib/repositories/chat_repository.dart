@@ -2,13 +2,17 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:stock_flutter/models/chat_model.dart';
+import 'package:stock_flutter/repositories/changeModal_repository.dart';
 
 class ChatRepository {
-  static String apiKey = "sk-zTa8tij4Nyi5yDC5Dd935aF252Cd4dF985950e722101E6E5";
+  static String apiKey = "sk-Au4vfFq5S1BVmJdo18B1D0Aa2f4e4d2d808e1cA366784465";
   static String url = "https://api.llm.ai.vn/v1/chat/completions";
 
   Future<ChatModel> sendMessage(String prompt) async {
     try {
+      String currentModal = await ChangeModalRepository().getCurrentModal() ??
+          'openai:gpt-4o-mini';
+
       final response = await http.post(
         Uri.parse(url),
         headers: {
@@ -16,7 +20,7 @@ class ChatRepository {
           "Content-Type": "application/json",
         },
         body: jsonEncode({
-          "model": "deepseek:deepseek-v3",
+          "model": currentModal,
           "messages": [
             {"role": "system", "content": "Bạn là một trợ lý AI hữu ích."},
             {"role": "user", "content": prompt},
@@ -24,6 +28,7 @@ class ChatRepository {
         }),
       );
 
+      print('currentModal: $currentModal');
       print("📡 API Response Body: ${response.body}");
 
       if (response.statusCode == 200) {

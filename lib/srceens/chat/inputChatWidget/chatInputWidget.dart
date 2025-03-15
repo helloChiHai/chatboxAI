@@ -99,6 +99,13 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                 .add(ChatModel(role: "assistant", content: chatState.message));
           });
           Future.delayed(const Duration(milliseconds: 100), scrollToBottom);
+        } else if (chatState is ChatError) {
+          setState(() {
+            checkLoadMessage = false;
+            dataChat
+                .add(ChatModel(role: "assistant", content: chatState.error));
+          });
+          Future.delayed(const Duration(milliseconds: 100), scrollToBottom);
         }
       },
       child: Expanded(
