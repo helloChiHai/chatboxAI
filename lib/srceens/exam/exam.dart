@@ -49,9 +49,28 @@ class _ExamState extends State<Exam> {
     );
   }
 
+  void handleGoResultAppearanceFinance() {
+    Utils.navigator(
+      context,
+      AppRoutes.appearanceFinaceScores,
+      arguments: {},
+    );
+  }
+
+  void handleGoAppearanceFinance(String titleHeader, String sex) {
+    Utils.navigator(
+      context,
+      AppRoutes.appearanceFinance,
+      arguments: {
+        'titleHeader': titleHeader,
+        'sex': sex, // 1: nam; 0:nu
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Column(
         children: [
           // select set
@@ -94,6 +113,62 @@ class _ExamState extends State<Exam> {
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
+                  InkWell(
+                    onTap: () => handleGoAppearanceFinance(
+                      'Ngoài hình và tài chính của ${sex == 1 ? 'nam' : 'nữ'}',
+                      sex == 1 ? '1' : '0',
+                    ),
+                    child: SizedBox(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          textCus(
+                            context: context,
+                            text:
+                                'Ngoài hình và tài chính của ${sex == 1 ? 'nam' : 'nữ'}',
+                            fontSize: AppSizeText.sizeText14,
+                          ),
+                          const Icon(
+                            Icons.arrow_right,
+                            size: 20,
+                            color: AppColors.c_black,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  InkWell(
+                    onTap: handleGoResultAppearanceFinance,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: AppColors.c_3399FF,
+                          width: 1,
+                        ))),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            textCus(
+                              context: context,
+                              text: 'Kết quả của ngoài hình tài chính',
+                              fontSize: AppSizeText.sizeText14,
+                            ),
+                            const Icon(
+                              Icons.arrow_right,
+                              size: 20,
+                              color: AppColors.c_black,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   InkWell(
                     onTap: () => handleGoListQuestion(
                       sex == 1 ? 1 : 0,

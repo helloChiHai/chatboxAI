@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_flutter/srceens/AppearanceFinance/appearanceFinance.dart';
+import 'package:stock_flutter/srceens/appearanceFinaceScores/appearanceFinaceScores.dart';
 import 'package:stock_flutter/srceens/chat/chat.dart';
 import 'package:stock_flutter/srceens/home/home.dart';
 import 'package:stock_flutter/srceens/listQuestion/listQuestion.dart';
@@ -21,6 +23,8 @@ class AppRoutes {
   static const String userInformation = '/userInformation';
   static const String listQuestion = '/listQuestion';
   static const String miniTestScores = '/miniTestScores';
+  static const String appearanceFinance = '/appearanceFinance';
+  static const String appearanceFinaceScores = '/appearanceFinaceScores';
 
   static Route? generateRoute(RouteSettings settings) {
     Widget screen;
@@ -63,6 +67,16 @@ class AppRoutes {
           titleHeader: args['titleHeader'],
           typeScores: args['typeScores'],
         );
+        break;
+      case appearanceFinance:
+        final args = settings.arguments as Map<String, dynamic>;
+        screen = AppearanceFinance(
+          titleHeader: args['titleHeader'],
+          sex: args['sex'],
+        );
+        break;
+      case appearanceFinaceScores:
+        screen = AppearanceFinaceScores();
         break;
       default:
         return errorRoute();
