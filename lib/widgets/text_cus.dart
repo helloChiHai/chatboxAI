@@ -14,11 +14,12 @@ Widget textCus({
   return Text(
     AppLocalizations.of(context).translate(text),
     style: TextStyle(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color,
-        decoration: TextDecoration.none,
-        overflow: TextOverflow.ellipsis),
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      decoration: TextDecoration.none,
+      overflow: TextOverflow.ellipsis,
+    ),
     textAlign: textAlign,
     maxLines: maxLines,
   );

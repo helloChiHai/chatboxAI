@@ -151,7 +151,7 @@ class _ExamState extends State<Exam> {
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () => handleGoResultMenAndWomen(
-                        'Kết quả của Nam - Nữ',
+                        'Kết quả của ${sex == 1 ? 'Nam - Nữ' : 'Nữ - Nam'}',
                         sex == 1 ? 1 : 2), // 1: nam-nu; 2: nu-nam
                     child: Align(
                       alignment: Alignment.centerLeft,

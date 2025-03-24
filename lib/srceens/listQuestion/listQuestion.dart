@@ -29,6 +29,7 @@ class ListQuestion extends StatefulWidget {
 
 class _ListQuestionState extends State<ListQuestion> {
   late QuestionsBloc questionsBloc;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -55,41 +56,66 @@ class _ListQuestionState extends State<ListQuestion> {
       return;
     }
 
-    print('widget.nameQuestion:');
+    // Tìm câu hỏi chưa chọn
+    int? firstUnansweredIndex;
+    for (int i = 0; i < widget.dataQuestion!.length; i++) {
+      if (widget.dataQuestion![i].selectedOption == null) {
+        firstUnansweredIndex = i;
+        break;
+      }
+    }
 
-    // lưu câu trl
+    if (firstUnansweredIndex != null) {
+      // Cuộn tới câu hỏi chưa chọn
+      _scrollController.animateTo(
+        firstUnansweredIndex * 120.0, // Ước lượng chiều cao của mỗi item
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Lỗi"),
+          content: Text(
+              "Vui lòng chọn câu trả lời cho câu ${firstUnansweredIndex! + 1}."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+
+      return;
+    }
+
+    // Lưu câu trả lời
     questionsBloc.add(SaveQuestionsEvent(
-        questions: widget.dataQuestion!.map((q) {
-          return {
-            "key": q.key,
-            "selectedOption": q.selectedOption ?? "Chưa chọn"
-          };
-        }).toList(),
-        key: widget.nameQuestion));
+      questions: widget.dataQuestion!.map((q) {
+        return {
+          "key": q.key,
+          "selectedOption": q.selectedOption ?? "Chưa chọn"
+        };
+      }).toList(),
+      key: widget.nameQuestion,
+    ));
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Kết quả đã lưu ${widget.nameQuestion}"),
+        // title: Text("Kết quả đã lưu ${widget.nameQuestion}"),
+        title: const Text("Kết quả đã lưu"),
         content: const Text("Câu trả lời đã được lưu thành công."),
         actions: [
           TextButton(
-              onPressed: () => Utils.navigatorGoBack(context),
-              child: const Text("OK")),
+            onPressed: () => Utils.navigatorGoBack(context),
+            child: const Text("OK"),
+          ),
         ],
       ),
     );
-  }
-
-  final QuestionService questionService = QuestionService();
-
-  void viewSaveData() async {
-    print('widget.nameQuestion ${widget.nameQuestion}');
-
-    List<Map<String, dynamic>> savedData =
-        await questionService.getQuestions(widget.nameQuestion);
-
-    print('data duoc luu: $savedData');
   }
 
   void handleGoBack(BuildContext context) {
@@ -105,31 +131,6 @@ class _ListQuestionState extends State<ListQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.dataQuestion == null || widget.dataQuestion!.isEmpty) {
-      return Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.backgroundColor,
-          ),
-          padding:
-              const EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
-          child: Column(
-            children: [
-              HeaderCus(
-                fnLeftPress: () {
-                  Utils.navigatorGoBack(context);
-                },
-                fnRightPress: () {},
-                iconData: Icons.arrow_back_ios,
-                title: widget.titleHeader,
-                showIconRight: false,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -148,6 +149,7 @@ class _ListQuestionState extends State<ListQuestion> {
             ),
             Expanded(
               child: ListView.builder(
+                controller: _scrollController,
                 padding: const EdgeInsets.all(10),
                 itemCount: widget.dataQuestion!.length,
                 itemBuilder: (context, index) {
@@ -171,7 +173,7 @@ class _ListQuestionState extends State<ListQuestion> {
                                 option,
                                 style: const TextStyle(fontSize: 12),
                               ),
-                              value: option.split('. ')[0], // Lấy ký tự A, B, C
+                              value: option.split('. ')[0],
                               groupValue: question.selectedOption,
                               onChanged: (value) {
                                 setState(() {
@@ -187,10 +189,6 @@ class _ListQuestionState extends State<ListQuestion> {
                 },
               ),
             ),
-            GestureDetector(
-              onTap: viewSaveData,
-              child: Text('data'),
-            ),
             InkWell(
               onTap: submitAnswers,
               child: Container(
@@ -201,11 +199,12 @@ class _ListQuestionState extends State<ListQuestion> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: textCus(
-                    context: context,
-                    text: 'Nộp bài',
-                    fontSize: AppSizeText.sizeText14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.c_white),
+                  context: context,
+                  text: 'Nộp bài',
+                  fontSize: AppSizeText.sizeText14,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.c_white,
+                ),
               ),
             )
           ],

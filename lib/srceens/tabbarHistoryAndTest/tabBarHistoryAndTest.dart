@@ -4,6 +4,14 @@ import 'package:stock_flutter/srceens/chatHistoryList/chatHistoryList.dart';
 import 'package:stock_flutter/srceens/exam/exam.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
 
+class TabItem {
+  final int id;
+  final String name;
+  final Widget screen;
+
+  TabItem({required this.id, required this.name, required this.screen});
+}
+
 class TabbarHistoryAndTest extends StatefulWidget {
   const TabbarHistoryAndTest({super.key});
 
@@ -11,25 +19,18 @@ class TabbarHistoryAndTest extends StatefulWidget {
   State<TabbarHistoryAndTest> createState() => _TabbarHistoryAndTestState();
 }
 
-class _TabbarHistoryAndTestState extends State<TabbarHistoryAndTest>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _TabbarHistoryAndTestState extends State<TabbarHistoryAndTest> {
+  int selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(
-      () {
-        setState(() {});
-      },
-    );
-  }
+  final List<TabItem> tabs = [
+    TabItem(id: 0, name: 'commercialQestions', screen: const ChatHistoryList()),
+    TabItem(id: 1, name: 'Mini Test', screen: const Exam()),
+  ];
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void handlePressTabBar(int id) {
+    setState(() {
+      selectedIndex = id;
+    });
   }
 
   @override
@@ -40,55 +41,47 @@ class _TabbarHistoryAndTestState extends State<TabbarHistoryAndTest>
         children: [
           SizedBox(
             height: 40,
-            child: TabBar(
-              controller: _tabController,
-              indicator: BoxDecoration(
-                color: AppColors.c_blue,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              indicatorSize: TabBarIndicatorSize.tab,
-              isScrollable: false,
-              tabs: [
-                Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: textCus(
-                    context: context,
-                    text: 'commercialQestions',
-                    color: _tabController.index == 0
-                        ? AppColors.c_white
-                        : AppColors.c_black,
-                    fontWeight: _tabController.index == 0
-                        ? FontWeight.bold
-                        : FontWeight.normal,
+            width: double.infinity,
+            child: Row(
+              children: tabs.asMap().entries.map((e) {
+                int index = e.key;
+                var tab = e.value;
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => handlePressTabBar(index),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: selectedIndex == index
+                            ? AppColors.c_blue
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: textCus(
+                        context: context,
+                        text: tab.name,
+                        color: selectedIndex == index
+                            ? AppColors.c_white
+                            : AppColors.c_black,
+                        fontWeight: selectedIndex == index
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: textCus(
-                    context: context,
-                    text: 'Bài text',
-                    color: _tabController.index == 1
-                        ? AppColors.c_white
-                        : AppColors.c_black,
-                    fontWeight: _tabController.index == 1
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                ),
-              ],
+                );
+              }).toList(),
             ),
           ),
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                ChatHistoryList(),
-                Exam(),
-              ],
+            child: IndexedStack(
+              index: selectedIndex,
+              children: tabs.map((tab) => tab.screen).toList(),
             ),
-          ),
+          )
         ],
       ),
     );
