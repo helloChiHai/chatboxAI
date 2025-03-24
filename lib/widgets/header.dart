@@ -10,13 +10,14 @@ class HeaderCus extends StatefulWidget {
   VoidCallback? fnRightPress;
   String title;
   IconData iconData;
-
+  bool showIconRight;
   HeaderCus(
       {super.key,
       this.fnLeftPress,
       this.fnRightPress,
       this.title = '',
-      this.iconData = Icons.messenger_outline});
+      this.iconData = Icons.messenger_outline,
+      this.showIconRight = true});
 
   @override
   State<HeaderCus> createState() => _HeaderCusState();
@@ -88,16 +89,21 @@ class _HeaderCusState extends State<HeaderCus> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              GestureDetector(
-                onTap: widget.fnRightPress,
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: (user!.img.isEmpty)
-                      ? const AssetImage('assets/imgs/logoApp.png')
-                          as ImageProvider
-                      : NetworkImage(user.img),
-                ),
-              )
+              widget.showIconRight
+                  ? GestureDetector(
+                      onTap: widget.fnRightPress,
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: (user!.img.isEmpty)
+                            ? const AssetImage('assets/imgs/logoApp.png')
+                                as ImageProvider
+                            : NetworkImage(user.img),
+                      ),
+                    )
+                  : const SizedBox(
+                      width: 20,
+                      height: 20,
+                    ),
             ],
           ),
         );

@@ -58,8 +58,9 @@ class Utils {
   }
 
   // chuyển màn
-  static void navigator(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+  static void navigator(BuildContext context, String routeName,
+      {Object? arguments}) {
+    Navigator.pushNamed(context, routeName, arguments: arguments);
   }
 
   // BTT: bot to top

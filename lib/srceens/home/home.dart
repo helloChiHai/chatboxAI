@@ -3,6 +3,7 @@ import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/srceens/chatHistoryList/chatHistoryList.dart';
 import 'package:stock_flutter/srceens/home/textHelloUser.dart';
 import 'package:stock_flutter/srceens/setting/setting.dart';
+import 'package:stock_flutter/srceens/tabbarHistoryAndTest/tabBarHistoryAndTest.dart';
 import 'package:stock_flutter/widgets/header.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,10 +58,10 @@ class _HomePageState extends State<HomePage> {
               iconData: isShowChatHistoryChat
                   ? Icons.arrow_back_ios
                   : Icons.messenger_outline,
-              title: titleHeader,
+              title: '',
             ),
             isShowChatHistoryChat
-                ? const ChatHistoryList()
+                ? TabbarHistoryAndTest()
                 : const HelloUserWidget()
           ],
         ),

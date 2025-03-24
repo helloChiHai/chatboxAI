@@ -110,7 +110,7 @@ class _SettingPageState extends State<SettingPage> {
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: isShowChangeModal
-                      ? MediaQuery.of(context).size.height * 0.5
+                      ? MediaQuery.of(context).size.height * 0.4
                       : MediaQuery.of(context).size.height * 0.3,
                   decoration: const BoxDecoration(
                     color: AppColors.c_gray_255_217,
@@ -153,7 +153,6 @@ class _SettingPageState extends State<SettingPage> {
                             horizontal: 15,
                           ),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(height: 5),
                               BtnOptionSettingCus(
@@ -161,6 +160,7 @@ class _SettingPageState extends State<SettingPage> {
                                 title: 'setting',
                                 icon: Icons.settings,
                               ),
+                              const SizedBox(height: 10),
                               BtnOptionSettingCus(
                                 fnPress: () {
                                   setState(() {
@@ -174,6 +174,7 @@ class _SettingPageState extends State<SettingPage> {
                                   ? Container(
                                       width: double.infinity,
                                       padding: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(top: 10),
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(10),
@@ -252,15 +253,17 @@ class _SettingPageState extends State<SettingPage> {
                                     )
                                   : const SizedBox(),
                               const SizedBox(height: 20),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: btnCusLogin(
-                                  context: context,
-                                  title: 'logout',
-                                  pressBtn: authState is AuthLoading
-                                      ? null
-                                      : () => handleLogout(context),
-                                  bgColor: Colors.red,
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: btnCusLogin(
+                                    context: context,
+                                    title: 'logout',
+                                    pressBtn: authState is AuthLoading
+                                        ? null
+                                        : () => handleLogout(context),
+                                    bgColor: Colors.red,
+                                  ),
                                 ),
                               ),
                             ],

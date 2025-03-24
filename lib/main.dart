@@ -9,14 +9,17 @@ import 'package:stock_flutter/bloc/auth/auth_state.dart';
 import 'package:stock_flutter/bloc/changeModal/changeModal_bloc.dart';
 import 'package:stock_flutter/bloc/chatBloc/chat_bloc.dart';
 import 'package:stock_flutter/bloc/languageBloc/language_bloc.dart';
+import 'package:stock_flutter/bloc/questions/questions_bloc.dart';
 import 'package:stock_flutter/bloc/scheduleBloc/schedule_bloc.dart';
 import 'package:stock_flutter/bloc/themeBloc/theme_bloc.dart';
 import 'package:stock_flutter/constants/localization.dart';
 import 'package:stock_flutter/repositories/auth_repository.dart';
 import 'package:stock_flutter/repositories/changeModal_repository.dart';
 import 'package:stock_flutter/repositories/chat_repository.dart';
+import 'package:stock_flutter/repositories/question_repository.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:stock_flutter/services/QuestionService.dart';
 import 'package:stock_flutter/services/navigation_service.dart';
 import 'package:stock_flutter/services/service_locator.dart';
 
@@ -40,11 +43,14 @@ void main() async {
   final authRepository = AuthRepository();
   final chatRepository = ChatRepository();
   final changeModalRepository = ChangeModalRepository();
+  final questionRepository =
+      QuestionRepository(questionService: QuestionService());
 
   runApp(MyApp(
     authRepository: authRepository,
     chatRepository: chatRepository,
     changeModalRepository: changeModalRepository,
+    questionRepository: questionRepository,
   ));
 }
 
@@ -81,10 +87,13 @@ class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
   final ChatRepository chatRepository;
   final ChangeModalRepository changeModalRepository;
-  const MyApp(
-      {required this.authRepository,
-      required this.chatRepository,
-      required this.changeModalRepository});
+  final QuestionRepository questionRepository;
+  const MyApp({
+    required this.authRepository,
+    required this.chatRepository,
+    required this.changeModalRepository,
+    required this.questionRepository,
+  });
 
   NavigatorState get _navigator =>
       locator<NavigationService>().navigatorKey.currentState!;
@@ -103,6 +112,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<ChangeModalBloc>(
             create: (context) =>
                 ChangeModalBloc(modalRepository: changeModalRepository)),
+        BlocProvider<QuestionsBloc>(
+            create: (context) => QuestionsBloc(repository: questionRepository)),
       ],
       child: Builder(
         builder: (context) {

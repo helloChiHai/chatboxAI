@@ -36,66 +36,65 @@ class _ChatHistoryListState extends State<ChatHistoryList> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Scrollbar(
-        thumbVisibility: true,
-        child: ListView.builder(
-          itemCount: chatData.length,
-          itemBuilder: (context, index) {
-            return chatData[index]['type'] == 1
-                ? Container(
-                    child: textCus(
-                        context: context,
-                        text: chatData[index]['title'],
-                        fontSize: AppSizeText.sizeText14,
-                        color: AppColors.c_black,
-                        fontWeight: FontWeight.w600),
-                  )
-                : Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    child: ElevatedButton(
-                      onPressed: handleGoChat,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.backgroundColor,
-                        shadowColor: Colors.transparent,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        elevation: 0,
-                        padding: EdgeInsets.zero,
+    return Scrollbar(
+      thumbVisibility: true,
+      child: ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        itemCount: chatData.length,
+        itemBuilder: (context, index) {
+          return chatData[index]['type'] == 1
+              ? Container(
+                  child: textCus(
+                      context: context,
+                      text: chatData[index]['title'],
+                      fontSize: AppSizeText.sizeText14,
+                      color: AppColors.c_black,
+                      fontWeight: FontWeight.w600),
+                )
+              : Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  child: ElevatedButton(
+                    onPressed: handleGoChat,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.backgroundColor,
+                      shadowColor: Colors.transparent,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: AppColors.c_gray_255_217,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: const Image(
-                              image: AssetImage(
-                                'assets/imgs/comments.png',
-                              ),
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: textCus(
-                              context: context,
-                              text: chatData[index]['title'],
-                              fontSize: AppSizeText.sizeText12,
-                              color: AppColors.c_black,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
+                      elevation: 0,
+                      padding: EdgeInsets.zero,
                     ),
-                  );
-          },
-        ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AppColors.c_gray_255_217,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: const Image(
+                            image: AssetImage(
+                              'assets/imgs/comments.png',
+                            ),
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: textCus(
+                            context: context,
+                            text: chatData[index]['title'],
+                            fontSize: AppSizeText.sizeText12,
+                            color: AppColors.c_black,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+        },
       ),
     );
   }
