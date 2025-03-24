@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:stock_flutter/models/question_model.dart';
 
 abstract class QuestionsState extends Equatable {
   @override
@@ -9,13 +8,12 @@ abstract class QuestionsState extends Equatable {
 class QuestionInitial extends QuestionsState {}
 
 class QuestionLoaded extends QuestionsState {
-  final List<Map<String, dynamic>> questions;
-  final String key;
+  final Map<String, List<Map<String, dynamic>>> questionsMap;
 
-  QuestionLoaded({required this.questions, required this.key});
+  QuestionLoaded({required this.questionsMap});
 
   @override
-  List<Object?> get props => [questions];
+  List<Object?> get props => [questionsMap];
 }
 
 class QuestionError extends QuestionsState {

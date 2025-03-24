@@ -7,6 +7,7 @@ import 'package:stock_flutter/srceens/login/login.dart';
 import 'package:stock_flutter/srceens/login/register.dart';
 import 'package:stock_flutter/srceens/login/welcome.dart';
 import 'package:stock_flutter/srceens/meeting/meeting.dart';
+import 'package:stock_flutter/srceens/miniTestScores/miniTestScores.dart';
 import 'package:stock_flutter/srceens/userInformation/userInformation.dart';
 
 class AppRoutes {
@@ -19,6 +20,7 @@ class AppRoutes {
   static const String chat = '/chat';
   static const String userInformation = '/userInformation';
   static const String listQuestion = '/listQuestion';
+  static const String miniTestScores = '/miniTestScores';
 
   static Route? generateRoute(RouteSettings settings) {
     Widget screen;
@@ -54,6 +56,13 @@ class AppRoutes {
             titleHeader: args['titleHeader'],
             dataQuestion: args['dataQuestion'],
             nameQuestion: args['nameQuestion']);
+        break;
+      case miniTestScores:
+        final args = settings.arguments as Map<String, dynamic>;
+        screen = MiniTestScores(
+          titleHeader: args['titleHeader'],
+          typeScores: args['typeScores'],
+        );
         break;
       default:
         return errorRoute();

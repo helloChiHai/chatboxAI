@@ -35,6 +35,20 @@ class _ExamState extends State<Exam> {
     );
   }
 
+  void handleGoResultMenAndWomen(
+    String titleHeader,
+    int typeScores,
+  ) {
+    Utils.navigator(
+      context,
+      AppRoutes.miniTestScores,
+      arguments: {
+        'titleHeader': titleHeader,
+        'typeScores': typeScores, // 1: nam-nu; 2:nu-nam
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,7 +98,7 @@ class _ExamState extends State<Exam> {
                     onTap: () => handleGoListQuestion(
                       sex == 1 ? 1 : 0,
                       'Nhu cầu của ${sex == 1 ? 'nam' : 'nữ'}',
-                      MockData.questions,
+                      sex == 1 ? MockData.dataNhuCauNam : MockData.dataNhuCauNu,
                       "nhuCau${sex == 1 ? 'Nam' : 'Nu'}",
                     ),
                     child: SizedBox(
@@ -110,7 +124,9 @@ class _ExamState extends State<Exam> {
                     onTap: () => handleGoListQuestion(
                       sex == 1 ? 1 : 0,
                       'Khả năng của ${sex == 1 ? 'nam' : 'nữ'}',
-                      MockData.questions,
+                      sex == 1
+                          ? MockData.dataKhaNangCuaNam
+                          : MockData.dataKhaNangCuaNu,
                       "khaNang${sex == 1 ? 'Nam' : 'Nu'}",
                     ),
                     child: SizedBox(
@@ -129,6 +145,40 @@ class _ExamState extends State<Exam> {
                             color: AppColors.c_black,
                           )
                         ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  InkWell(
+                    onTap: () => handleGoResultMenAndWomen(
+                        'Kết quả của Nam - Nữ',
+                        sex == 1 ? 1 : 2), // 1: nam-nu; 2: nu-nam
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: AppColors.c_3399FF,
+                          width: 1,
+                        ))),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            textCus(
+                              context: context,
+                              text:
+                                  'Kết quả của ${sex == 1 ? 'nam - nữ' : 'nữ - nam'}',
+                              fontSize: AppSizeText.sizeText14,
+                            ),
+                            const Icon(
+                              Icons.arrow_right,
+                              size: 20,
+                              color: AppColors.c_black,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

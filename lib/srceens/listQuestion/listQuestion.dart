@@ -35,9 +35,6 @@ class _ListQuestionState extends State<ListQuestion> {
     super.initState();
     questionsBloc = QuestionsBloc(
         repository: QuestionRepository(questionService: QuestionService()));
-
-    print('Sex: ${widget.sex}');
-    print('Title Header: ${widget.titleHeader}');
   }
 
   void submitAnswers() {
@@ -69,10 +66,6 @@ class _ListQuestionState extends State<ListQuestion> {
           };
         }).toList(),
         key: widget.nameQuestion));
-
-    // List<Map<String, Object>> results = widget.dataQuestion!.map((q) {
-    //   return {"key": q.key, "selectedOption": q.selectedOption ?? "Chưa chọn"};
-    // }).toList();
 
     showDialog(
       context: context,

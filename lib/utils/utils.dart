@@ -149,4 +149,45 @@ class Utils {
       return null;
     }
   }
+
+  static double tinhDiemPhuHop(
+      List<Map<String, dynamic>> dataNam,
+      List<Map<String, dynamic>> dataNu,
+      Map<int, Map<String, int>> diemTheoKey) {
+    Map<int, String> mapNam = {
+      for (var item in dataNam) item['key']: item['selectedOption']
+    };
+    Map<int, String> mapNu = {
+      for (var item in dataNu) item['key']: item['selectedOption']
+    };
+
+    int totalScore = 0;
+    int matchCount = 0;
+
+    print('--- Kết quả so khớp ---');
+
+    // Duyệt qua từng key chung
+    for (var key in mapNam.keys) {
+      if (mapNu.containsKey(key) && diemTheoKey.containsKey(key)) {
+        String selectedNam = mapNam[key]!;
+        String selectedNu = mapNu[key]!;
+        String pair = '$selectedNam-$selectedNu';
+
+        // Lấy điểm từ bảng điểm theo từng key
+        int score = diemTheoKey[key]?[pair] ?? 0;
+        print('Key $key: $selectedNam - $selectedNu => Điểm: $score');
+
+        totalScore += score;
+        matchCount++;
+      }
+    }
+
+    double averageScore = matchCount > 0 ? totalScore / matchCount : 0;
+
+    print('-------------------------');
+    print('Tổng điểm: $totalScore');
+    print('Điểm trung bình: ${averageScore.toStringAsFixed(2)}');
+
+    return averageScore;
+  }
 }
