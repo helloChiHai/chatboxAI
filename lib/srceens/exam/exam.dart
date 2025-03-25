@@ -115,7 +115,7 @@ class _ExamState extends State<Exam> {
                 children: [
                   InkWell(
                     onTap: () => handleGoAppearanceFinance(
-                      'Ngoài hình và tài chính của ${sex == 1 ? 'nam' : 'nữ'}',
+                      'Ngoại hình và tài chính của ${sex == 1 ? 'nam' : 'nữ'}',
                       sex == 1 ? '1' : '0',
                     ),
                     child: SizedBox(
@@ -125,7 +125,7 @@ class _ExamState extends State<Exam> {
                           textCus(
                             context: context,
                             text:
-                                'Ngoài hình và tài chính của ${sex == 1 ? 'nam' : 'nữ'}',
+                                'Ngoại hình và tài chính của ${sex == 1 ? 'nam' : 'nữ'}',
                             fontSize: AppSizeText.sizeText14,
                           ),
                           const Icon(

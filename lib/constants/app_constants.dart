@@ -23,6 +23,7 @@ class AppColors {
   static const Color c_FF0033 = Color(0xFFFF0033);
   static const Color c_gray = Color.fromARGB(255, 93, 92, 92);
   static const Color c_gray_255_217 = Color.fromARGB(255, 239, 239, 239);
+  static const Color c_blue_shade50 = Color(0xFFE3F2FD);
 }
 
 class AppSizeText {

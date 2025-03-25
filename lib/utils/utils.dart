@@ -193,44 +193,101 @@ class Utils {
     return totalScore;
   }
 
-  // static double tinhDiemPhuHop(
-  //     List<Map<String, dynamic>> dataNam,
-  //     List<Map<String, dynamic>> dataNu,
-  //     Map<int, Map<String, int>> diemTheoKey) {
-  //   Map<int, String> mapNam = {
-  //     for (var item in dataNam) item['key']: item['selectedOption']
-  //   };
-  //   Map<int, String> mapNu = {
-  //     for (var item in dataNu) item['key']: item['selectedOption']
-  //   };
+  static int tinhDiemChieuCao(int chieuCaoNam, int chieuCaoNu) {
+    int chenhLech = chieuCaoNam - chieuCaoNu;
 
-  //   int totalScore = 0;
-  //   int matchCount = 0;
+    if (chenhLech >= 10 && chenhLech <= 20) {
+      return 30; //  Hoàn hảo
+    } else if ((chenhLech >= 5 && chenhLech < 10) ||
+        (chenhLech > 20 && chenhLech <= 25)) {
+      return 25;
+    } else if (chenhLech > 25 && chenhLech <= 30) {
+      return 15; //  Giảm điểm
+    } else if (chenhLech < 5 && chenhLech >= 0) {
+      return 10; // Điểm thấp
+    } else {
+      return 0; // Nam thấp hơn nữ
+    }
+  }
 
-  //   print('--- Kết quả so khớp ---');
+  /// Tính BMI dựa trên cân nặng (kg) và chiều cao (cm)
+  static double tinhBMI(int canNang, int chieuCao) {
+    double chieuCaoMet = chieuCao / 100.0; // Chuyển đổi cm -> m
+    return canNang / (chieuCaoMet * chieuCaoMet);
+  }
 
-  //   // Duyệt qua từng key chung
-  //   for (var key in mapNam.keys) {
-  //     if (mapNu.containsKey(key) && diemTheoKey.containsKey(key)) {
-  //       String selectedNam = mapNam[key]!;
-  //       String selectedNu = mapNu[key]!;
-  //       String pair = '$selectedNam-$selectedNu';
+  /// Tính điểm BMI dựa trên BMI của nam, BMI của nữ và sở thích vóc dáng của nữ
+  static int tinhDiemBMI(double bmiNam, String soThichNu) {
+    // Định nghĩa các khoảng BMI theo sở thích
+    Map<String, List<double>> tieuChuan = {
+      "Gầy": [16, 18.5],
+      "Bình thường": [18.5, 24],
+      "Đầy đặn": [24, 27],
+      "Mập mạp": [27, 30],
+    };
 
-  //       // Lấy điểm từ bảng điểm theo từng key
-  //       int score = diemTheoKey[key]?[pair] ?? 0;
-  //       print('Key $key: $selectedNam - $selectedNu => Điểm: $score');
+    if (!tieuChuan.containsKey(soThichNu)) {
+      return 10; // Nếu sở thích không hợp lệ, cho điểm trung bình thấp
+    }
 
-  //       totalScore += score;
-  //       matchCount++;
-  //     }
-  //   }
+    List<double> khoangThichHop = tieuChuan[soThichNu]!;
+    double minThichHop = khoangThichHop[0];
+    double maxThichHop = khoangThichHop[1];
 
-  //   double averageScore = matchCount > 0 ? totalScore / matchCount : 0;
+    if (bmiNam >= minThichHop && bmiNam <= maxThichHop) {
+      return 30; //  Trùng khớp hoàn toàn
+    } else if ((bmiNam >= minThichHop - 2 && bmiNam < minThichHop) ||
+        (bmiNam > maxThichHop && bmiNam <= maxThichHop + 2)) {
+      return 20; // Lệch 1-2 đơn vị BMI
+    } else if ((bmiNam >= minThichHop - 4 && bmiNam < minThichHop - 2) ||
+        (bmiNam > maxThichHop + 2 && bmiNam <= maxThichHop + 4)) {
+      return 10; //  Không đúng sở thích
+    } else {
+      return 5; //  Lệch hoàn toàn
+    }
+  }
 
-  //   print('-------------------------');
-  //   print('Tổng điểm: $totalScore');
-  //   print('Điểm trung bình: ${averageScore.toStringAsFixed(2)}');
+  /// Tính điểm thu nhập của nam so với nữ
+  static int tinhDiemThuNhap(double thuNhapNam, double thuNhapNu) {
+    if (thuNhapNam == 0) return 0; //  Nam thất nghiệp
+    double tyLe = thuNhapNam / thuNhapNu;
+    if (tyLe >= 1.5) return 30; //  Nam kiếm ≥ 1.5 lần nữ
+    if (tyLe >= 1.0) return 20; // Nam kiếm từ 1.0 - 1.49 lần nữ
+    if (tyLe >= 0.7) return 10; //  Nam kiếm ít hơn nữ nhưng trên 70%
+    return 5; //  Nam kiếm < 70% nữ
+  }
 
-  //   return averageScore;
-  // }
+  /// Tính điểm chênh lệch tuổi tác
+  static int tinhDiemTuoi(int tuoiNam, int tuoiNu) {
+    int chenhLech = tuoiNam - tuoiNu;
+    if (chenhLech >= 2 && chenhLech <= 7) return 10; //  Nam hơn nữ 2-7 tuổi
+    if (chenhLech >= 8 && chenhLech <= 10) return 6; //  Nam hơn nữ 8-10 tuổi
+    if (chenhLech > 10) return 2; //  Nam hơn nữ trên 10 tuổi
+    return 0; //  Nam bằng hoặc nhỏ hơn nữ
+  }
+
+  static String tinhTongDiem({
+    required int chieuCaoNam,
+    required int chieuCaoNu,
+    required int canNangNam,
+    required String soThichNu,
+    required double thuNhapNam,
+    required double thuNhapNu,
+    required int tuoiNam,
+    required int tuoiNu,
+  }) {
+    int diemChieuCao = tinhDiemChieuCao(chieuCaoNam, chieuCaoNu);
+    double bmiNam = tinhBMI(canNangNam, chieuCaoNam);
+    int diemBMI = tinhDiemBMI(bmiNam, soThichNu);
+    int diemThuNhap = tinhDiemThuNhap(thuNhapNam, thuNhapNu);
+    int diemTuoi = tinhDiemTuoi(tuoiNam, tuoiNu);
+
+    int tongDiem = diemChieuCao + diemBMI + diemThuNhap + diemTuoi;
+
+    if (tongDiem > 85) return "Siêu hợp 💖 ($tongDiem điểm)";
+    if (tongDiem >= 70) return "Rất hợp 👍 ($tongDiem điểm)";
+    if (tongDiem >= 50) return "Bình thường 🤔 ($tongDiem điểm)";
+    if (tongDiem >= 30) return "Tương đối khó 😬 ($tongDiem điểm)";
+    return "Không hợp ❌ ($tongDiem điểm)";
+  }
 }

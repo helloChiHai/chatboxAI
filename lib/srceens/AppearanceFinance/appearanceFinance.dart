@@ -8,6 +8,7 @@ import 'package:stock_flutter/services/appearanceFinanceService.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/header.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class AppearanceFinance extends StatefulWidget {
   String titleHeader;
@@ -91,49 +92,13 @@ class _AppearanceFinanceState extends State<AppearanceFinance> {
     );
   }
 
-  // void submitData(BuildContext context) {
-  //   String height = heightController.text;
-  //   String weight = weightController.text;
-  //   String income = incomeController.text;
-  //   String age = ageController.text;
-
-  //   // Tạo danh sách câu hỏi dưới dạng Map<String, dynamic>
-  //   List<Map<String, dynamic>> questions = [
-  //     {"label": "Chiều cao", "value": height, "unit": "cm"},
-  //     {"label": "Cân nặng", "value": weight, "unit": "kg"},
-  //     {"label": "Thu nhập", "value": income, "unit": "VND"},
-  //     {"label": "Độ tuổi", "value": age, "unit": "tuổi"},
-  //   ];
-
-  //   // Gửi sự kiện lưu dữ liệu
-  //   appearanceFinanceBloc.add(SaveAppearanceFinanceEvent(
-  //     key: widget.sex == '1' ? 'ngoaiHinhTaiChinhNam' : 'ngoaiHinhTaiChinhNu',
-  //     questions: questions,
-  //   ));
-
-  //   print('questions: $questions');
-
-  //   // Hiển thị Dialog xác nhận
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: Text("Thông tin cá nhân"),
-  //         content: Text(
-  //             "Chiều cao: $height cm\nCân nặng: $weight kg\nThu nhập: $income VND\nĐộ tuổi: $age tuổi"),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Navigator.pop(context),
-  //             child: Text("OK"),
-  //           )
-  //         ],
-  //       );
-  //     },
-  //   );
-
-  //   // trả về màn trước
-  //   Utils.navigatorGoBack(context);
-  // }
+  final List<String> itemsInterest = [
+    'Gầy',
+    'Bình thường',
+    'Đầy đặn',
+    'Mập mạp',
+  ];
+  String? selectedValueInterest;
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +126,92 @@ class _AppearanceFinanceState extends State<AppearanceFinance> {
                 "Chiều cao (cm)", heightController, TextInputType.number),
             buildTextField(
                 "Cân nặng (kg)", weightController, TextInputType.number),
+            DropdownButtonHideUnderline(
+              child: DropdownButton2<String>(
+                isExpanded: true,
+                hint: const Row(
+                  children: [
+                    Icon(
+                      Icons.list,
+                      size: 16,
+                      color: AppColors.c_black,
+                    ),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Select Item',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.c_black_54,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                items: itemsInterest
+                    .map((String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: AppColors.c_black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ))
+                    .toList(),
+                value: selectedValueInterest,
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedValueInterest = value;
+                  });
+                },
+                buttonStyleData: ButtonStyleData(
+                  height: 50,
+                  width: 160,
+                  padding: const EdgeInsets.only(left: 14, right: 14),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    // border: Border.all(
+                    //   color: Colors.black26,
+                    // ),
+                    color: AppColors.c_blue_shade50,
+                  ),
+                  elevation: 2,
+                ),
+                iconStyleData: const IconStyleData(
+                  icon: Icon(
+                    Icons.arrow_forward_ios_outlined,
+                  ),
+                  iconSize: 14,
+                  iconEnabledColor: AppColors.c_black,
+                  iconDisabledColor: Colors.grey,
+                ),
+                dropdownStyleData: DropdownStyleData(
+                  maxHeight: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    color: AppColors.c_blue_shade50,
+                  ),
+                  // offset: const Offset(-20, 0),
+                  // scrollbarTheme: ScrollbarThemeData(
+                  //   radius: const Radius.circular(40),
+                  //   thickness: MaterialStateProperty.all<double>(6),
+                  //   thumbVisibility: MaterialStateProperty.all<bool>(true),
+                  // ),
+                ),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 40,
+                  padding: EdgeInsets.only(left: 14, right: 14),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             buildTextField("Thu nhập hàng tháng (VND)", incomeController,
                 TextInputType.number),
             buildTextField("Độ tuổi", ageController, TextInputType.number),
