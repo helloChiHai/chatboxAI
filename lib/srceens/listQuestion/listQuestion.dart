@@ -95,17 +95,6 @@ class _ListQuestionState extends State<ListQuestion> {
     //   return;
     // }
 
-    // Lưu câu trả lời
-    // questionsBloc.add(SaveQuestionsEvent(
-    //   questions: widget.dataQuestion!.map((q) {
-    //     return {
-    //       "key": q.key,
-    //       "selectedOption": q.selectedOption ?? "Chưa chọn"
-    //     };
-    //   }).toList(),
-    //   key: widget.nameQuestion,
-    // ));
-
     var result = ResultModel(
       key: widget.sex == 1 ? 'Nam' : 'Nu',
       informationUser: widget.dataUserInformation,
@@ -113,7 +102,6 @@ class _ListQuestionState extends State<ListQuestion> {
     );
 
     String jsonData = jsonEncode(result.toJson());
-    // print(jsonData.runtimeType);
 
     showDialog(
       context: context,
@@ -132,6 +120,13 @@ class _ListQuestionState extends State<ListQuestion> {
         ],
       ),
     );
+  }
+
+  bool isAllQuestionsAnswered() {
+    if (widget.dataQuestion == null || widget.dataQuestion!.isEmpty) {
+      return false;
+    }
+    return widget.dataQuestion!.every((q) => q.selectedOption != null);
   }
 
   void handleGoListQuestion({
@@ -164,7 +159,7 @@ class _ListQuestionState extends State<ListQuestion> {
           color: AppColors.backgroundColor,
         ),
         padding:
-            const EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 25),
+            const EdgeInsets.only(right: 10, left: 10, top: 40, bottom: 10),
         child: Column(
           children: [
             HeaderCus(
@@ -216,24 +211,29 @@ class _ListQuestionState extends State<ListQuestion> {
                 },
               ),
             ),
-            InkWell(
-              onTap: submitAnswers,
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: AppColors.c_blue,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: textCus(
-                  context: context,
-                  text: 'Nộp bài',
-                  fontSize: AppSizeText.sizeText14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.c_white,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: InkWell(
+                onTap: isAllQuestionsAnswered() ? submitAnswers : null,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: isAllQuestionsAnswered()
+                        ? AppColors.c_blue
+                        : Colors.grey[400],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: textCus(
+                    context: context,
+                    text: 'Nộp bài',
+                    fontSize: AppSizeText.sizeText14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.c_white,
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stock_flutter/constants/app_constants.dart';
-import 'package:stock_flutter/constants/mock_data.dart';
 import 'package:stock_flutter/models/question_model.dart';
 import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/srceens/AppearanceFinance/appearanceFinance.dart';
 import 'package:stock_flutter/srceens/exam/widget/selectedSex.dart';
+import 'package:stock_flutter/srceens/scanQRCode/scanQRCode.dart';
 import 'package:stock_flutter/utils/utils.dart';
-import 'package:stock_flutter/widgets/text_cus.dart';
 
 class Exam extends StatefulWidget {
   const Exam({super.key});
@@ -105,15 +103,30 @@ class _ExamState extends State<Exam> {
                     selectSex: sex,
                   ),
                 ),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: SelectedSex(
+                    pressSelectSex: () {
+                      setState(() {
+                        sex = 2; // Quét kết quả
+                      });
+                    },
+                    title: 'Quét kết quả',
+                    sex: 2,
+                    selectSex: sex,
+                  ),
+                ),
               ],
             ),
           ),
           // list question
           Expanded(
-            child: AppearanceFinance(
-              sex: sex == 1 ? "1" : "2",
-              titleHeader: sex == 1 ? 'nam' : 'nữ',
-            ),
+            child: sex == 2
+                ? ScanQRCode()
+                : AppearanceFinance(
+                    sex: sex == 1 ? "1" : "2",
+                    titleHeader: sex == 1 ? 'nam' : 'nữ',
+                  ),
           ),
         ],
       ),
