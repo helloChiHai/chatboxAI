@@ -66,6 +66,8 @@ class AuthRepository {
 
       print('firebaseUser: $firebaseUser');
 
+      print('token: $token');
+
       await StorageService.saveToken(token ?? '');
 
       return User(

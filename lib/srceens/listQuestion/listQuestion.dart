@@ -145,10 +145,24 @@ class _ListQuestionState extends State<ListQuestion> {
     if (widget.dataQuestion != null) {
       for (var question in widget.dataQuestion!) {
         question.selectedOption = null;
+        question.starCount = 0;
       }
     }
 
     Utils.navigatorGoBack(context);
+  }
+
+  void handlePressStar(int index) {
+    setState(() {
+      var question = widget.dataQuestion![index];
+      if (question.starCount == 0) {
+        question.starCount = 1;
+      } else if (question.starCount == 1) {
+        question.starCount = 2;
+      } else if (question.starCount == 2) {
+        question.starCount = 1;
+      }
+    });
   }
 
   @override
@@ -184,6 +198,34 @@ class _ListQuestionState extends State<ListQuestion> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // show row star
+                          int.parse(question.key) <= 20
+                              ? Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => handlePressStar(index),
+                                      child: Row(
+                                        children: List.generate(2, (starIndex) {
+                                          return Container(
+                                            margin:
+                                                const EdgeInsets.only(right: 5),
+                                            child: Image(
+                                              image: AssetImage(
+                                                starIndex < question.starCount
+                                                    ? 'assets/imgs/star.png'
+                                                    : 'assets/imgs/unStar.png',
+                                              ),
+                                              width: 20,
+                                              height: 20,
+                                            ),
+                                          );
+                                        }),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
+                          // question
                           Text(
                             "${question.key}. ${question.text}",
                             style: const TextStyle(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/bloc/appearanceFinanceBloc/appearanceFinance_bloc.dart';
-import 'package:stock_flutter/bloc/appearanceFinanceBloc/appearanceFinance_event.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/constants/mock_data.dart';
 import 'package:stock_flutter/models/question_model.dart';
@@ -75,16 +74,6 @@ class _AppearanceFinanceState extends State<AppearanceFinance> {
       {"label": "Thu nhập", "value": income, "unit": "VND"},
       {"label": "Độ tuổi", "value": age, "unit": "tuổi"},
     ];
-
-    // String key =
-    //     widget.sex == "1" ? 'ngoaiHinhTaiChinhNam' : 'ngoaiHinhTaiChinhNu';
-
-    // appearanceFinanceBloc.add(SaveAppearanceFinanceEvent(
-    //   key: key,
-    //   questions: questions,
-    // ));
-
-    // print('key: $key - questions: $questions');
 
     showDialog(
       context: context,

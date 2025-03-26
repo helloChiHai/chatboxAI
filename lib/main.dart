@@ -30,9 +30,10 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
 
-  WidgetsFlutterBinding.ensureInitialized();
+  await ChatRepository.initialize();
 
   try {
     await Firebase.initializeApp(demoProjectId: "chatboxai-b5fb5");
