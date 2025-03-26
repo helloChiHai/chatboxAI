@@ -1,7 +1,7 @@
 import 'package:stock_flutter/models/question_model.dart';
 
 class MockData {
-  // NHU CẦU CỦA NAM
+  // NHU CẦU CỦA NAM + KHẢ NĂNG CỦA NAM
   static final List<Question> dataNhuCauNam = [
     Question(
       key: "1",
@@ -186,8 +186,193 @@ class MockData {
         "C. Không muốn có con hoặc chưa nghĩ tới."
       ],
     ),
+    // bo sung phan kha nang cua nam
+    Question(
+      key: "21",
+      text: "Bạn có tự tin về ngoại hình của mình không?",
+      options: [
+        "A. Rất tự tin, tôi biết mình có sức hút.",
+        "B. Bình thường, tôi không đẹp trai nhưng có duyên.",
+        "C. Không tự tin lắm, ngoại hình không phải thế mạnh của tôi."
+      ],
+    ),
+    Question(
+      key: "22",
+      text: "Bạn có thường xuyên chăm sóc bản thân, tập luyện thể thao không?",
+      options: [
+        "A. Có, tôi luôn duy trì body săn chắc, khỏe mạnh.",
+        "B. Thỉnh thoảng tập, không quá nghiêm túc.",
+        "C. Không quan tâm lắm, miễn là không béo phì."
+      ],
+    ),
+    Question(
+      key: "23",
+      text: "Bạn có quan tâm đến phong cách ăn mặc không?",
+      options: [
+        "A. Có, tôi luôn ăn mặc chỉn chu, hợp thời trang.",
+        "B. Tùy hoàn cảnh, khi cần thì mặc đẹp.",
+        "C. Không quá quan trọng, miễn sao thoải mái là được."
+      ],
+    ),
+    Question(
+      key: "24",
+      text:
+          "Bạn có nghĩ rằng chuyện chăn gối là quan trọng trong mối quan hệ không?",
+      options: [
+        "A. Rất quan trọng, tôi luôn cố gắng để bạn gái hài lòng.",
+        "B. Quan trọng nhưng không phải tất cả.",
+        "C. Không quá quan trọng, quan hệ tình cảm là chính."
+      ],
+    ),
+    Question(
+      key: "25",
+      text: "Bạn đánh giá kỹ năng tình dục của mình như thế nào?",
+      options: [
+        "A. Xuất sắc, tôi có kinh nghiệm và biết cách làm hài lòng đối phương.",
+        "B. Ổn, có thể cải thiện nếu cần.",
+        "C. Không có nhiều kinh nghiệm nhưng sẵn sàng học hỏi."
+      ],
+    ),
+    Question(
+      key: "26",
+      text:
+          "Bạn có thích thể hiện tình cảm bằng hành động (ôm, hôn, vuốt ve) không?",
+      options: [
+        "A. Có, tôi thích gần gũi và thể hiện tình cảm nhiều.",
+        "B. Vừa phải, không quá lạm dụng.",
+        "C. Không thích lắm, tôi thể hiện bằng cách khác."
+      ],
+    ),
+    Question(
+      key: "27",
+      text: "Tình hình tài chính của bạn như thế nào?",
+      options: [
+        "A. Rất tốt, tôi có khả năng lo cho người yêu/chồng.",
+        "B. Ổn định, đủ sống thoải mái.",
+        "C. Đang cố gắng cải thiện tài chính."
+      ],
+    ),
+    Question(
+      key: "28",
+      text: "Bạn có sẵn sàng chia sẻ việc nhà với bạn gái/vợ không?",
+      options: [
+        "A. Có, tôi thích làm việc nhà cùng bạn gái/vợ.",
+        "B. Thỉnh thoảng, nếu cần giúp đỡ.",
+        "C. Không, tôi nghĩ đó là việc của phụ nữ."
+      ],
+    ),
+    Question(
+      key: "29",
+      text: "Bạn có công việc ổn định không?",
+      options: [
+        "A. Có, tôi có sự nghiệp vững chắc.",
+        "B. Công việc bình thường, không quá xuất sắc.",
+        "C. Chưa ổn định, đang trên đường phát triển."
+      ],
+    ),
+    Question(
+      key: "30",
+      text: "Bạn có phải là người quyết đoán không?",
+      options: [
+        "A. Có, tôi luôn biết mình muốn gì và không do dự.",
+        "B. Tùy trường hợp, có lúc mạnh mẽ, có lúc do dự.",
+        "C. Không, tôi hay bị ảnh hưởng bởi người khác."
+      ],
+    ),
+    Question(
+      key: "31",
+      text: "Bạn có hay ghen không?",
+      options: [
+        "A. Có, tôi muốn kiểm soát người yêu/vợ.",
+        "B. Vừa phải, chỉ khi có dấu hiệu đáng ngờ.",
+        "C. Không, tôi rất tin tưởng đối phương."
+      ],
+    ),
+    Question(
+      key: "32",
+      text: "Bạn có sẵn sàng chủ động trong mối quan hệ không?",
+      options: [
+        "A. Có, tôi thích dẫn dắt và kiểm soát tình hình.",
+        "B. Tùy lúc, có lúc chủ động, có lúc để đối phương quyết định.",
+        "C. Không, tôi thích để bạn gái quyết định."
+      ],
+    ),
+    Question(
+      key: "33",
+      text: "Bạn có thích chăm sóc người yêu như một cô công chúa không?",
+      options: [
+        "A. Có, tôi thích nuông chiều và bảo vệ cô ấy.",
+        "B. Vừa phải, nhưng không muốn cô ấy quá dựa dẫm.",
+        "C. Không, tôi muốn một mối quan hệ bình đẳng."
+      ],
+    ),
+    Question(
+      key: "34",
+      text: "Bạn có sẵn sàng hòa hợp với gia đình bạn gái/vợ không?",
+      options: [
+        "A. Có, tôi luôn cố gắng tạo quan hệ tốt với gia đình cô ấy.",
+        "B. Chỉ cần không xung đột là được.",
+        "C. Không quan tâm, tôi chỉ cần hợp với cô ấy."
+      ],
+    ),
+    Question(
+      key: "35",
+      text: "Bạn có thích đi chơi, du lịch với người yêu/vợ không?",
+      options: [
+        "A. Có, tôi thích trải nghiệm và khám phá cùng nhau.",
+        "B. Vừa phải, lâu lâu đi một lần.",
+        "C. Không thích du lịch lắm."
+      ],
+    ),
+    Question(
+      key: "36",
+      text:
+          "Bạn có sẵn sàng thay đổi sở thích cá nhân để phù hợp với người yêu không?",
+      options: [
+        "A. Có, nếu điều đó quan trọng với cô ấy.",
+        "B. Chỉ trong giới hạn hợp lý.",
+        "C. Không, tôi muốn giữ sở thích của mình."
+      ],
+    ),
+    Question(
+      key: "37",
+      text: "Bạn có thích kiểm soát người yêu/vợ không?",
+      options: [
+        "A. Có, tôi muốn biết mọi thứ về cô ấy.",
+        "B. Chỉ cần biết những điều quan trọng.",
+        "C. Không, tôi tôn trọng sự riêng tư."
+      ],
+    ),
+    Question(
+      key: "38",
+      text: "Bạn muốn sống ở đâu sau khi kết hôn?",
+      options: [
+        "A. Ở riêng, không sống chung với gia đình.",
+        "B. Gần nhà bố mẹ để tiện chăm sóc.",
+        "C. Sống chung với gia đình vợ."
+      ],
+    ),
+    Question(
+      key: "39",
+      text: "Bạn có muốn có con ngay sau khi kết hôn không?",
+      options: [
+        "A. Có, tôi thích có con sớm.",
+        "B. Đợi một thời gian rồi tính tiếp.",
+        "C. Không muốn có con hoặc chưa nghĩ tới."
+      ],
+    ),
+    Question(
+      key: "40",
+      text: "Bạn muốn nuôi dạy con như thế nào?",
+      options: [
+        "A. Theo phong cách truyền thống, nghiêm khắc.",
+        "B. Theo hướng hiện đại, thoải mái và tự do.",
+        "C. Kết hợp cả truyền thống và hiện đại."
+      ],
+    ),
   ];
 
+  // NHU CẦU CỦA NỮ + KHẢ NĂNG CỦA NỮ
   static final List<Question> dataNhuCauNu = [
     Question(
       key: "1",
@@ -371,6 +556,196 @@ class MockData {
         "A. Theo phong cách truyền thống, nghiêm khắc.",
         "B. Theo hướng hiện đại, thoải mái và tự do.",
         "C. Kết hợp cả truyền thống và hiện đại."
+      ],
+    ),
+    // bổ sung thêm khả năng của nữ
+    Question(
+      key: "21",
+      text: "Bạn có quan tâm đến ngoại hình và chăm sóc bản thân không?",
+      options: [
+        "A. Có, tôi luôn giữ gìn vẻ ngoài hấp dẫn.",
+        "B. Vừa phải, không quá đặt nặng.",
+        "C. Không, tôi không quan tâm lắm đến ngoại hình."
+      ],
+    ),
+    Question(
+      key: "22",
+      text:
+          "Bạn có sẵn sàng học hỏi hoặc cải thiện kỹ năng tình dục để làm hài lòng đối phương không?",
+      options: [
+        "A. Có, tôi luôn sẵn sàng cải thiện.",
+        "B. Nếu đối phương yêu cầu thì tôi sẽ cân nhắc.",
+        "C. Không, tôi thấy không cần thiết."
+      ],
+    ),
+    Question(
+      key: "23",
+      text: "Bạn có hay chủ động thể hiện tình cảm không?",
+      options: [
+        "A. Có, tôi thích thể hiện bằng hành động và lời nói.",
+        "B. Vừa phải, không quá lộ liễu.",
+        "C. Không, tôi ít khi thể hiện tình cảm."
+      ],
+    ),
+    Question(
+      key: "24",
+      text: "Bạn có thường xuyên làm đẹp, trang điểm khi đi ra ngoài không?",
+      options: [
+        "A. Có, tôi luôn muốn mình xinh đẹp trước mặt người yêu.",
+        "B. Tùy dịp, không phải lúc nào cũng trang điểm.",
+        "C. Không, tôi thích vẻ đẹp tự nhiên."
+      ],
+    ),
+    Question(
+      key: "25",
+      text:
+          "Bạn có sẵn sàng hỗ trợ tài chính nếu chồng/bạn trai gặp khó khăn không?",
+      options: [
+        "A. Có, tôi sẵn sàng san sẻ.",
+        "B. Chỉ trong một số trường hợp cần thiết.",
+        "C. Không, tài chính là trách nhiệm của đàn ông."
+      ],
+    ),
+    Question(
+      key: "26",
+      text:
+          "Bạn có sẵn sàng tôn trọng và ủng hộ đam mê, sự nghiệp của bạn trai/chồng không?",
+      options: [
+        "A. Có, tôi sẽ luôn ủng hộ hết mình.",
+        "B. Tùy vào mức độ hợp lý.",
+        "C. Không, nếu nó ảnh hưởng đến cuộc sống chung."
+      ],
+    ),
+    Question(
+      key: "27",
+      text:
+          "Bạn có sẵn sàng dành thời gian để chăm sóc bạn trai/chồng sau một ngày làm việc mệt mỏi không?",
+      options: [
+        "A. Có, tôi thích chăm sóc người mình yêu.",
+        "B. Chỉ khi tôi cũng không quá mệt.",
+        "C. Không, ai cũng có trách nhiệm tự lo cho bản thân."
+      ],
+    ),
+    Question(
+      key: "28",
+      text: "Bạn có quan tâm đến việc chăm sóc nhà cửa không?",
+      options: [
+        "A. Có, tôi thích giữ nhà cửa gọn gàng, sạch sẽ.",
+        "B. Vừa phải, miễn là không quá bừa bộn.",
+        "C. Không, tôi không thích việc nhà."
+      ],
+    ),
+    Question(
+      key: "29",
+      text:
+          "Bạn có sẵn sàng học nấu ăn nếu đối phương thích ăn đồ nhà làm không?",
+      options: [
+        "A. Có, tôi sẵn sàng học để chiều bạn trai/chồng.",
+        "B. Chỉ nếu tôi thấy cần thiết.",
+        "C. Không, tôi không thích nấu ăn."
+      ],
+    ),
+    Question(
+      key: "30",
+      text: "Bạn có thích đi du lịch cùng người yêu/chồng không?",
+      options: [
+        "A. Có, tôi thích khám phá cùng nhau.",
+        "B. Chỉ thỉnh thoảng, không quá thường xuyên.",
+        "C. Không thích đi du lịch lắm."
+      ],
+    ),
+    Question(
+      key: "31",
+      text:
+          "Bạn có thích gặp gỡ và hòa hợp với gia đình, bạn bè của đối phương không?",
+      options: [
+        "A. Có, tôi muốn xây dựng mối quan hệ tốt với họ.",
+        "B. Tùy từng người, không phải ai tôi cũng thân thiện.",
+        "C. Không quan tâm lắm."
+      ],
+    ),
+    Question(
+      key: "32",
+      text: "Bạn có sẵn sàng sinh con sớm sau khi kết hôn không?",
+      options: [
+        "A. Có, tôi thích có con ngay.",
+        "B. Đợi vài năm rồi tính tiếp.",
+        "C. Không muốn có con hoặc chưa nghĩ tới."
+      ],
+    ),
+    Question(
+      key: "33",
+      text:
+          "Bạn có sẵn sàng thay đổi thói quen cá nhân để phù hợp với đối phương không?",
+      options: [
+        "A. Có, tôi muốn thích nghi để hòa hợp.",
+        "B. Chỉ trong giới hạn nhất định.",
+        "C. Không, tôi muốn giữ thói quen của mình."
+      ],
+    ),
+    Question(
+      key: "34",
+      text: "Bạn có thích chăm sóc chồng/bạn trai khi ốm đau không?",
+      options: [
+        "A. Có, tôi sẽ chăm sóc chu đáo.",
+        "B. Vừa phải, nếu tôi có thời gian.",
+        "C. Không, ai cũng phải tự lo cho bản thân."
+      ],
+    ),
+    Question(
+      key: "35",
+      text: "Bạn có thích để bạn trai/chồng chủ động trong mọi việc không?",
+      options: [
+        "A. Có, tôi thích đàn ông mạnh mẽ, quyết đoán.",
+        "B. Chỉ trong một số trường hợp quan trọng.",
+        "C. Không, tôi muốn cùng nhau quyết định mọi thứ."
+      ],
+    ),
+    Question(
+      key: "36",
+      text:
+          "Bạn có sẵn sàng bỏ bớt các mối quan hệ nam giới khác nếu bạn trai/chồng không thích không?",
+      options: [
+        "A. Có, tôi ưu tiên mối quan hệ chính.",
+        "B. Chỉ khi thấy họ thực sự không phù hợp.",
+        "C. Không, tôi có quyền giữ bạn bè riêng."
+      ],
+    ),
+    Question(
+      key: "37",
+      text: "Bạn có sẵn sàng ở nhà nội trợ nếu chồng kiếm đủ tiền không?",
+      options: [
+        "A. Có, tôi thích chăm sóc gia đình.",
+        "B. Không chắc, tùy hoàn cảnh.",
+        "C. Không, tôi muốn có sự nghiệp riêng."
+      ],
+    ),
+    Question(
+      key: "38",
+      text: "Bạn có muốn chủ động trong chuyện chăn gối không?",
+      options: [
+        "A. Có, tôi thích sự chủ động và sáng tạo.",
+        "B. Chỉ thỉnh thoảng, tùy cảm hứng.",
+        "C. Không, tôi thích để đàn ông dẫn dắt."
+      ],
+    ),
+    Question(
+      key: "39",
+      text: "Bạn có dễ dàng tha thứ nếu đối phương mắc lỗi nhỏ không?",
+      options: [
+        "A. Có, tôi không giữ bụng lâu.",
+        "B. Tùy mức độ lỗi lầm.",
+        "C. Không, tôi khó tha thứ."
+      ],
+    ),
+    Question(
+      key: "40",
+      text:
+          "Bạn có thích thử nghiệm những điều mới mẻ trong chuyện tình cảm không?",
+      options: [
+        "A. Có, tôi thích đổi mới để tránh nhàm chán.",
+        "B. Chỉ một số thứ trong giới hạn chấp nhận được.",
+        "C. Không, tôi thích sự quen thuộc và truyền thống."
       ],
     ),
   ];

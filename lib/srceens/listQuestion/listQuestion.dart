@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:stock_flutter/bloc/questions/questions_bloc.dart';
-import 'package:stock_flutter/bloc/questions/questions_event.dart';
 import 'package:stock_flutter/constants/app_constants.dart';
 import 'package:stock_flutter/models/question_model.dart';
+import 'package:stock_flutter/models/result_model.dart';
+import 'package:stock_flutter/models/userInformation_model.dart';
 import 'package:stock_flutter/repositories/question_repository.dart';
+import 'package:stock_flutter/routes/app_routes.dart';
 import 'package:stock_flutter/services/QuestionService.dart';
 import 'package:stock_flutter/utils/utils.dart';
 import 'package:stock_flutter/widgets/header.dart';
@@ -13,14 +17,14 @@ class ListQuestion extends StatefulWidget {
   final List<Question>? dataQuestion;
   final String titleHeader;
   final int sex;
-  final String nameQuestion;
+  final UserInformationModel dataUserInformation;
 
   const ListQuestion({
     super.key,
     this.dataQuestion,
     required this.titleHeader,
     required this.sex,
-    required this.nameQuestion,
+    required this.dataUserInformation,
   });
 
   @override
@@ -39,87 +43,110 @@ class _ListQuestionState extends State<ListQuestion> {
   }
 
   void submitAnswers() {
-    if (widget.dataQuestion == null || widget.dataQuestion!.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Lỗi"),
-          content: const Text("Không có câu hỏi nào để nộp."),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("OK"),
-            ),
-          ],
-        ),
-      );
-      return;
-    }
+    // if (widget.dataQuestion == null || widget.dataQuestion!.isEmpty) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => AlertDialog(
+    //       title: const Text("Lỗi"),
+    //       content: const Text("Không có câu hỏi nào để nộp."),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () => Navigator.pop(context),
+    //           child: const Text("OK"),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    //   return;
+    // }
 
     // Tìm câu hỏi chưa chọn
-    int? firstUnansweredIndex;
-    for (int i = 0; i < widget.dataQuestion!.length; i++) {
-      if (widget.dataQuestion![i].selectedOption == null) {
-        firstUnansweredIndex = i;
-        break;
-      }
-    }
+    // int? firstUnansweredIndex;
+    // for (int i = 0; i < widget.dataQuestion!.length; i++) {
+    //   if (widget.dataQuestion![i].selectedOption == null) {
+    //     firstUnansweredIndex = i;
+    //     break;
+    //   }
+    // }
 
-    if (firstUnansweredIndex != null) {
-      // Cuộn tới câu hỏi chưa chọn
-      _scrollController.animateTo(
-        firstUnansweredIndex * 120.0, // Ước lượng chiều cao của mỗi item
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+    // if (firstUnansweredIndex != null) {
+    //   // Cuộn tới câu hỏi chưa chọn
+    //   _scrollController.animateTo(
+    //     firstUnansweredIndex * 120.0, // Ước lượng chiều cao của mỗi item
+    //     duration: const Duration(milliseconds: 500),
+    //     curve: Curves.easeInOut,
+    //   );
 
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Lỗi"),
-          content: Text(
-              "Vui lòng chọn câu trả lời cho câu ${firstUnansweredIndex! + 1}."),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("OK"),
-            ),
-          ],
-        ),
-      );
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => AlertDialog(
+    //       title: const Text("Lỗi"),
+    //       content: Text(
+    //           "Vui lòng chọn câu trả lời cho câu ${firstUnansweredIndex! + 1}."),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () => Navigator.pop(context),
+    //           child: const Text("OK"),
+    //         ),
+    //       ],
+    //     ),
+    //   );
 
-      return;
-    }
+    //   return;
+    // }
 
     // Lưu câu trả lời
-    questionsBloc.add(SaveQuestionsEvent(
-      questions: widget.dataQuestion!.map((q) {
-        return {
-          "key": q.key,
-          "selectedOption": q.selectedOption ?? "Chưa chọn"
-        };
-      }).toList(),
-      key: widget.nameQuestion,
-    ));
+    // questionsBloc.add(SaveQuestionsEvent(
+    //   questions: widget.dataQuestion!.map((q) {
+    //     return {
+    //       "key": q.key,
+    //       "selectedOption": q.selectedOption ?? "Chưa chọn"
+    //     };
+    //   }).toList(),
+    //   key: widget.nameQuestion,
+    // ));
+
+    var result = ResultModel(
+      key: widget.sex == 1 ? 'Nam' : 'Nu',
+      informationUser: widget.dataUserInformation,
+      listQuestion: widget.dataQuestion!,
+    );
+
+    String jsonData = jsonEncode(result.toJson());
+    // print(jsonData.runtimeType);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         // title: Text("Kết quả đã lưu ${widget.nameQuestion}"),
-        title: const Text("Kết quả đã lưu"),
+        title: const Text("Kết quả đã được tạo"),
         content: const Text("Câu trả lời đã được lưu thành công."),
         actions: [
           TextButton(
-            onPressed: () => Utils.navigatorGoBack(context),
-            child: const Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+              handleGoListQuestion(jsonData: jsonData);
+            },
+            child: const Text("Xem QR Code kết quả"),
           ),
         ],
       ),
     );
   }
 
+  void handleGoListQuestion({
+    required String jsonData,
+  }) {
+    Utils.navigator(
+      context,
+      AppRoutes.resultQrCode,
+      arguments: {
+        'jsonData': jsonData,
+      },
+    );
+  }
+
   void handleGoBack(BuildContext context) {
-    // xoá dữ liệu trước khi back ra
     if (widget.dataQuestion != null) {
       for (var question in widget.dataQuestion!) {
         question.selectedOption = null;

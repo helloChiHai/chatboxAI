@@ -10,6 +10,7 @@ import 'package:stock_flutter/srceens/login/register.dart';
 import 'package:stock_flutter/srceens/login/welcome.dart';
 import 'package:stock_flutter/srceens/meeting/meeting.dart';
 import 'package:stock_flutter/srceens/miniTestScores/miniTestScores.dart';
+import 'package:stock_flutter/srceens/resultQrCode/resultQrCode.dart';
 import 'package:stock_flutter/srceens/userInformation/userInformation.dart';
 
 class AppRoutes {
@@ -25,6 +26,7 @@ class AppRoutes {
   static const String miniTestScores = '/miniTestScores';
   static const String appearanceFinance = '/appearanceFinance';
   static const String appearanceFinaceScores = '/appearanceFinaceScores';
+  static const String resultQrCode = '/resultQrCode';
 
   static Route? generateRoute(RouteSettings settings) {
     Widget screen;
@@ -59,7 +61,7 @@ class AppRoutes {
             sex: args['sex'],
             titleHeader: args['titleHeader'],
             dataQuestion: args['dataQuestion'],
-            nameQuestion: args['nameQuestion']);
+            dataUserInformation: args['dataUserInformation']);
         break;
       case miniTestScores:
         final args = settings.arguments as Map<String, dynamic>;
@@ -77,6 +79,12 @@ class AppRoutes {
         break;
       case appearanceFinaceScores:
         screen = AppearanceFinaceScores();
+        break;
+      case resultQrCode:
+        final args = settings.arguments as Map<String, dynamic>;
+        screen = ResultQrCode(
+          jsonData: args['jsonData'],
+        );
         break;
       default:
         return errorRoute();
