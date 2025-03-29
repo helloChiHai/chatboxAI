@@ -43,7 +43,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     inputController = TextEditingController();
 
     if (widget.message!.isNotEmpty) {
-      dataChat.add(ChatModel(role: "user", content: widget.message ?? ''));
+      dataChat.add(ChatModel(role: "user", body: widget.message ?? ''));
       context.read<ChatBloc>().add(SendMessage(message: widget.message ?? ''));
     }
   }
@@ -53,8 +53,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
 
     setState(() {
       count = count + 2;
-      dataChat
-          .add(ChatModel(role: "user", content: inputController.text.trim()));
+      dataChat.add(ChatModel(role: "user", body: inputController.text.trim()));
       checkLoadMessage = true;
     });
 
@@ -95,15 +94,13 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
         } else if (chatState is ChatSuccess) {
           setState(() {
             checkLoadMessage = false;
-            dataChat
-                .add(ChatModel(role: "assistant", content: chatState.message));
+            dataChat.add(ChatModel(role: "assistant", body: chatState.message));
           });
           Future.delayed(const Duration(milliseconds: 100), scrollToBottom);
         } else if (chatState is ChatError) {
           setState(() {
             checkLoadMessage = false;
-            dataChat
-                .add(ChatModel(role: "assistant", content: chatState.error));
+            dataChat.add(ChatModel(role: "assistant", body: chatState.error));
           });
           Future.delayed(const Duration(milliseconds: 100), scrollToBottom);
         }
@@ -123,13 +120,13 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                     final message = dataChat[index];
                     return message.role == "user"
                         ? MessageUser(
-                            message: message.content,
+                            message: message.body,
                             index: index,
                             count: count,
                             isLoad: checkLoadMessage,
                           )
                         : MessageChatBoxAI(
-                            message: message.content,
+                            message: message.body,
                             scrollController: scrollController,
                             index: index,
                           );

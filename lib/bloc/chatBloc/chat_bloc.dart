@@ -16,7 +16,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       final response = await chatRepository.sendMessage(event.message);
 
-      emit(ChatSuccess(message: response.content));
+      emit(ChatSuccess(message: response.body));
     } catch (e) {
       emit(ChatError(error: e.toString()));
     }

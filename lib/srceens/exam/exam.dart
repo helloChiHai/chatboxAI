@@ -122,7 +122,7 @@ class _ExamState extends State<Exam> {
           // list question
           Expanded(
             child: sex == 2
-                ? ScanQRCode()
+                ? QRScannerScreen()
                 : AppearanceFinance(
                     sex: sex == 1 ? "1" : "2",
                     titleHeader: sex == 1 ? 'nam' : 'nữ',

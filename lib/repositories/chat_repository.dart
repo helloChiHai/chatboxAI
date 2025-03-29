@@ -16,7 +16,7 @@ class ChatRepository {
     try {
       var bodyJson = jsonEncode({
         "body": inputChat,
-        "sessionId": "",
+        "sessionId": null,
       });
 
       final response = await http.post(
@@ -28,17 +28,13 @@ class ChatRepository {
         body: bodyJson,
       );
 
-      print('bodyJson: $bodyJson');
-      print(" API Response Body: ${response.body}");
+      print("response: $response");
+      print(response.statusCode);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
 
-        var chatResponse = ChatModel(
-          role: "assistant",
-          content: data["choices"][0]["message"]["content"],
-        );
-
+        var chatResponse = ChatModel.fromJson(data);
         return chatResponse;
       } else {
         throw Exception("Lỗi API: ${response.body}");

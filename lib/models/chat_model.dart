@@ -1,22 +1,47 @@
 class ChatModel {
+  final String body;
   final String role;
-  final String content;
+  final String? sessionId;
+  final String? id;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? deletedAt;
+  final bool? isContext;
 
   ChatModel({
+    required this.body,
     required this.role,
-    required this.content,
+    this.sessionId,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.isContext,
   });
 
-  // chuyển từ map -> chatModel
   factory ChatModel.fromJson(Map<String, dynamic> json) {
-    return ChatModel(role: json["role"], content: json["content"]);
+    return ChatModel(
+      body: json['body'] ?? '',
+      role: json['role'] ?? '',
+      sessionId: json['sessionId'],
+      id: json['id'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+      deletedAt: json['deletedAt'],
+      isContext: json['isContext'],
+    );
   }
 
-  // chuyển từ chatmodel -> map
   Map<String, dynamic> toJson() {
     return {
-      "role": role,
-      "content": content,
+      'body': body,
+      'role': role,
+      'sessionId': sessionId,
+      'id': id,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'deletedAt': deletedAt,
+      'isContext': isContext,
     };
   }
 }

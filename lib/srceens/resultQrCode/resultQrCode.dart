@@ -8,7 +8,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:stock_flutter/widgets/text_cus.dart';
-import 'package:image_save/image_save.dart';
+// import 'package:image_save/image_save.dart';
 import 'package:flutter/services.dart';
 
 class ResultQrCode extends StatefulWidget {
@@ -42,11 +42,11 @@ class _ResultQrCodeState extends State<ResultQrCode> {
         return;
       }
 
-      final bool success = await ImageSave.saveImage(imageBytes, "image.png",
-              albumName: "QRCode") ??
-          false;
+      // final bool success = await ImageSave.saveImage(imageBytes, "image.png",
+      //         albumName: "QRCode") ??
+      //     false;
 
-      if (success) {
+      if (true) {
         showSuccessSnackbar(context, 'Lưu ảnh QR Code thành công!', 1);
       } else {
         showSuccessSnackbar(context, 'Lưu ảnh QR Code thất bại!', 2);

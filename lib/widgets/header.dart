@@ -67,17 +67,6 @@ class _HeaderCusState extends State<HeaderCus> {
                   size: 28,
                 ),
               ),
-              // GestureDetector(
-              //   onTap: widget.fnLeftPress,
-              //   child: const Image(
-              //     image: AssetImage(
-              //       'assets/imgs/comments.png',
-              //     ),
-              //     height: 28,
-              //     width: 28,
-              //   ),
-              // ),
-
               Expanded(
                 child: textCus(
                   context: context,
